@@ -20,6 +20,7 @@ itakin tarpeita todennäköisesti ilmenee, esimerkiksi pisteiden laskennassa ja 
 Alla olevissa analyyseissä käytetään merkintöjä:
 -	V on verkon solmujen määrä
 -	E on verkon kaarien määrä
+
 Koska tämän pelin tapauksessa E kasvaa samassa suhteessa V:n kanssa, on O(E) = O(V). 
 Dijkstran algoritmissa aikavaativuuteen vaikuttaa, mihin tietorakenteeseen tutkimattomat solmut sijoitetaan. Yksinkertaisessa toteutuksessa solmut ovat tavallisessa taulukossa tai linkitetyssä listassa, jolloin seuraavan solmun hakemiseksi koko tietorakenne täytyy käydä läpi ja aikavaativuus on O(V), jolloin koko algoritmin aikavaativuus on O(V2). Algoritmin optimoinmiseksi solmut voidaan sijoittaa minimikekoon, jolloin solmun valinta on O(log n) aikavaativuuden operaatio. Minimikeon avulla koko Dijkstran algoritmin aikavaativuus pienenee vaativuudesta O(V2) vaativuuteen O(V log V). 
 Bellman-Ford -algoritmin aikavaativuus on O(V*E), mikä on Dijkstran algoritmia enemmän. Algoritmin etuna Dijkstraan nähden olisi mahdollisuus negatiivisille reunojen painoille suunatuissa verkoissa, mutta siitä ei ole tämän pelin tapauksessa hyötyä. 

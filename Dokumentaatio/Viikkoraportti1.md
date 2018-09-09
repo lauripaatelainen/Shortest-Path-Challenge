@@ -2,6 +2,7 @@
 
 ### la 8.9.2018
 Valittu aihe ja aloitettu aihealueeseen perehtyminen. Määrittelydokumentti aloitettu. 
+
 Aikaa käytetty n. 2h
 
 ### su 10.9.2018

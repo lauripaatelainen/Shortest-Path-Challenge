@@ -1,6 +1,11 @@
+plugins {
+    id 'info.solidsoft.pitest' version '1.3.0'
+}
+
 apply plugin: 'java'
 apply plugin: 'jacoco'
 
+group = 'com.edii.spc'
 sourceCompatibility = '1.8'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
@@ -12,7 +17,7 @@ sourceCompatibility = '1.8'
 // prefer. In this case NetBeans will not add these tasks but you may rely on
 // your own implementation.
 if (!hasProperty('mainClass')) {
-    ext.mainClass = 'com.edii.spc.ShortestPathChallenge'
+    ext.mainClass = 'com.edii.spc.ui.TextUI'
 }
 
 repositories {
@@ -29,11 +34,22 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.10'
 }
 
+javadoc {
+    source = sourceSets.main.allJava
+    classpath = configurations.compile
+}
+
+
 jacocoTestReport {
     reports {
         xml.enabled = true
         html.enabled = true
     }
+}
+
+pitest {
+    excludedMethods = ['hashCode', 'equals']
+    excludedClasses = ['TextUI']
 }
 
 check.dependsOn jacocoTestReport

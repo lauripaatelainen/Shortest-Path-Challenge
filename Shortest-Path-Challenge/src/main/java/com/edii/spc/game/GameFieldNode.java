@@ -41,8 +41,8 @@ public class GameFieldNode {
      * Konstruktori, joka luo solmun annetuilla koordinaateilla.
      * Solmun kaaret tulee asettaa erikseen sille tarkoitetuilla settereillä. 
      * 
-     * @param x
-     * @param y 
+     * @param x X-koordinaatti
+     * @param y Y-koordinaatti
      */
     public GameFieldNode(int x, int y) {
         this.x = x;
@@ -128,7 +128,7 @@ public class GameFieldNode {
     }
     
     /**
-     * Hakee kaikki kaaret Iterable<GameFieldEdge> -tyyppisenä.
+     * Hakee kaikki kaaret Iterable-tyyppisenä.
      * 
      * Kaaret eivät ole missään tietyssä järjestyksessä ja ne voidaan käydä läpi foreach-silmukalla.
      * 

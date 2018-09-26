@@ -83,7 +83,7 @@ public class GameField {
     }
     
     /**
-     * Hakee kaikki pelikentän solmut Iterable<GameFieldNode> tyyppisenä. 
+     * Hakee kaikki pelikentän solmut Iterable tyyppisenä. 
      * 
      * Tietorakenne ei palaudu missään ennalta määritellyssä järjestyksessä. Rakenteen voi käydä läpi iteraattorilla tai foreach-silmukalla.
      * 

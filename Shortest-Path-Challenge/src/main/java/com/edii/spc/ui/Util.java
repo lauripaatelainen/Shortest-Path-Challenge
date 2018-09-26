@@ -17,10 +17,10 @@ public class Util {
      * rightPad("str", 0, 'z') = "str"
      * rightPad("str", -100, '.') = "str"
      * 
-     * @param string
-     * @param size
-     * @param padChar
-     * @return 
+     * @param string Merkkijono, jota täytetään
+     * @param size Kuinka pitkäksi merkkijono täytetään
+     * @param padChar Täytemerkki
+     * @return Palauttaa alkuperäisen merkkijonon täytemerkillä täytettynä tarvittavan pitkäksi.
      */
     public static String rightPad(String string, int size, char padChar) {
         while (string.length() < size) {

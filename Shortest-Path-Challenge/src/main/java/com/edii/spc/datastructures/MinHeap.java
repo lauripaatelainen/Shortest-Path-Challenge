@@ -25,7 +25,7 @@ public class MinHeap<T> {
     /**
      * Lisää alkion minimikekoon.
      * 
-     * @param item 
+     * @param item Lisättävä alkio
      */
     public void add(T item) {
         list.add(item);
@@ -35,7 +35,7 @@ public class MinHeap<T> {
     /**
      * Lisää usean alkion minimikekoon.
      * 
-     * @param items
+     * @param items Lisättävät alkiot
      */
     public void add(Iterable<T> items) {
         for (T item : items) {
@@ -45,7 +45,7 @@ public class MinHeap<T> {
     
     /**
      * Poistaa minimikeosta pienimmän alkion
-     * @return 
+     * @return Poistaa ja palauttaa minimikeon pienimmän alkion.
      */
     public T extractMin() {
         return list.remove(0);

@@ -10,4 +10,4 @@
 
 
 ## Javadoc
-[Javadoc](http://htmlpreview.github.io/?https://github.com/lauripaatelainen/Shortest-Path-Challenge/blob/master/Dokumentaatio/javadoc/index.html)
+[Javadoc](https://github.com/lauripaatelainen/Shortest-Path-Challenge/blob/master/Shortest-Path-Challenge/build/docs/javadoc/index.html)

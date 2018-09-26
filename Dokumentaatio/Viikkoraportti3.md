@@ -7,6 +7,6 @@ Edellisen kahden viikon aikana projektin koodi on edennyt huomattavasti. Perusti
 Aikaa mennyt tämän perusrakenteen, dokumentoinnin ja testitapausten tekoon noin kymmennen tuntia. 
 Testitapausten kattavuus pyritään pitämään korkealla koko projektin ajan, käyttöliittymän testejä lukuunottamatta.
 
-Javadoc http://htmlpreview.github.io/?https://github.com/lauripaatelainen/Shortest-Path-Challenge/blob/master/Dokumentaatio/javadoc/index.html
+Javadoc http://htmlpreview.github.io/?https://github.com/lauripaatelainen/Shortest-Path-Challenge/blob/master/Shortest-Path-Challenge/build/docs/javadoc/index.html
 
 Pitest http://htmlpreview.github.io/?https://github.com/lauripaatelainen/Shortest-Path-Challenge/blob/master/Dokumentaatio/pitest/201809212347/index.html 

@@ -4,16 +4,18 @@ import java.util.Objects;
 
 /**
  * Geneerinen tietorakenne, joka sisältää kaksi objektia: pari. 
+ * 
+ * @param <T> Objektien tietotyyppi.
  */
 public class Pair<T> {
     /**
      * Ensimmäinen kahdesta objektista. 
      */
-    private T first;
+    private final T first;
     /**
      * Toinen kahdesta objektista.
      */
-    private T second;
+    private final T second;
     
     /**
      * Luokan ainoa konstruktori, joka saa paremetreikseen kaksi oliota, jotka muodostavat parin. 

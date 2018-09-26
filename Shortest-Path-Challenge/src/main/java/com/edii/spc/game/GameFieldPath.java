@@ -1,21 +1,19 @@
 package com.edii.spc.game;
 
-import com.edii.spc.datastructures.OwnArrayList;
+import com.edii.spc.datastructures.OwnList;
 import java.util.List;
 
 /**
  * Järjestetty jono kaaria, jotka muodostavat yhtenäisen polun kahden solmun välille. 
  */
 public class GameFieldPath {
-    List<GameFieldEdge> edges = new OwnArrayList<>();
+    List<GameFieldEdge> edges = new OwnList<>();
     
     /**
-     * Luo polun yhdellä kaarella. 
-     * 
-     * @param edge Kaari josta polku alkaa.
+     * Luo tyhjän polun
      */
-    public GameFieldPath(GameFieldEdge edge) {
-        edges.add(edge);
+    public GameFieldPath() {
+        
     }
     
     /**
@@ -34,10 +32,26 @@ public class GameFieldPath {
     
     /**
      * Lisää kaaren polkuun.
+     * 
+     * Heittää IllegalArgumentExceptionin jos uuden kaaren alkusolmu ei ole polun viimeinen solmu. 
+     * 
      * @param edge Lisättävä kaari.
      */
     public void addEdge(GameFieldEdge edge) {
+        if (edges.size() > 0 && !edge.getNodes().getFirst().equals(getEndNode())) {
+            throw new IllegalArgumentException();
+        }
+        
         edges.add(edge);
+    }
+    
+    /**
+     * Palauttaa kaaret, joista polku koostuu listana.
+     * 
+     * @return Lista, jossa polun kaaret ovat järjestyksessä. 
+     */
+    public List<GameFieldEdge> getEdges() {
+        return edges;
     }
     
     /**
@@ -49,5 +63,16 @@ public class GameFieldPath {
             out += edge.getWeight();
         }
         return out;
+    }
+    
+    /**
+     * @return Palauttaa polun käänteisessä suunnassa.
+     */
+    public GameFieldPath reverse() {
+        GameFieldPath path = new GameFieldPath();
+        for (int i = edges.size() - 1; i >= 0; i--) {
+            path.addEdge(edges.get(i).inverse());
+        }
+        return path;
     }
 }

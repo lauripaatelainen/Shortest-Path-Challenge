@@ -1,6 +1,7 @@
 package com.edii.spc.game;
 
 import com.edii.spc.datastructures.Pair;
+import java.util.Iterator;
 import java.util.Random;
 
 /**
@@ -82,6 +83,37 @@ public class GameField {
     }
     
     /**
+     * Hakee kaikki pelikentän solmut Iterable<GameFieldNode> tyyppisenä. 
+     * 
+     * Tietorakenne ei palaudu missään ennalta määritellyssä järjestyksessä. Rakenteen voi käydä läpi iteraattorilla tai foreach-silmukalla.
+     * 
+     * @return Palauttaa kaikki pelikentän solmut sisältävän tietorakenteen.
+     */
+    public Iterable<GameFieldNode> getNodes() {
+        return () -> new Iterator<GameFieldNode>() {
+            private int x = 0;
+            private int y = 0;
+            
+            @Override
+            public boolean hasNext() {
+                return y < getSize();
+            }
+            
+            @Override
+            public GameFieldNode next() {
+                GameFieldNode node = getNode(x, y);
+                if (x == getSize() - 1) {
+                    x = 0;
+                    y++;
+                } else {
+                    x++;
+                }
+                return node;
+            }
+        };
+    }
+    
+    /**
      * Hakee annetuissa koordinaateissa sijaitsevan solmun. 
      * 
      * @param x X-koordinaatti
@@ -99,5 +131,27 @@ public class GameField {
      */
     public int getSize() {
         return nodes.length;
+    }
+    
+    /**
+     * Hae pelikentän alkusolmu.
+     * 
+     * Lyhyt muoto kutsulle GameField.getNode(0, 0)
+     * 
+     * @return Palauttaa alkusolmun.
+     */
+    public GameFieldNode getStart() {
+        return getNode(0, 0);
+    }
+    
+    /**
+     * Hae pelikentän maalisolmu.
+     * 
+     * Lyhyt muoto kutsulle GameField.getNode(size - 1, size - 1)
+     * 
+     * @return Palauttaa maalisolmun.
+     */
+    public GameFieldNode getFinish() {
+        return getNode(getSize() - 1, getSize() - 1);
     }
 }

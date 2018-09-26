@@ -2,6 +2,11 @@ package com.edii.spc.ui;
 
 import com.edii.spc.game.Game;
 import com.edii.spc.game.GameField;
+import com.edii.spc.game.GameFieldEdge;
+import com.edii.spc.game.GameFieldNode;
+import com.edii.spc.game.GameFieldPath;
+import com.edii.spc.game.solvers.DijkstraSolver;
+import java.util.List;
 
 /**
  * Väliaikainen tekstikäyttöliittymä, jossa ei ole juuri mitään toimintoja. 
@@ -52,11 +57,24 @@ public class TextUI {
         System.out.println("");
     }
     
+    public static void printPath(GameFieldPath path) {
+        System.out.printf("Shortest path weight: %d\n", path.getWeight());
+        List<GameFieldEdge> edges = path.getEdges();
+        for (GameFieldEdge edge : edges) {
+            GameFieldNode first = edge.getNodes().getFirst();
+            System.out.printf("(%d, %d) --[%d]-> ", first.getX(), first.getY(), edge.getWeight());
+        }
+        System.out.printf("(%d, %d)\n", path.getEndNode().getX(), path.getEndNode().getY());
+    }
+    
     public static void main(String[] args) {
+        DijkstraSolver dijkstra = new DijkstraSolver();
         
-        for (int i = 1; i < 10; i++) {
+        for (int i = 2; i < 10; i++) {
             Game game = new Game(i);
             printGame(game);
+            GameFieldPath path = dijkstra.solve(game.getGameField());
+            printPath(path);
         }
     }
 }

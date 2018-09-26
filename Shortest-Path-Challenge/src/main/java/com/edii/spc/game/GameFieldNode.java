@@ -1,6 +1,7 @@
 package com.edii.spc.game;
 
-import java.util.Objects;
+import com.edii.spc.datastructures.OwnSet;
+import java.util.Collection;
 
 /**
  * Solmu, jolla voi olla kaaret vasemmalle, oikealle, ylös ja alas. 
@@ -124,6 +125,30 @@ public class GameFieldNode {
      */
     public int getY() {
         return y;
+    }
+    
+    /**
+     * Hakee kaikki kaaret Iterable<GameFieldEdge> -tyyppisenä.
+     * 
+     * Kaaret eivät ole missään tietyssä järjestyksessä ja ne voidaan käydä läpi foreach-silmukalla.
+     * 
+     * @return Palauttaa kaikki solmusta lähtevät kaaret. 
+     */
+    public Iterable<GameFieldEdge> getEdges() {
+        Collection<GameFieldEdge> list = new OwnSet<>();
+        if (getLeftEdge() != null) {
+            list.add(getLeftEdge());
+        }
+        if (getUpEdge() != null) {
+            list.add(getUpEdge());
+        }
+        if (getRightEdge() != null) {
+            list.add(getRightEdge());
+        }
+        if (getDownEdge() != null) {
+            list.add(getDownEdge());
+        }
+        return list;
     }
     
     

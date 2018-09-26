@@ -16,7 +16,8 @@ public class GameFieldPathTest {
             GameFieldNode node3 = new GameFieldNode(i + 4, i + 6);
             GameFieldEdge edge1 = new GameFieldEdge(new Pair<>(node1, node2), i * 2);
             GameFieldEdge edge2 = new GameFieldEdge(new Pair<>(node2, node3), i * 3);
-            GameFieldPath path = new GameFieldPath(edge1);
+            GameFieldPath path = new GameFieldPath();
+            path.addEdge(edge1);
             Assert.assertEquals(path.getStartNode(), node1);
             Assert.assertEquals(path.getEndNode(), node2);
             Assert.assertEquals(path.getWeight(), edge1.getWeight());

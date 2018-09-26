@@ -24,3 +24,4 @@ hs_err_pid*
 /Shortest-Path-Challenge/.nb-gradle/
 /Shortest-Path-Challenge/.gradle/
 /Shortest-Path-Challenge/build/
+!/Shorest-Path-Challenge/build/docs/javadoc/

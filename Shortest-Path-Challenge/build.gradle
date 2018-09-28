@@ -45,5 +45,5 @@ javadoc {
 
 pitest {
     excludedMethods = ['hashCode', 'equals', 'toString']
-    excludedClasses = ['com.edii.spc.ui.*']
+    excludedClasses = ['com.edii.spc.ui.*', 'com.edii.spc.perf.*']
 }

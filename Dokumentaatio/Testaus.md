@@ -1,7 +1,7 @@
 # Testausdokumentti
 
 ## Yksikkötestaus
-Sovelluksen yksikkötestausta koskeva ajantasainen raportti löytyy täältä: *linkki*
+Sovelluksen yksikkötestausta koskeva ajantasainen raportti löytyy täältä: [Pitest](https://htmlpreview.github.io/?https://github.com/lauripaatelainen/Shortest-Path-Challenge/tree/master/Dokumentaatio/pitest/201809282217/index.html)
 
 ## Suorituskykytestaus
 Tavoitteena on päästä algoritemeissa ja tietorakenteissa optimaalisiin O-aikavaatimuksiin.

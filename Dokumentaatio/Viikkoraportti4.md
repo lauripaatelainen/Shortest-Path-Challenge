@@ -6,8 +6,11 @@ Logiikan taustalla käytettävät perustietorakenteet (keko, lista, hajautustaul
 
 Tällä viikolla aktivoitu checkstyle, joka aiheutti alkuun päänvaivaa tiukkojen vaatimusten osalta, mutta nyt koodi ja Javadoc-dokumentaatio on muutettu sille tasolle että läpäisee vaatimukset. 
 
-[Javadoc] (http://htmlpreview.github.io/?https://github.com/lauripaatelainen/Shortest-Path-Challenge/blob/master/Shortest-Path-Challenge/build/docs/javadoc/index.html)
+[Javadoc](http://htmlpreview.github.io/?https://github.com/lauripaatelainen/Shortest-Path-Challenge/blob/master/Shortest-Path-Challenge/build/docs/javadoc/index.html)
+
 [Testausdokumentti, jossa linkki pitest-raporttiin](Testaus.md)
+
 [Checkstyle main](https://htmlpreview.github.io/?https://github.com/lauripaatelainen/Shortest-Path-Challenge/blob/master/Shortest-Path-Challenge/build/reports/checkstyle/main.html)
+
 [Checkstyle test](https://htmlpreview.github.io/?https://github.com/lauripaatelainen/Shortest-Path-Challenge/blob/master/Shortest-Path-Challenge/build/reports/checkstyle/test.html)
 

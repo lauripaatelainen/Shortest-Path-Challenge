@@ -14,10 +14,10 @@
 
 
 ## Javadoc
-[Javadoc](https://github.com/lauripaatelainen/Shortest-Path-Challenge/blob/master/Shortest-Path-Challenge/build/docs/javadoc/index.html)
+[Javadoc](https://htmlpreview.github.io/?https://github.com/lauripaatelainen/Shortest-Path-Challenge/blob/master/Shortest-Path-Challenge/build/docs/javadoc/index.html)
 
 ## Checkstyle
-[Checkstyle main](https://github.com/lauripaatelainen/Shortest-Path-Challenge/blob/master/Shortest-Path-Challenge/build/reports/checkstyle/main.html)
+[Checkstyle main](https://htmlpreview.github.io/?https://github.com/lauripaatelainen/Shortest-Path-Challenge/blob/master/Shortest-Path-Challenge/build/reports/checkstyle/main.html)
 
-[Checkstyle test](https://github.com/lauripaatelainen/Shortest-Path-Challenge/blob/master/Shortest-Path-Challenge/build/reports/checkstyle/test.html)
+[Checkstyle test](https://htmlpreview.github.io/?https://github.com/lauripaatelainen/Shortest-Path-Challenge/blob/master/Shortest-Path-Challenge/build/reports/checkstyle/test.html)
 

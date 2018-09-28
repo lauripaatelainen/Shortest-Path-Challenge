@@ -12,6 +12,8 @@ public class PerformanceTest {
     /**
      * Pääohjelma, jolla luodaan suorituskykyraportit toteutetuista tietorakenteista ja algoritmeista.
      * 
+     * Tulostaa lukemat konsoliin, josta tarvittavat tiedot poimitaan käsin raporttiin.
+     * 
      * @param args Komentoriviltä annetut parametrit.
      */
     public static void main(String[] args) {

@@ -17,7 +17,7 @@ import javax.swing.JPanel;
  * Graafinen käyttöliittymä, joka on toteutettu javan Swing-kirjastolla.
  */
 public class SwingUI extends JFrame implements GameFieldUI.PathChangedListener {
-    private static final int GAME_DURATION = 10;
+    private static final int GAME_DURATION = 30;
     
     private Game game;
     private boolean gameOver;
@@ -38,7 +38,7 @@ public class SwingUI extends JFrame implements GameFieldUI.PathChangedListener {
             timerThreadRunning = true;
             
             int timeLeft = GAME_DURATION;
-            while (timeLeft > 0) {
+            while (!gameOver && timeLeft > 0) {
                 timeLeftUpdated(timeLeft);
                 
                 try {
@@ -48,8 +48,9 @@ public class SwingUI extends JFrame implements GameFieldUI.PathChangedListener {
                 }
                 timeLeft--;
             }
-            
-            gameFinished();
+            if (!gameOver) {
+                gameFinished();
+            }
             timerThreadRunning = false;
         }
     };
@@ -161,6 +162,7 @@ public class SwingUI extends JFrame implements GameFieldUI.PathChangedListener {
      * Myös pisteidenlasku tehdään tässä. 
      */
     private void gameFinished() {
+        gameOver = true;
         Solver solver = new DijkstraSolver();
         GameFieldPath path = solver.solve(game.getGameField());
         gameArea.setShortestPath(path);

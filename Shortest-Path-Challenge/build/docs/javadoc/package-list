@@ -1,4 +1,5 @@
 com.edii.spc.datastructures
 com.edii.spc.game
 com.edii.spc.game.solvers
+com.edii.spc.perf
 com.edii.spc.ui

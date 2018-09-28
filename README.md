@@ -1,5 +1,7 @@
 # Shortest-Path-Challenge
 
+Peli, jossa pelaajan tulee löytää lyhin polku alusta maaliin. 
+
 ## Dokumentaatio
 [Määrittelydokumentti](Dokumentaatio/Maarittely.md)
 

@@ -41,7 +41,7 @@ public final class NewGameDialog extends JDialog {
         row.add(new JLabel("Kentän koko: "));
         JTextField size = new JTextField();
         size.setColumns(5);
-        size.setText("2");
+        size.setText("3");
         row.add(size);
 
         JButton okButton = new JButton("OK");

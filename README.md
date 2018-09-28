@@ -14,6 +14,8 @@ Peli, jossa pelaajan tulee löytää lyhin polku alusta maaliin.
 
 [Viikkoraportti 3](Dokumentaatio/Viikkoraportti3.md)
 
+[Viikkoraportti 4](Dokumentaatio/Viikkoraportti4.md)
+
 
 ## Javadoc
 [Javadoc](https://htmlpreview.github.io/?https://github.com/lauripaatelainen/Shortest-Path-Challenge/blob/master/Shortest-Path-Challenge/build/docs/javadoc/index.html)

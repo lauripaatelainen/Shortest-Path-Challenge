@@ -23,7 +23,7 @@ public class PerformanceTest {
             dijkstra.solve(field);
             long endTime = System.currentTimeMillis();
             long time = endTime - startTime;
-            System.out.printf("%d\t%d\t%.3f\n", i, i*i, (endTime - startTime) * 0.001f);
+            System.out.printf("%d\t%d\t%.3f\n", i, i * i, (endTime - startTime) * 0.001f);
         }
     }
 }

@@ -2,7 +2,9 @@
 
 ## Dokumentaatio
 [Määrittelydokumentti](Dokumentaatio/Maarittely.md)
+
 [Toteutusdokumentti](Dokumentaatio/Toteutus.md)
+
 [Testausdokumentti](Dokumentaatio/Testaus.md)
 
 ## Viikkoraportit

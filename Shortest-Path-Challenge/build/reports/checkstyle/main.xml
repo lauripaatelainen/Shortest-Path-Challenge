@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="6.19">
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/datastructures/OwnHeap.java">
+</file>
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/datastructures/OwnList.java">
+</file>
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/datastructures/OwnMap.java">
+</file>
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/datastructures/OwnSet.java">
+</file>
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/datastructures/Pair.java">
+</file>
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/game/Game.java">
+</file>
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/game/GameField.java">
+</file>
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/game/GameFieldEdge.java">
+</file>
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/game/GameFieldNode.java">
+</file>
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/game/GameFieldPath.java">
+</file>
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/game/solvers/DijkstraSolver.java">
+</file>
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/game/solvers/Solver.java">
+</file>
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/ui/GameFieldUI.java">
+</file>
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/ui/NewGameDialog.java">
+</file>
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/ui/SwingUI.java">
+</file>
+</checkstyle>

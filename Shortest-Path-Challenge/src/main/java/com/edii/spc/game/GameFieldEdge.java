@@ -27,6 +27,8 @@ public class GameFieldEdge {
     }
     
     /**
+     * Hakee solmuparin, joita kaari yhdistää. 
+     * 
      * @return Palauttaa solmuparin, joita kaari yhdistää.
      */
     public Pair<GameFieldNode> getNodes() {
@@ -34,6 +36,8 @@ public class GameFieldEdge {
     }
     
     /**
+     * Hakee kaaren painon.
+     * 
      * @return Palauttaa kaaren painon.
      */
     public int getWeight() {

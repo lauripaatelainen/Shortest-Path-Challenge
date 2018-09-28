@@ -10,7 +10,5 @@ import java.util.HashSet;
  * @param <T> Tietotyyppi, jonka alkioita joukkoon laitetaan.
  */
 public class OwnSet<T> extends HashSet<T> {
-    public OwnSet() {
-        super();
-    }
+    
 }

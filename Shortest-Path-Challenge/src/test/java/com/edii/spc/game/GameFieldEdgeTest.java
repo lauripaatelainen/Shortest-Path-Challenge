@@ -1,21 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.edii.spc.datastructures;
+package com.edii.spc.game;
 
-import com.edii.spc.game.GameFieldEdge;
-import com.edii.spc.game.GameFieldNode;
+import com.edii.spc.datastructures.Pair;
 import org.junit.Assert;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- *
- * @author edii
+ * Testitapaukset luokalle GameFieldEdge.
  */
 public class GameFieldEdgeTest {
+    /**
+     * Testaa GameFieldEdge-luokan instanssien muodostuksen, ja että getNodes()-metodilla haetut solmut täsmäävät konstruktorille annettuihin.
+     */
     @Test
     public void testEdgeConstructorAndGetter() {
         for (int i = 0; i < 10; i++) {
@@ -30,6 +26,9 @@ public class GameFieldEdgeTest {
         }
     }
     
+    /**
+     * Tarkistaa, ettei kaaren muodostus negatiivisella painolla -1 onnistu, vaan IllegalArgumentException -exception muodostuu.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void testNegativeWeight1() {
         GameFieldNode node1 = new GameFieldNode(0, 1);
@@ -37,12 +36,19 @@ public class GameFieldEdgeTest {
         GameFieldEdge edge = new GameFieldEdge(new Pair(node1, node2), -1);
     }
     
+    /**
+     * Tarkistaa, ettei kaaren muodostus negatiivisella painolla -2 onnistu, vaan IllegalArgumentException -exception muodostuu.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void testNegativeWeight2() {
         GameFieldNode node1 = new GameFieldNode(0, 1);
         GameFieldNode node2 = new GameFieldNode(1, 2);
         GameFieldEdge edge = new GameFieldEdge(new Pair(node1, node2), -2);
     }
+    
+    /**
+     * Tarkistaa, että samat tiedot sisältävät kaaret ovat .equals()-metodin mukaan samoja, vaikka kyseessä olisi eri instanssit. 
+     */
     @Test
     public void testEquality() {
         GameFieldNode node1 = new GameFieldNode(1, 1);

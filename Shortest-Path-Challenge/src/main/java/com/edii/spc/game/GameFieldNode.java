@@ -1,7 +1,7 @@
 package com.edii.spc.game;
 
 import com.edii.spc.datastructures.OwnSet;
-import java.util.Collection;
+import java.util.Set;
 
 /**
  * Solmu, jolla voi olla kaaret vasemmalle, oikealle, ylös ja alas. 
@@ -50,6 +50,8 @@ public class GameFieldNode {
     }
 
     /**
+     * Hae solmusta vasemmalle lähtevä kaari.
+     * 
      * @return Palauttaa vasemman kaaren.
      */
     public GameFieldEdge getLeftEdge() {
@@ -66,6 +68,8 @@ public class GameFieldNode {
     }
 
     /**
+     * Hae solmusta oikealle lähtevä kaari.
+     * 
      * @return Palauttaa oikean kaaren.
      */
     public GameFieldEdge getRightEdge() {
@@ -82,6 +86,8 @@ public class GameFieldNode {
     }
 
     /**
+     * Hae solmusta ylös lähtevä kaari.
+     * 
      * @return Palauttaa solmun yläkaaren.
      */
     public GameFieldEdge getUpEdge() {
@@ -98,6 +104,8 @@ public class GameFieldNode {
     }
 
     /**
+     * Hae solmusta alas lähtevä kaari.
+     * 
      * @return Palauttaa solmun alakaaren.
      */
     public GameFieldEdge getDownEdge() {
@@ -114,6 +122,8 @@ public class GameFieldNode {
     }
     
     /**
+     * Hae solmun x-koordinaatti.
+     * 
      * @return Palauttaa solmun x-koordinaatin.
      */
     public int getX() {
@@ -121,6 +131,8 @@ public class GameFieldNode {
     }
     
     /**
+     * Hae solmun y-koordinaatti.
+     * 
      * @return Palauttaa solmun y-koordinaatin.
      */
     public int getY() {
@@ -128,30 +140,44 @@ public class GameFieldNode {
     }
     
     /**
-     * Hakee kaikki kaaret Iterable-tyyppisenä.
+     * Hakee kaikki solmusta lähetevät kaaret sisältävän joukon. 
      * 
-     * Kaaret eivät ole missään tietyssä järjestyksessä ja ne voidaan käydä läpi foreach-silmukalla.
+     * Kaaret eivät ole missään tietyssä järjestyksessä ja ne voidaan käydä läpi esim. foreach-silmukalla.
      * 
-     * @return Palauttaa kaikki solmusta lähtevät kaaret. 
+     * @return Palauttaa kaikki solmusta lähtevät kaaret joukkona. 
      */
-    public Iterable<GameFieldEdge> getEdges() {
-        Collection<GameFieldEdge> list = new OwnSet<>();
+    public Set<GameFieldEdge> getEdges() {
+        Set<GameFieldEdge> out = new OwnSet<>();
         if (getLeftEdge() != null) {
-            list.add(getLeftEdge());
+            out.add(getLeftEdge());
         }
         if (getUpEdge() != null) {
-            list.add(getUpEdge());
+            out.add(getUpEdge());
         }
         if (getRightEdge() != null) {
-            list.add(getRightEdge());
+            out.add(getRightEdge());
         }
         if (getDownEdge() != null) {
-            list.add(getDownEdge());
+            out.add(getDownEdge());
         }
-        return list;
+        return out;
     }
     
-    
+    /**
+     * Hae kaari joka lähtee tästä solmusta annettuun solmuun. 
+     * 
+     * @param to Solmu johon lähtevä kaari haetaan.
+     * @return Kaari joka lähtee tästä solmusta annettuun solmuun, tai null jos sellaista kaarta ei ole.
+     */
+    public GameFieldEdge getEdgeTo(GameFieldNode to) {
+        for (GameFieldEdge edge : getEdges()) {
+            if (edge.getNodes().getSecond().equals(to)) {
+                return edge;
+            }
+        }
+        return null;
+    }
+  
     @Override
     public boolean equals(Object o) {
         if (o == null || o.getClass() != this.getClass()) {

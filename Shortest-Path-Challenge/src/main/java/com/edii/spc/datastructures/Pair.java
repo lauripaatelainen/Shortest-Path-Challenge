@@ -29,7 +29,7 @@ public class Pair<T> {
     }
     
     /**
-     * Hae parin ensimmäinen objekti
+     * Hae parin ensimmäinen objekti.
      * 
      * @return Palauttaa ensimmäisen kahdesta objektista. 
      */
@@ -38,7 +38,7 @@ public class Pair<T> {
     }
     
     /**
-     * Hae parin toinen objekti
+     * Hae parin toinen objekti.
      * 
      * @return Palauttaa toisen kahdesta objektista. 
      */

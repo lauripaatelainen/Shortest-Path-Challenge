@@ -1,6 +1,6 @@
 package com.edii.spc.game.solvers;
 
-import com.edii.spc.datastructures.MinHeap;
+import com.edii.spc.datastructures.OwnHeap;
 import com.edii.spc.datastructures.OwnMap;
 import com.edii.spc.datastructures.OwnSet;
 import com.edii.spc.game.GameField;
@@ -27,26 +27,16 @@ public class DijkstraSolver implements Solver {
     
     @Override
     public GameFieldPath solve(GameField field) {
-        distance.clear();
-        edgeToPrevious.clear();
-        
-        GameFieldNode start = field.getStart();
-        GameFieldNode finish = field.getFinish();
-        
         for (GameFieldNode node : field.getNodes()) {
             distance.put(node, Integer.MAX_VALUE);
         }
         
-        distance.put(start, 0);
-        
-        MinHeap<GameFieldNode> queue = new MinHeap<>(comparator);
+        distance.put(field.getStart(), 0);
+        OwnHeap<GameFieldNode> queue = new OwnHeap<>(comparator);
         queue.add(field.getNodes());
-        
-        Set<GameFieldNode> handled = new OwnSet<>();
         
         while (!queue.isEmpty()) {
             GameFieldNode u = queue.extractMin();
-            handled.add(u);
             for (GameFieldEdge edge : u.getEdges()) {
                 if (distance.get(edge.getNodes().getSecond()) > distance.get(u) + edge.getWeight()) {
                     edgeToPrevious.put(edge.getNodes().getSecond(), edge.inverse());
@@ -56,13 +46,14 @@ public class DijkstraSolver implements Solver {
             }
         }
         
-        GameFieldPath path = new GameFieldPath();
-        GameFieldNode node = finish;
-        while (!node.equals(start)) {
-            path.addEdge(edgeToPrevious.get(node));
-            node = edgeToPrevious.get(node).getNodes().getSecond();
+        return formPath(field);
+    }
+    
+    private GameFieldPath formPath(GameField field) {
+        GameFieldPath path = new GameFieldPath(field.getFinish());
+        while (!path.getEndNode().equals(field.getStart())) {
+            path.addEdge(edgeToPrevious.get(path.getEndNode()));
         }
-        
         return path.reverse();
     }
 }

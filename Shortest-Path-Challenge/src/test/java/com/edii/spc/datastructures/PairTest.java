@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.edii.spc.datastructures;
 
 import java.util.Random;
@@ -12,11 +7,12 @@ import static org.junit.Assert.assertFalse;
 import org.junit.Test;
 
 /**
- *
- * @author edii
+ * Testitapaukset luokalle Pair.
  */
 public class PairTest {
-    
+    /**
+     * Tarkista että konstruktori toimii oikein, ja että getterit getFirst() ja getSecond() palauttavat konstruktorille annetut arvot.
+     */
     @Test
     public void testConstructorAndGetters() {
         Random random = new Random();
@@ -29,6 +25,9 @@ public class PairTest {
         }
     }
     
+    /**
+     * Tarkista, että .inverse() metodi palauttaa saman parin käänteisessä järjestyksessä.
+     */
     @Test
     public void testInverse() {
         for (int i = 0; i < 10; i++) {
@@ -36,6 +35,9 @@ public class PairTest {
         }
     }
     
+    /**
+     * Tarkista, että .equals() metodi tulkitsee samanlaiset parit oikein.
+     */
     @Test
     public void testEquality() {
         Pair<Integer> pair1 = new Pair<>(1, 2);

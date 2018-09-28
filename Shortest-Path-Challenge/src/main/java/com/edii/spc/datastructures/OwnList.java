@@ -9,7 +9,5 @@ import java.util.List;
  * Toistaiseksi extendaa suoraan ArrayListin ja omat metoditoteutukset tehdään myöhemmin. 
  */
 public class OwnList<T> extends ArrayList<T> implements List<T> {
-    public OwnList() {
-        super();
-    }
+    
 }

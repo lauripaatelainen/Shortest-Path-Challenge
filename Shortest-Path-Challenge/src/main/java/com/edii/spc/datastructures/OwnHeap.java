@@ -14,11 +14,16 @@ import java.util.PriorityQueue;
  * 
  * @param <T> Tietotyyppi jonka alkoita minimikeko sisältää. Luokan T pitää toteuttaa Javan rajapinta Comparable.
  */
-public class MinHeap<T> { 
+public class OwnHeap<T> { 
     private List<T> list = new OwnList<>();
     private final Comparator<T> comparator;
     
-    public MinHeap(Comparator<T> comparator) {
+    /**
+     * Luo minimikeon annetulla vertailufunktiolla. 
+     * 
+     * @param comparator Vertailufunktio
+     */
+    public OwnHeap(Comparator<T> comparator) {
         this.comparator = comparator;
     }
     
@@ -44,7 +49,8 @@ public class MinHeap<T> {
     }
     
     /**
-     * Poistaa minimikeosta pienimmän alkion
+     * Poistaa minimikeosta pienimmän alkion.
+     * 
      * @return Poistaa ja palauttaa minimikeon pienimmän alkion.
      */
     public T extractMin() {
@@ -52,6 +58,8 @@ public class MinHeap<T> {
     }
     
     /**
+     * Selvittää onko keko tyhjä.
+     * 
      * @return Palauttaa true jos minimikeko on tyhjä
      */
     public boolean isEmpty() {
@@ -60,6 +68,7 @@ public class MinHeap<T> {
     
     /**
      * Ilmoittaa minimikeolle että annetun alkion avain on pienentynyt, ja sen sijainti keossa tulee laskea uudestaan.
+     * 
      * @param item Muuttunut alkio
      */
     public void decreaseKey(T item) {

@@ -1,8 +1,10 @@
 package com.edii.spc.game;
 
+import com.edii.spc.datastructures.OwnSet;
 import com.edii.spc.datastructures.Pair;
 import java.util.Iterator;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * GameField-objekti sisältää yhteen peliin liittyvän pelikentän.
@@ -23,7 +25,7 @@ public class GameField {
      * @param size Pelikentän leveys/korkeus
      */
     public GameField(int size) {
-        if (size < 1) {
+        if (size <= 1) {
             throw new IllegalArgumentException();
         }
         nodes = new GameFieldNode[size][size];
@@ -63,14 +65,11 @@ public class GameField {
         GameField gameField = new GameField(size);
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                /* Jos ei ylin rivi, arvotaan painoarvo ylöspäin menevälle kaarelle */
                 if (i != 0) {
                     int weight = random.nextInt(MAX_VALUE);
                     gameField.getNode(j, i).getUpEdge().setWeight(weight);
                     gameField.getNode(j, i).getUpEdge().getNodes().getSecond().getDownEdge().setWeight(weight);
                 }
-                
-                /* Jos ei vasemmanpuoleisin rivi, arvotaan painoarvo vasemmalle menevälle kaarelle */
                 if (j != 0) {
                     int weight = random.nextInt(MAX_VALUE);
                     gameField.getNode(j, i).getLeftEdge().setWeight(weight);
@@ -78,39 +77,26 @@ public class GameField {
                 }
             }
         }
-        
         return gameField;
     }
     
     /**
-     * Hakee kaikki pelikentän solmut Iterable tyyppisenä. 
+     * Hakee kaikki pelikentän solmut sisältävän joukon.
      * 
      * Tietorakenne ei palaudu missään ennalta määritellyssä järjestyksessä. Rakenteen voi käydä läpi iteraattorilla tai foreach-silmukalla.
      * 
-     * @return Palauttaa kaikki pelikentän solmut sisältävän tietorakenteen.
+     * @return Palauttaa kaikki pelikentän solmut sisältävän joukon..
      */
-    public Iterable<GameFieldNode> getNodes() {
-        return () -> new Iterator<GameFieldNode>() {
-            private int x = 0;
-            private int y = 0;
-            
-            @Override
-            public boolean hasNext() {
-                return y < getSize();
+    public Set<GameFieldNode> getNodes() {
+        Set<GameFieldNode> out = new OwnSet<>();
+        
+        for (int y = 0; y < getSize(); y++) {
+            for (int x = 0; x < getSize(); x++) {
+                out.add(getNode(x, y));
             }
-            
-            @Override
-            public GameFieldNode next() {
-                GameFieldNode node = getNode(x, y);
-                if (x == getSize() - 1) {
-                    x = 0;
-                    y++;
-                } else {
-                    x++;
-                }
-                return node;
-            }
-        };
+        }
+        
+        return out;
     }
     
     /**

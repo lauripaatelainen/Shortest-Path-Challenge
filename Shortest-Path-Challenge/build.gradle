@@ -3,7 +3,7 @@ plugins {
 }
 
 apply plugin: 'java'
-apply plugin: 'jacoco'
+apply plugin: 'checkstyle'
 
 group = 'com.edii.spc'
 sourceCompatibility = '1.8'
@@ -17,7 +17,7 @@ sourceCompatibility = '1.8'
 // prefer. In this case NetBeans will not add these tasks but you may rely on
 // your own implementation.
 if (!hasProperty('mainClass')) {
-    ext.mainClass = 'com.edii.spc.ui.TextUI'
+    ext.mainClass = 'com.edii.spc.ui.SwingUI'
 }
 
 repositories {
@@ -39,17 +39,7 @@ javadoc {
     classpath = configurations.compile
 }
 
-
-jacocoTestReport {
-    reports {
-        xml.enabled = true
-        html.enabled = true
-    }
-}
-
 pitest {
-    excludedMethods = ['hashCode', 'equals']
-    excludedClasses = ['TextUI']
+    excludedMethods = ['hashCode', 'equals', 'toString']
+    excludedClasses = ['com.edii.spc.ui.*']
 }
-
-check.dependsOn jacocoTestReport

@@ -1,9 +1,7 @@
 package com.edii.spc.datastructures;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.PriorityQueue;
 
 /**
  * Minimikeko. 
@@ -14,7 +12,7 @@ import java.util.PriorityQueue;
  * 
  * @param <T> Tietotyyppi jonka alkoita minimikeko sisältää. Luokan T pitää toteuttaa Javan rajapinta Comparable.
  */
-public class OwnHeap<T> { 
+public class MinHeap<T> { 
     private List<T> list = new OwnList<>();
     private final Comparator<T> comparator;
     
@@ -23,7 +21,7 @@ public class OwnHeap<T> {
      * 
      * @param comparator Vertailufunktio
      */
-    public OwnHeap(Comparator<T> comparator) {
+    public MinHeap(Comparator<T> comparator) {
         this.comparator = comparator;
     }
     

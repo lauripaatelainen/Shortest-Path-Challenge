@@ -1,6 +1,6 @@
 package com.edii.spc.game.solvers;
 
-import com.edii.spc.datastructures.OwnHeap;
+import com.edii.spc.datastructures.MinHeap;
 import com.edii.spc.datastructures.OwnMap;
 import com.edii.spc.datastructures.OwnSet;
 import com.edii.spc.game.GameField;
@@ -32,7 +32,7 @@ public class DijkstraSolver implements Solver {
         }
         
         distance.put(field.getStart(), 0);
-        OwnHeap<GameFieldNode> queue = new OwnHeap<>(comparator);
+        MinHeap<GameFieldNode> queue = new MinHeap<>(comparator);
         queue.add(field.getNodes());
         
         while (!queue.isEmpty()) {

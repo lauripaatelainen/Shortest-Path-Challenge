@@ -65,7 +65,7 @@ public class OwnList<E> extends OwnAbstractList<E> {
      * @param count siirrettävä määrä
      */
     private void shift(int i, int count) {
-        while(items.length < this.size + count) {
+        while (items.length < this.size + count) {
             grow();
         }
 
@@ -120,7 +120,7 @@ public class OwnList<E> extends OwnAbstractList<E> {
         }
         
         this.size++;
-        this.set(this.size- 1, e);
+        this.set(this.size - 1, e);
         return true;
     }
 

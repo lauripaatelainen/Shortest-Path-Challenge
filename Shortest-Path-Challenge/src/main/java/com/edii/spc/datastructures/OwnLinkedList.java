@@ -2,15 +2,16 @@ package com.edii.spc.datastructures;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 import java.util.ListIterator;
 
 /**
- *
- * @author edii
+ * Linkitetyn listan oma toteutus. 
+ * Käyttää linkitetyn listan elementeille sisäistä luokkaa LinkedListNode. 
+ * Perii luokan OwnAbstractList, jossa on toteutettu jotain yleiskäyttöisiä List-rajapinnan metodeja. 
+ * Toteuttaa kaikki java.util.List-rajapinnan määrittelemät toiminnot. 
  */
 public class OwnLinkedList<E> extends OwnAbstractList<E> {
-    public static class LinkedListNode<E> {
+    private static class LinkedListNode<E> {
         private LinkedListNode<E> prev;
         private LinkedListNode<E> next;
         private E item;

@@ -6,6 +6,7 @@ import java.util.ListIterator;
 
 /**
  * Abstrakti yläluokka List-rajapinnan toteuttaville luokille.
+ * Käytetään OwnLinkedList ja OwnList -luokissa niiden metodien osalta, joihin ei ole toteutuskohtaista suorituskykyvaikutusta. 
  */
 public abstract class OwnAbstractList<E> implements List<E> {
     /**

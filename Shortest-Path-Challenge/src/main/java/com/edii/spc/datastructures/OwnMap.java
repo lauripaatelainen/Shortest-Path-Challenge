@@ -13,8 +13,8 @@ import java.util.Set;
  * @param <V> Tietotyyppi, jonka alkioita arvot on
  */
 public class OwnMap<K, V> implements Map<K, V> {
-    public static class MapItem<K, V> implements Entry<K, V> {
-        private K key;
+    private static class MapItem<K, V> implements Entry<K, V> {
+        private final K key;
         private V value;
         
         public MapItem(K key, V value) {
@@ -31,13 +31,6 @@ public class OwnMap<K, V> implements Map<K, V> {
         }
 
         /**
-         * @param key the key to set
-         */
-        public void setKey(K key) {
-            this.key = key;
-        }
-
-        /**
          * @return the value
          */
         @Override
@@ -48,6 +41,7 @@ public class OwnMap<K, V> implements Map<K, V> {
         /**
          * @param value the value to set
          */
+        @Override
         public V setValue(V value) {
             V old = this.value;
             this.value = value;
@@ -91,14 +85,26 @@ public class OwnMap<K, V> implements Map<K, V> {
     private float loadFactor;
     private int itemsCount = 0;
     
+    /**
+     * Luo uuden hajautustaulun oletusarvoilla.
+     */
     public OwnMap() {
         this(DEFAULT_INITIAL_CAPACITY, DEFAULT_LOAD_FACTOR);
     }
     
+    /**
+     * Luo uuden hajautustaulun annetulla lähtökoolla ja oletusarvoisella täyttöasteella.
+     * @param initialSize 
+     */
     public OwnMap(int initialSize) {
         this(initialSize, DEFAULT_LOAD_FACTOR);
     }
     
+    /**
+     * Luo uuden hajautustaulun annetuilla lähtökoolla ja täyttöasteella.
+     * @param initialCapacity Lähtökoko sisäille tietorakenteelle
+     * @param loadFactor Täyttöaste, jossa sisäistä tietorakennetta kasvatetaan.
+     */
     public OwnMap(int initialCapacity, float loadFactor) {
         this.items = (OwnLinkedList[]) new OwnLinkedList[initialCapacity];
         this.loadFactor = loadFactor;
@@ -110,7 +116,7 @@ public class OwnMap<K, V> implements Map<K, V> {
         }
         
         int hashCode = key.hashCode();
-        int idx = hashCode % items.length;
+        int idx = Math.abs(hashCode % items.length);
         OwnLinkedList<MapItem<K, V>> list = items[idx];
         
         if (create && list == null) {
@@ -139,10 +145,6 @@ public class OwnMap<K, V> implements Map<K, V> {
         for (Entry<K, V> entry : entrySet) {
             put(entry.getKey(), entry.getValue());
         }
-    }
-    
-    private Set<MapItem<K, V>> _entrySet() {
-        return null;
     }
 
     @Override

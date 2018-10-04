@@ -8,13 +8,15 @@ import java.util.Map;
 /**
  * Minimikeko. 
  * 
- * Toistaiseksi toteutettu epätehokkaasti listalla, oikea binäärikekoon perustuva toteutus tehdään myöhemmin.
+ * Toteutettu binäärikekona.
  * 
  * Tukee toimintoja add(T item), decreaseKey(T item) ja extractMin(), joiden kaikkien aikavaativuus on O(log n)
  * 
- * @param <T> Tietotyyppi jonka alkoita minimikeko sisältää. Luokan T pitää toteuttaa Javan rajapinta Comparable.
+ * @param <T> Tietotyyppi jonka alkoita minimikeko sisältää. 
  */
-public class MinHeap<T> { 
+public class MinHeap<T> {
+    private static final int DEFAULT_MIN_HEAP_SIZE = 10;
+    
     private List<T> list;
     private Map<T, Integer> indices;
     private final Comparator<T> comparator;
@@ -24,9 +26,9 @@ public class MinHeap<T> {
      * 
      * @param comparator Vertailufunktio
      */
-    public MinHeap(int minHeapSize, Comparator<T> comparator) {
-        this.list = new OwnList<>(minHeapSize * 2);
-        this.indices = new OwnMap<>(minHeapSize * 2);
+    public MinHeap(Comparator<T> comparator) {
+        this.list = new OwnList<>(DEFAULT_MIN_HEAP_SIZE);
+        this.indices = new OwnMap<>(DEFAULT_MIN_HEAP_SIZE);
         this.comparator = comparator;
     }
     
@@ -154,17 +156,6 @@ public class MinHeap<T> {
     private void addListItem(T item) {
         this.list.add(item);
         this.indices.put(item, this.list.size() - 1);
-    }
-    
-    /**
-     * Lisää usean alkion minimikekoon.
-     * 
-     * @param items Lisättävät alkiot
-     */
-    public void add(Iterable<T> items) {
-        for (T item : items) {
-            this.insert(item);
-        }
     }
     
     /**

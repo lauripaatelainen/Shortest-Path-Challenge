@@ -11,5 +11,11 @@ import java.util.HashMap;
  * @param <V> Tietotyyppi, jonka alkioita arvot on
  */
 public class OwnMap<K, V> extends HashMap<K, V> {
+    public OwnMap() {
+        super();
+    }
     
+    public OwnMap(int initialSize) {
+        super(initialSize);
+    }
 }

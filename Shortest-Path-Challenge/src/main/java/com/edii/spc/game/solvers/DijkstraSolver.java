@@ -2,14 +2,12 @@ package com.edii.spc.game.solvers;
 
 import com.edii.spc.datastructures.MinHeap;
 import com.edii.spc.datastructures.OwnMap;
-import com.edii.spc.datastructures.OwnSet;
 import com.edii.spc.game.GameField;
 import com.edii.spc.game.GameFieldEdge;
 import com.edii.spc.game.GameFieldNode;
 import com.edii.spc.game.GameFieldPath;
 import java.util.Comparator;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Ratkaisee pelikentän Dijkstran algoritmilla.
@@ -32,8 +30,7 @@ public class DijkstraSolver implements Solver {
         }
         
         distance.put(field.getStart(), 0);
-        MinHeap<GameFieldNode> queue = new MinHeap<>(comparator);
-        queue.add(field.getNodes());
+        MinHeap<GameFieldNode> queue = new MinHeap<>(field.getNodes(), comparator);
         
         while (!queue.isEmpty()) {
             GameFieldNode u = queue.extractMin();

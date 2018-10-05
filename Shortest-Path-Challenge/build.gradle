@@ -18,10 +18,10 @@ sourceCompatibility = '1.8'
 // your own implementation.
 if (!hasProperty('mainClass')) {
     // Käytä tätä luokkaa käyttöliittymän suorittamiseen:
-    ext.mainClass = 'com.edii.spc.ui.SwingUI'
+    //ext.mainClass = 'com.edii.spc.ui.SwingUI'
     
     // Käytä tätä luokkaa suorituskykyraportin suorittamiseen:
-    //ext.mainClass = 'com.edii.spc.perf.PerformanceTest'
+    ext.mainClass = 'com.edii.spc.perf.PerformanceTest'
 }
 
 repositories {

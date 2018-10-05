@@ -100,7 +100,6 @@ public class MinHeapTest {
         int edellinen = Integer.MIN_VALUE;
         for (int i = 0; i < 50; i++) {
             int luku = minHeap.extractMin();
-            System.out.println(luku);
             assertTrue(luku >= edellinen);
             edellinen = luku;
         }
@@ -139,7 +138,6 @@ public class MinHeapTest {
         int edellinen = Integer.MIN_VALUE;
         for (int i = 0; i < 50; i++) {
             int luku = minHeap.extractMin();
-            System.out.println(luku);
             assertTrue(luku >= edellinen);
             edellinen = luku;
         }

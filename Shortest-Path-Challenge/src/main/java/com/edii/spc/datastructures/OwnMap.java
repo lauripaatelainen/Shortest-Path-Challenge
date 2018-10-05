@@ -94,7 +94,7 @@ public class OwnMap<K, V> implements Map<K, V> {
     
     /**
      * Luo uuden hajautustaulun annetulla lähtökoolla ja oletusarvoisella täyttöasteella.
-     * @param initialSize 
+     * @param initialSize Sisäisen tietorakenteen lähtökoko.
      */
     public OwnMap(int initialSize) {
         this(initialSize, DEFAULT_LOAD_FACTOR);

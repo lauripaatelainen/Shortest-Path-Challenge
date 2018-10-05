@@ -141,8 +141,6 @@ public class GameFieldPathTest {
             Assert.assertEquals(path.getEdges().size(), path.reverse().getEdges().size());
             Assert.assertEquals(path.getWeight(), path.reverse().getWeight());
             for (int j = 0; j < path.getEdges().size(); j++) {
-                System.out.println(path.getEdges().get(j));
-                System.out.println(path.reverse().getEdges().get(path.getEdges().size() - 1 - j));
                 Assert.assertEquals(path.getEdges().get(j).getNodes().getFirst(), path.reverse().getEdges().get(path.getEdges().size() - 1 - j).getNodes().getSecond());
             }
         }

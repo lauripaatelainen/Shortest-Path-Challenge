@@ -6,6 +6,7 @@ import java.util.ListIterator;
 
 /**
  * Javan ArrayList-tietorakennetta vastaava oma tietorakenne. 
+ * null-arvot ei ole sallittuja.
  */
 public class OwnList<E> extends OwnAbstractList<E> {
     /**
@@ -72,6 +73,7 @@ public class OwnList<E> extends OwnAbstractList<E> {
         for (int j = this.size - 1; j >= i; j--) {
             this.items[j + count] = this.items[j];
         }
+        size += count;
     }
     
     /**
@@ -189,9 +191,6 @@ public class OwnList<E> extends OwnAbstractList<E> {
      */
     @Override
     public E set(int i, E e) {
-        if (e == null) {
-            throw new IllegalArgumentException("Ei voi lisätä nullia listaan");
-        }
         if (i >= size) {
             throw new IndexOutOfBoundsException(String.format("%d >= %d", i, size));
         }
@@ -209,10 +208,13 @@ public class OwnList<E> extends OwnAbstractList<E> {
      * Indeksin jälkeen tulevia alkioita siirretään eteenpäin. 
      * 
      * @param i indeksi
-     * @param e 
+     * @param e lisättävä alkio.
      */
     @Override
     public void add(int i, E e) {
+        if (i < 0 || i > size()) {
+            throw new IndexOutOfBoundsException();
+        }
         shift(i, 1);
         set(i, e);
     }
@@ -232,15 +234,14 @@ public class OwnList<E> extends OwnAbstractList<E> {
     }
 
     /**
-     * listIterator-metodia ei tueta.
+     * Palauttaa ListIterator-objektin listaan kohdistuvia toimintoja varten.
      * 
-     * @param i
-     * @return 
-     * @throws UnsupportedOperationException aina
+     * @param i indeksi
+     * @return Palautta ListIterator-objektin.
      */
     @Override
     public ListIterator<E> listIterator(int i) {
-        throw new UnsupportedOperationException("Not supported.");
+        return new OwnListListIterator(i);
     }
     
     private class OwnListIterator implements Iterator<E> {

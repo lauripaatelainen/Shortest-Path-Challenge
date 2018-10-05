@@ -18,9 +18,6 @@ public class BellmanFordSolver implements Solver {
     private Set<GameFieldNode> nodes;
     private Set<GameFieldEdge> edges;
 
-    public BellmanFordSolver() {
-    }
-
     /**
      * Asettaa alkuun kaikkien solmujen etäisyydeksi mahdollisimman suuren luvun
      * ja edeltäjäksi null. Lähtösolmun etäisyydeksi annetaan nolla.
@@ -47,7 +44,7 @@ public class BellmanFordSolver implements Solver {
 
         for (GameFieldEdge edge : edges) {
             if (distance.get(edge.getNodes().getFirst()) + edge.getWeight() < distance.get(edge.getNodes().getSecond())) {
-                throw new IllegalStateException("Pelikentässä negatiivinen sykli");
+                throw new IllegalArgumentException("Pelikentässä negatiivinen sykli");
             }
         }
 

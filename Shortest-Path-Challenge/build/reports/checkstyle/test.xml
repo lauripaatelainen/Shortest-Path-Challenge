@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="6.19">
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/test/java/com/edii/spc/datastructures/ListTest.java">
+</file>
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/test/java/com/edii/spc/datastructures/MinHeapTest.java">
+</file>
 <file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/test/java/com/edii/spc/datastructures/PairTest.java">
 </file>
 <file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/test/java/com/edii/spc/game/GameFieldEdgeTest.java">
@@ -12,6 +16,8 @@
 </file>
 <file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/test/java/com/edii/spc/game/GameTest.java">
 </file>
-<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/test/java/com/edii/spc/game/solvers/DijkstraSolverTest.java">
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/test/java/com/edii/spc/game/solvers/BellmanFordSolverTest.java">
+</file>
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/test/java/com/edii/spc/game/solvers/SolverTest.java">
 </file>
 </checkstyle>

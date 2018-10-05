@@ -9,6 +9,7 @@ import java.util.ListIterator;
  * Käyttää linkitetyn listan elementeille sisäistä luokkaa LinkedListNode. 
  * Perii luokan OwnAbstractList, jossa on toteutettu jotain yleiskäyttöisiä List-rajapinnan metodeja. 
  * Toteuttaa kaikki java.util.List-rajapinnan määrittelemät toiminnot. 
+ * null-arvot ei ole sallittuja. 
  */
 public class OwnLinkedList<E> extends OwnAbstractList<E> {
     private static class LinkedListNode<E> {
@@ -64,7 +65,6 @@ public class OwnLinkedList<E> extends OwnAbstractList<E> {
     }
     
     private LinkedListNode<E> first = null;
-    private LinkedListNode<E> last = null;
     private int itemsCount = 0;
     
     private LinkedListNode<E> getNode(int i) {
@@ -96,18 +96,17 @@ public class OwnLinkedList<E> extends OwnAbstractList<E> {
      */
     @Override
     public boolean add(E item) {
-        if (this.last == null) {
-            this.last = new LinkedListNode<>(item);
-            this.first = this.last;
-            this.first.setNext(last);
-            this.first.setPrev(last);
+        if (this.first == null) {
+            LinkedListNode<E> node = new LinkedListNode<>(item);
+            this.first = node;
+            this.first.setNext(node);
+            this.first.setPrev(node);
         } else {
             LinkedListNode<E> node = new LinkedListNode<>(item);
-            node.setPrev(this.last);
+            node.setPrev(this.first.getPrev());
             node.setNext(this.first);
-            this.last.setNext(node);
+            this.first.getPrev().setNext(node);
             this.first.setPrev(node);
-            this.last = node;
         }
         itemsCount++;
         return true;
@@ -139,7 +138,6 @@ public class OwnLinkedList<E> extends OwnAbstractList<E> {
     @Override
     public void clear() {
         this.first = null;
-        this.last = null;
         this.itemsCount = 0;
     }
 
@@ -158,7 +156,9 @@ public class OwnLinkedList<E> extends OwnAbstractList<E> {
 
     @Override
     public void add(int i, E e) {
-        if (isEmpty()) {
+        if (i < 0 || i > size()) {
+            throw new IndexOutOfBoundsException();
+        } else if (isEmpty() || i == size()) {
             add(e);
         } else {
             add(getNode(i), e);
@@ -171,6 +171,11 @@ public class OwnLinkedList<E> extends OwnAbstractList<E> {
         node.setPrev(next.getPrev());
         next.setPrev(node);
         node.setNext(next);
+        
+        if (next == first) {
+            first = node;
+        }
+        
         itemsCount++;
     }
 
@@ -189,10 +194,19 @@ public class OwnLinkedList<E> extends OwnAbstractList<E> {
     }
     
     private E remove(LinkedListNode<E> node) {
-        node.getPrev().setNext(node.getNext());
-        node.getNext().setPrev(node.getPrev());
-        itemsCount--;
-        return node.getItem();
+        if (size() == 1) {
+            clear();
+            return node.getItem();
+        } else {
+            if (node == first) {
+                first = first.getNext();
+            }
+            
+            node.getPrev().setNext(node.getNext());
+            node.getNext().setPrev(node.getPrev());
+            itemsCount--;
+            return node.getItem();
+        }
     }
 
     @Override
@@ -224,13 +238,18 @@ public class OwnLinkedList<E> extends OwnAbstractList<E> {
         private int nextIndex;
         
         public LinkedListListIterator(int i) {
-            next = getNode(i);
+            if (i == size()) {
+                next = null;
+            } else {
+                next = getNode(i);
+            }
             this.nextIndex = i;
         }
 
         @Override
         public E next() {
             last = next;
+            nextIndex++;
             return super.next();
         }
 
@@ -241,8 +260,12 @@ public class OwnLinkedList<E> extends OwnAbstractList<E> {
 
         @Override
         public E previous() {
+            if (next == null) {
+                next = first;
+            }
             next = next.getPrev();
             last = next;
+            nextIndex--;
             return next.getItem();
         }
 
@@ -258,8 +281,8 @@ public class OwnLinkedList<E> extends OwnAbstractList<E> {
 
         @Override
         public void remove() {
-            next = last.getNext();
             OwnLinkedList.this.remove(last);
+            last = null;
         }
 
         @Override

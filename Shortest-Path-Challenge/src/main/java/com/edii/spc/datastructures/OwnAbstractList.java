@@ -1,5 +1,6 @@
 package com.edii.spc.datastructures;
 
+import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.List;
 import java.util.ListIterator;
@@ -27,12 +28,10 @@ public abstract class OwnAbstractList<E> implements List<E> {
      */
     @Override
     public boolean contains(Object o) {
-        if (o == null) {
-            return false;
-        }
-        
         for (E item : this) {
-            if (item.equals(o)) {
+            if (o == null && item == null) {
+                return true;
+            } else if (o.equals(item)) {
                 return true;
             }
         }
@@ -43,7 +42,7 @@ public abstract class OwnAbstractList<E> implements List<E> {
     /**
      * Muuttaa listan taulukkomuotoon.
      * 
-     * @return 
+     * @return Palauttaa listan taulukkomuodossa.
      */
     @Override
     public Object[] toArray() {
@@ -64,12 +63,13 @@ public abstract class OwnAbstractList<E> implements List<E> {
     @Override
     public <T> T[] toArray(T[] ts) {
         if (ts.length < size()) {
-            ts = (T[]) new Object[size()];
+            ts = (T[]) Array.newInstance(ts.getClass().getComponentType(), size());
         }
         
         int i = 0;
         for (E item : this) {
             ts[i] = (T) item;
+            i++;
         }
         
         return ts;
@@ -103,7 +103,7 @@ public abstract class OwnAbstractList<E> implements List<E> {
     @Override
     public boolean containsAll(Collection<?> clctn) {
         for (Object obj : clctn) {
-            if (!this.contains(obj)) {
+            if (!this.contains((E) obj)) {
                 return false;
             }
         }
@@ -139,7 +139,7 @@ public abstract class OwnAbstractList<E> implements List<E> {
     public boolean removeAll(Collection<?> clctn) {
         boolean changed = false;
         for (Object obj : clctn) {
-            if (this.remove(obj)) {
+            if (this.remove((E) obj)) {
                 changed = true;
             }
         }
@@ -158,7 +158,7 @@ public abstract class OwnAbstractList<E> implements List<E> {
         boolean changed = false;
         while (listIterator.hasNext()) {
             E item = listIterator.next();
-            if (clctn.contains(item)) {
+            if (!clctn.contains(item)) {
                 listIterator.remove();
                 changed = true;
             }
@@ -196,14 +196,14 @@ public abstract class OwnAbstractList<E> implements List<E> {
      */
     @Override
     public int lastIndexOf(Object o) {
-        int i = size() - 1;
+        int i = size();
         ListIterator<E> listIterator = this.listIterator(i);
         while (listIterator.hasPrevious()) {
             E item = listIterator.previous();
+            i--;
             if (item.equals(o)) {
                 return i;
             }
-            i--;
         }
         return -1;
     }

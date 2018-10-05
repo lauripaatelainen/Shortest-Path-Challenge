@@ -16,12 +16,24 @@ import org.junit.runners.Parameterized;
  */
 @RunWith(Parameterized.class)
 public class SolverTest {
-    Solver solver;
+    private final Solver solver;
     
+    /**
+     * Luo testiluokan annetulla solverilla. 
+     * 
+     * @param solver Solver, jota testataan.
+     */
     public SolverTest(Solver solver) {
         this.solver = solver;
     }
     
+    /**
+     * Parametrin testiluokalle. 
+     * Luo kaikista toteutetuista Solvereista oliot ja antaa ne parametreiksi luokalle.
+     * Tällä tavalla kaikki tässä testiluokassa toteutetut testit ajetaan automaattisesti eri solvereille. 
+     * 
+     * @return Palauttaa testiluokan parametrit, eli useita eri Solver-luokan toteutuksia.
+     */
     @Parameterized.Parameters
     public static Collection solvers() {
         List<Solver[]> solvers = new OwnList<>();
@@ -47,8 +59,7 @@ public class SolverTest {
                 path1.addEdge(path1.getEndNode().getRightEdge());
             }
             
-            Solver dijkstra = new DijkstraSolver();
-            GameFieldPath shortestPath = dijkstra.solve(gameField);
+            GameFieldPath shortestPath = solver.solve(gameField);
             Assert.assertEquals(path1.getStartNode(), shortestPath.getStartNode());
             Assert.assertEquals(path1.getEndNode(), shortestPath.getEndNode());
             Assert.assertTrue(shortestPath.getWeight() <= path1.getWeight());
@@ -59,7 +70,7 @@ public class SolverTest {
      * Tarkistaa että algoritmin tekemä polku on polku alkusolmusta loppusolmuun, ja että se on painoltaan pienempi kuin yksinkertainen yläreunaa oikealle ja oikeaa reunaa alas kulkeva polku. 
      */
     @Test
-    public void testDijkstra2() {
+    public void testSolver2() {
         for (int i = 2; i < 5; i++) {
             GameField gameField = GameField.generateRandomField(i);
             GameFieldPath path2 = new GameFieldPath(gameField.getStart());
@@ -72,8 +83,7 @@ public class SolverTest {
                 path2.addEdge(path2.getEndNode().getDownEdge());
             }
             
-            Solver dijkstra = new DijkstraSolver();
-            GameFieldPath shortestPath = dijkstra.solve(gameField);
+            GameFieldPath shortestPath = solver.solve(gameField);
             Assert.assertEquals(path2.getStartNode(), shortestPath.getStartNode());
             Assert.assertEquals(path2.getEndNode(), shortestPath.getEndNode());
             Assert.assertTrue(shortestPath.getWeight() <= path2.getWeight());
@@ -84,7 +94,7 @@ public class SolverTest {
      * Tarkistaa että algoritmin tekemä polku on polku alkusolmusta loppusolmuun, ja että se on painoltaan pienempi kuin yksinkertainen vuorotellen oikealle ja alas kulkeva polku.
      */
     @Test
-    public void testDijkstra3() {
+    public void testSolver3() {
         for (int i = 2; i < 5; i++) {
             GameField gameField = GameField.generateRandomField(i);
             GameFieldPath path3 = new GameFieldPath(gameField.getStart());
@@ -94,8 +104,7 @@ public class SolverTest {
                 path3.addEdge(path3.getEndNode().getDownEdge());
             }
             
-            Solver dijkstra = new DijkstraSolver();
-            GameFieldPath shortestPath = dijkstra.solve(gameField);
+            GameFieldPath shortestPath = solver.solve(gameField);
             Assert.assertEquals(path3.getStartNode(), shortestPath.getStartNode());
             Assert.assertEquals(path3.getEndNode(), shortestPath.getEndNode());
             Assert.assertTrue(shortestPath.getWeight() <= path3.getWeight());
@@ -106,7 +115,7 @@ public class SolverTest {
      * Tarkistaa että algoritmin tekemä polku on polku alkusolmusta loppusolmuun, ja että se on painoltaan pienempi kuin yksinkertainen vuorotellen alas ja oikealle kulkeva polku.
      */
     @Test
-    public void testDijkstra4() {
+    public void testSolver4() {
         for (int i = 2; i < 5; i++) {
             GameField gameField = GameField.generateRandomField(i);
             GameFieldPath path4 = new GameFieldPath(gameField.getStart());
@@ -116,13 +125,12 @@ public class SolverTest {
                 path4.addEdge(path4.getEndNode().getRightEdge());
             }
             
-            Solver dijkstra = new DijkstraSolver();
-            GameFieldPath shortestPath = dijkstra.solve(gameField);
+            GameFieldPath shortestPath = solver.solve(gameField);
             Assert.assertEquals(path4.getStartNode(), shortestPath.getStartNode());
             Assert.assertEquals(path4.getEndNode(), shortestPath.getEndNode());
             Assert.assertTrue(shortestPath.getWeight() <= path4.getWeight());
             
-            GameFieldPath shortestPath2 = dijkstra.solve(gameField);
+            GameFieldPath shortestPath2 = solver.solve(gameField);
             Assert.assertEquals(shortestPath.getWeight(), shortestPath2.getWeight());
         }
     }

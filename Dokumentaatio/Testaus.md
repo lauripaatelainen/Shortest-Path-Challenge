@@ -72,7 +72,7 @@ Tämän kyseisen pelin tapauksessa V ja E ovat suoraan laskettavista pelikentän
 V = s^2
 E = 4 * s * (s - 1) = 4*s^2 - 4*s
 
-Eli sekä V, että E ovat korvattavissa merkinnällä O(s)
+Eli sekä V, että E ovat korvattavissa merkinnällä O(s^2)
 
 Jos Dijkstran ja Bellman-Ford algoritmien aikavaativuuden muuttaa muotoihin, jotka riippuvat pelikentän koosta s, 
 

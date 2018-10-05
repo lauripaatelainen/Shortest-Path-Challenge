@@ -2,6 +2,7 @@ package com.edii.spc.ui;
 
 import com.edii.spc.game.Game;
 import com.edii.spc.game.GameFieldPath;
+import com.edii.spc.game.solvers.BellmanFordSolver;
 import com.edii.spc.game.solvers.DijkstraSolver;
 import com.edii.spc.game.solvers.Solver;
 import java.awt.Dimension;
@@ -163,7 +164,7 @@ public class SwingUI extends JFrame implements GameFieldUI.PathChangedListener {
      */
     private void gameFinished() {
         gameOver = true;
-        Solver solver = new DijkstraSolver();
+        Solver solver = new BellmanFordSolver();
         GameFieldPath path = solver.solve(game.getGameField());
         gameArea.setShortestPath(path);
         gameArea.setGameOver(true);

@@ -100,6 +100,21 @@ public class GameField {
     }
     
     /**
+     * Hakee kaikki pelikentän kaaret sisältävän joukon.
+     * 
+     * Tietorakenne ei palaudu missään ennalta määritellyssä järjestyksessä. Rakenteen voi käydä läpi iteraattorilla tai foreach-silmukalla.
+     * 
+     * @return Palauttaa kaikki pelikentän kaaret sisältävän joukon..
+     */
+    public Set<GameFieldEdge> getEdges() {
+        Set<GameFieldEdge> out = new OwnSet<>();
+        for (GameFieldNode node : getNodes()) {
+            out.addAll(node.getEdges());
+        }
+        return out;
+    }
+    
+    /**
      * Hakee annetuissa koordinaateissa sijaitsevan solmun. 
      * 
      * @param x X-koordinaatti

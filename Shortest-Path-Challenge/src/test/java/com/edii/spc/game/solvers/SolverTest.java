@@ -1,19 +1,40 @@
 package com.edii.spc.game.solvers;
 
+import com.edii.spc.datastructures.OwnList;
 import com.edii.spc.game.GameField;
 import com.edii.spc.game.GameFieldPath;
+import java.util.Collection;
+import java.util.List;
 import junit.framework.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 /**
- * Testitapaukset luokalle DijkstraSolver.
+ * Testitapaukset solvereille. 
+ * Käytetään parametrointia siten, että jokainen testitapaus suoritetaan jokaiselle eri solverille. 
  */
-public class DijkstraSolverTest {
+@RunWith(Parameterized.class)
+public class SolverTest {
+    Solver solver;
+    
+    public SolverTest(Solver solver) {
+        this.solver = solver;
+    }
+    
+    @Parameterized.Parameters
+    public static Collection solvers() {
+        List<Solver[]> solvers = new OwnList<>();
+        solvers.add(new Solver[] { new DijkstraSolver() });
+        solvers.add(new Solver[] { new BellmanFordSolver() });
+        return solvers;
+    }
+    
     /**
      * Tarkistaa että algoritmin tekemä polku on polku alkusolmusta loppusolmuun, ja että se on painoltaan pienempi kuin yksinkertainen vasenta laitaa alas ja alareunaa oikealle kulkeva polku. 
      */
     @Test
-    public void testDijkstra1() {
+    public void testSolver1() {
         for (int i = 2; i < 5; i++) {
             GameField gameField = GameField.generateRandomField(i);
             GameFieldPath path1 = new GameFieldPath(gameField.getStart());

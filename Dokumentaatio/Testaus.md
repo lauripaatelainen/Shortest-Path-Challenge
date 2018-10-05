@@ -50,3 +50,34 @@ Tässä vaiheessa käytössä oli vielä Javan standardit ArrayListit ja HashMap
 Tästä ei kuitenkaan ollut apuja.
 Myöhemmin voi vielä kokeilla auttaako, jos ohjelmaa käynnistäessä antaa JVM-parametreja, joilla Javan muistinkäyttöä voi hallita. 
 
+### Tilanne 5.10.2018
+
+Bellman-Ford algoritmi on nyt toteutettu. Testituloksista huomataan, että sen suorituskyky on huomattavasti heikompi kuin Dijkstran algoritmin tässä tapauksessa, kun haetaan polkua yhdestä alkupisteestä yhteen loppupisteeseen.
+Alla taulukoituna yhden testikierroksen tuloksia
+
+Kentän koko | Solmujen määrä | Kesto   | Keston kerroin
+------------|----------------|---------|---------------
+100         | 10000          | 1.787   | n/a
+200         | 40000          | 8.226   | 4.603
+400         | 160000         | 39.924  | 4.853
+800         | 640000         | 203.841 | 5.106
+1600        | 2560000        | 993.671 | 4.875
+3200        | 10240000       | xxx     | xxx
+
+Tätä pidemmälle ei ollut mielekästä mittaroida tuloksia. Jos sama kaava olisi jatkunut, olisi kesto ollut noin puolitoista tuntia, todennäköisesti pidempään. 
+
+Bellman-Ford algoritmin aikavaativuuden pitäisi olla O(V*E), jossa V on solmujen määrä ja E on kaarien määrä, kun taas Dijkstran algoritmin aikavaativuudessa päästään O(V log V). 
+Tämän kyseisen pelin tapauksessa V ja E ovat suoraan laskettavista pelikentän koosta. Jos pelikentän kokoa merkitään kirjaimella s, niin V ja E arvota saadaan seuraavasti:
+
+V = s^2
+E = 4 * s * (s - 1) = 4*s^2 - 4*s
+
+Eli sekä V, että E ovat korvattavissa merkinnällä O(s)
+
+Jos Dijkstran ja Bellman-Ford algoritmien aikavaativuuden muuttaa muotoihin, jotka riippuvat pelikentän koosta s, 
+
+Dijkstra: O(S^2 * log (S^2)) => O(S^3)
+Bellman-Ford: O(S^2 * S^2) => O(S^4)
+
+Tähän muotoon muutetuista aikavaativuuksista on selvää, että Bellman-Fordin suoritus kestää pidempään. 
+

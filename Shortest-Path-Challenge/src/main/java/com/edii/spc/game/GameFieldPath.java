@@ -1,7 +1,7 @@
 package com.edii.spc.game;
 
+import com.edii.spc.datastructures.OwnList;
 import com.edii.spc.datastructures.OwnSet;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -10,7 +10,7 @@ import java.util.Set;
  */
 public class GameFieldPath {
     private final GameFieldNode startNode;
-    private List<GameFieldEdge> edges = new ArrayList<>();
+    private List<GameFieldEdge> edges = new OwnList<>();
     
     /**
      * Luo tyhjän polun.

@@ -1,10 +1,10 @@
 package com.edii.spc.game.solvers;
 
+import com.edii.spc.datastructures.OwnMap;
 import com.edii.spc.game.GameField;
 import com.edii.spc.game.GameFieldEdge;
 import com.edii.spc.game.GameFieldNode;
 import com.edii.spc.game.GameFieldPath;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -13,8 +13,8 @@ import java.util.Set;
  */
 public class BellmanFordSolver implements Solver {
 
-    private Map<GameFieldNode, Integer> distance = new HashMap<>();
-    private Map<GameFieldNode, GameFieldEdge> edgeToPrevious = new HashMap<>();
+    private Map<GameFieldNode, Integer> distance = new OwnMap<>();
+    private Map<GameFieldNode, GameFieldEdge> edgeToPrevious = new OwnMap<>();
     private Set<GameFieldNode> nodes;
     private Set<GameFieldEdge> edges;
 

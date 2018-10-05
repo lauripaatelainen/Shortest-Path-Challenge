@@ -2,7 +2,6 @@ package com.edii.spc.game;
 
 import com.edii.spc.datastructures.OwnSet;
 import com.edii.spc.datastructures.Pair;
-import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
 

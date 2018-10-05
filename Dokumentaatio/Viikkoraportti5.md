@@ -19,9 +19,10 @@ Aikaa tällä viikolla käytetty noin 20h.
 
 Toteutusdokumentin kirjoittaamiseen ei vielä löytynyt aikaa, joten se jää ensi viikolle. 
 
-Yhteenvetona todo-listalla tällä hetkellä:
+Yhteenvetona jäljellä olevina asioina tällä hetkellä:
  - Viimeisen Set-tietorakenteen toteuttaminen
  - A* algoritmin toteuttaminen
+ - Testikattavuuden lisääminen
  - Pelin käyttöliittymän ja logiikan viimeistely
  - Automatiikka suorituskykyraportointiin
  - Toteutusdokumentaatio

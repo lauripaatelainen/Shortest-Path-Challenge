@@ -106,7 +106,7 @@ public class OwnList<E> extends OwnAbstractList<E> {
      */
     @Override
     public Iterator<E> iterator() {
-        return new OwnListIterator();
+        return new OwnListIterator(0);
     }
 
     /**
@@ -241,33 +241,25 @@ public class OwnList<E> extends OwnAbstractList<E> {
      */
     @Override
     public ListIterator<E> listIterator(int i) {
-        return new OwnListListIterator(i);
+        return new OwnListIterator(i);
     }
     
-    private class OwnListIterator implements Iterator<E> {
-        protected int i = 0;
-
-        @Override
-        public boolean hasNext() {
-            return i < size();
-        }
-
-        @Override
-        public E next() {
-            return items[i++];
-        }
-    }
-    
-    private class OwnListListIterator extends OwnListIterator implements ListIterator<E> {
+    private class OwnListIterator implements ListIterator<E> {
+        private int i = 0;
         private int last = -1;
         
-        public OwnListListIterator(int i) {
+        public OwnListIterator(int i) {
             this.i = i;
         }
         
         @Override
         public boolean hasPrevious() {
             return i > 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return i < size();
         }
 
         @Override
@@ -280,7 +272,7 @@ public class OwnList<E> extends OwnAbstractList<E> {
         @Override
         public E next() {
             last = i;
-            return super.next();
+            return items[i++];
         }
 
         @Override

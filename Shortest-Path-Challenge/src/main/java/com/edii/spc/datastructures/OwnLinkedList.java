@@ -86,7 +86,7 @@ public class OwnLinkedList<E> extends OwnAbstractList<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return new LinkedListIterator();
+        return listIterator();
     }
     
     /**
@@ -213,27 +213,9 @@ public class OwnLinkedList<E> extends OwnAbstractList<E> {
     public ListIterator<E> listIterator(int i) {
         return new LinkedListListIterator(i);   
     }
-
-    private class LinkedListIterator implements Iterator<E> {
-        protected OwnLinkedList.LinkedListNode<E> next = first;
-
-        @Override
-        public boolean hasNext() {
-            return next != null;
-        }
-
-        @Override
-        public E next() {
-            E val = next.getItem();
-            next =  next.getNext();
-            if (next == first) {
-                next = null;
-            }
-            return val;
-        }
-    }
     
-    private class LinkedListListIterator extends LinkedListIterator implements ListIterator<E> {
+    private class LinkedListListIterator implements ListIterator<E> {
+        private OwnLinkedList.LinkedListNode<E> next = first;
         private LinkedListNode<E> last;
         private int nextIndex;
         
@@ -250,12 +232,24 @@ public class OwnLinkedList<E> extends OwnAbstractList<E> {
         public E next() {
             last = next;
             nextIndex++;
-            return super.next();
+            
+            E val = next.getItem();
+            next =  next.getNext();
+            if (next == first) {
+                next = null;
+            }
+            
+            return val;
         }
 
         @Override
         public boolean hasPrevious() {
             return next != first;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return next != null;
         }
 
         @Override

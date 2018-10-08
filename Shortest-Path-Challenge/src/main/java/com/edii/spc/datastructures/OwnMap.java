@@ -1,6 +1,8 @@
 package com.edii.spc.datastructures;
 
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Objects;
@@ -13,7 +15,7 @@ import java.util.Set;
  * @param <V> Tietotyyppi, jonka alkioita arvot on
  */
 public class OwnMap<K, V> implements Map<K, V> {
-    private static class MapItem<K, V> implements Entry<K, V> {
+    private static class MapItem<K, V> implements Map.Entry<K, V> {
         private final K key;
         private V value;
         
@@ -81,6 +83,9 @@ public class OwnMap<K, V> implements Map<K, V> {
     private static final int DEFAULT_INITIAL_CAPACITY = 10;
     private static final float DEFAULT_LOAD_FACTOR = 0.75f;
     
+    private KeySet keySet = new KeySet();
+    private ValueCollection valueCollection = new ValueCollection();
+    private EntrySet entrySet = new EntrySet();
     private OwnLinkedList<MapItem<K, V>>[] items;
     private float loadFactor;
     private int itemsCount = 0;
@@ -134,15 +139,17 @@ public class OwnMap<K, V> implements Map<K, V> {
     }
     
     private void grow() {
-        Set<Entry<K, V>> entrySet = this.entrySet();
+        Object[] entries = entrySet().toArray();
         
         for (int i = 0; i < items.length; i++) {
             items[i] = null;
         }
         
         items = new OwnLinkedList[items.length * 2];
+        itemsCount = 0;
         
-        for (Entry<K, V> entry : entrySet) {
+        for (Object obj : entries) {
+            Entry<K, V> entry = (Entry<K, V>) obj;
             put(entry.getKey(), entry.getValue());
         }
     }
@@ -159,8 +166,18 @@ public class OwnMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean containsKey(Object o) {
-        V item = this.get(o);
-        return item != null;
+        List<MapItem<K, V>> list = getListForKey(o, false);
+        if (list == null) {
+            return false;
+        }
+        
+        for (MapItem<K, V> item : list) {
+            if (o.equals(item.getKey())) {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     @Override
@@ -235,6 +252,26 @@ public class OwnMap<K, V> implements Map<K, V> {
     }
 
     @Override
+    public boolean remove(Object key, Object value) {
+        OwnLinkedList<MapItem<K, V>> list = getListForKey(key, false);
+        if (list == null) {
+            return false;
+        }
+        
+        ListIterator<MapItem<K, V>> listIterator = list.listIterator();
+        while (listIterator.hasNext()) {
+            MapItem<K, V> entry = listIterator.next();
+            if (entry.getKey().equals(key) && entry.getValue().equals(value)) {
+                listIterator.remove();
+                itemsCount--;
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    @Override
     public void putAll(Map<? extends K, ? extends V> map) {
         for (Entry<? extends K, ? extends V> entry : map.entrySet()) {
             put(entry.getKey(), entry.getValue());
@@ -251,43 +288,203 @@ public class OwnMap<K, V> implements Map<K, V> {
 
     @Override
     public Set<K> keySet() {
-        Set<K> keys = new OwnSet<>();
-        for (OwnLinkedList<MapItem<K, V>> list : items) {
-            if (list != null) {
-                for (MapItem<K, V> entry : list) {
-                    keys.add(entry.getKey());
-                }
-            }
-        }
-        
-        return keys;
+        return keySet;
     }
 
     @Override
     public Collection<V> values() {
-        OwnLinkedList<V> out = new OwnLinkedList<>();
-        for (OwnLinkedList<MapItem<K, V>> list : items) {
-            if (list != null) {
-                for (MapItem<K, V> item : list) {
-                    out.add(item.getValue());
-                }
-            }
-        }
-        
-        return out;
+        return valueCollection;
     }
 
     @Override
     public Set<Entry<K, V>> entrySet() {
-        Set<Entry<K, V>> entries = new OwnSet<>();
-        for (OwnLinkedList<MapItem<K, V>> list : items) {
-            if (list != null) {
-                for (MapItem<K, V> entry : list) {
-                    entries.add(entry);
-                }
+        return entrySet;
+    }
+    
+    private class KeySet extends OwnAbstractCollection<K> implements Set<K> {
+        @Override
+        public int size() {
+            return OwnMap.this.size();
+        }
+
+        @Override
+        public boolean contains(Object o) {
+            return OwnMap.this.containsKey(o);
+        }
+
+        @Override
+        public Iterator iterator() {
+            return new KeySetIterator();
+        }
+
+        @Override
+        public boolean add(Object e) {
+            throw new UnsupportedOperationException("Not supported.");
+        }
+
+        @Override
+        public boolean remove(Object o) {
+            if (OwnMap.this.containsKey(o)) {
+                OwnMap.this.remove(o);
+                return true;
             }
+            
+            return false;
+        }
+
+        @Override
+        public void clear() {
+            OwnMap.this.clear();
         }
         
-        return entries;
+    }
+    
+    private class ValueCollection extends OwnAbstractCollection<V> implements Collection<V> {
+        @Override
+        public int size() {
+            return OwnMap.this.size();
+        }
+
+        @Override
+        public boolean contains(Object o) {
+            return OwnMap.this.containsValue(o);
+        }
+
+        @Override
+        public Iterator<V> iterator() {
+            return new ValueCollectionIterator();
+        }
+
+        @Override
+        public boolean add(Object e) {
+            throw new UnsupportedOperationException("Not supported.");
+        }
+
+        @Override
+        public boolean remove(Object o) {
+            Iterator<V> it = this.iterator();
+            while (it.hasNext()) {
+                V val = it.next();
+                if (val == o || (val != null && val.equals(o))) {
+                    it.remove();
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+
+        @Override
+        public void clear() {
+            OwnMap.this.clear();
+        }
+        
+    }
+    
+    private class EntrySet extends OwnAbstractCollection<Map.Entry<K, V>> implements Set<Map.Entry<K, V>> {
+        @Override
+        public int size() {
+            return OwnMap.this.size();
+        }
+
+        @Override
+        public boolean contains(Object o) {
+            if (o == null) {
+                return false;
+            }
+            
+            Entry entry = (Entry) o;
+            V val = OwnMap.this.get(entry.getKey());
+            if (val == entry.getValue() || (val != null && val.equals(entry.getValue()))) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        @Override
+        public Iterator<Entry<K, V>> iterator() {
+            return new EntrySetIterator();
+        }
+
+        @Override
+        public boolean add(Entry<K, V> e) {
+            throw new UnsupportedOperationException("Not supported.");
+        }
+
+        @Override
+        public boolean remove(Object o) {
+            Entry entry = (Entry) o;
+            return OwnMap.this.remove(entry.getKey(), entry.getValue());
+        }
+
+        @Override
+        public void clear() {
+            OwnMap.this.clear();
+        }
+    }
+    
+    private abstract class MapIterator {
+        private int i = 0;
+        private Iterator<MapItem<K, V>> it;
+        
+        public MapIterator() {
+            findNext();
+        }
+        
+        private void findNext() {
+            if (it != null) {
+                if (it.hasNext()) {
+                    return;
+                }
+
+                it = null;
+                i++;
+            }
+            
+            while (i < items.length) {
+                if (items[i] != null && items[i].size() > 0) {
+                    it = items[i].iterator();
+                    return;
+                }
+                i++;
+            }
+        }
+
+        public boolean hasNext() {
+            return this.it != null && this.it.hasNext();
+        }
+
+        public Map.Entry<K, V> nextMapItem() {
+            MapItem<K, V> item = it.next();
+            findNext();
+            return item;
+        }
+
+        public void remove() {
+            it.remove();
+            itemsCount--;
+        }
+    }
+    
+    private class KeySetIterator extends MapIterator implements Iterator<K> {
+        @Override
+        public K next() {
+            return nextMapItem().getKey();
+        }
+    }
+    
+    private class ValueCollectionIterator extends MapIterator implements Iterator<V> {
+        @Override
+        public V next() {
+            return nextMapItem().getValue();
+        }
+    }
+    
+    private class EntrySetIterator extends MapIterator implements Iterator<Map.Entry<K, V>> {
+        @Override
+        public Entry<K, V> next() {
+            return nextMapItem();
+        }
     }
 }

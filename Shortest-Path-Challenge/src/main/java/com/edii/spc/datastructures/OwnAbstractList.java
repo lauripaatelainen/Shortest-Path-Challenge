@@ -1,7 +1,6 @@
 package com.edii.spc.datastructures;
 
-import java.lang.reflect.Array;
-import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -9,17 +8,7 @@ import java.util.ListIterator;
  * Abstrakti yläluokka List-rajapinnan toteuttaville luokille.
  * Käytetään OwnLinkedList ja OwnList -luokissa niiden metodien osalta, joihin ei ole toteutuskohtaista suorituskykyvaikutusta. 
  */
-public abstract class OwnAbstractList<E> implements List<E> {
-    /**
-     * Kertoo onko lista tyhjä.
-     * @return true jos lista on tyhjä
-     */
-    @Override
-    public boolean isEmpty() {
-        return size() == 0;
-    }
-    
-
+public abstract class OwnAbstractList<E> extends OwnAbstractCollection<E> implements List<E> {
     /**
      * Tarkistaa onko annettu alkio listassa.
      * 
@@ -40,42 +29,6 @@ public abstract class OwnAbstractList<E> implements List<E> {
     }
     
     /**
-     * Muuttaa listan taulukkomuotoon.
-     * 
-     * @return Palauttaa listan taulukkomuodossa.
-     */
-    @Override
-    public Object[] toArray() {
-        Object[] out = new Object[size()];
-        return toArray(out);
-    }
-    
-    /**
-     * Muuttaa listan taulukkomuotoon. 
-     * Jos annettu taulukko on riittävän suuri, listan alkiot lisätään siihen. Jos taulukko on yli listan koko, viimeisen alkion perään lisätään null-arvo. 
-     * Jos annettu taulukko ei riitä, allokoidaan uusi taulukko ja palautetaan se.
-     * 
-     * @param <T> Tyyppiparametri, minkä tyyppinen lista tehdään. 
-     * @param ts Taulukko, johon listan alkiot lisätään, jos se on tarpeeksi suuri.
-     * @return Palauttaa taulukon, jossa on listan elementit. 
-     * @throws ArrayStoreException jos jokin listan elementti ei ole käännettävissä muotoon T. 
-     */
-    @Override
-    public <T> T[] toArray(T[] ts) {
-        if (ts.length < size()) {
-            ts = (T[]) Array.newInstance(ts.getClass().getComponentType(), size());
-        }
-        
-        int i = 0;
-        for (E item : this) {
-            ts[i] = (T) item;
-            i++;
-        }
-        
-        return ts;
-    }
-    
-    /**
      * Poistaa annetun alkion listasta.
      * 
      * @param o Alkio joka tulee poistaa
@@ -83,90 +36,16 @@ public abstract class OwnAbstractList<E> implements List<E> {
      */
     @Override
     public boolean remove(Object o) {
-        ListIterator<E> listIterator = this.listIterator();
-        while (listIterator.hasNext()) {
-            E item = listIterator.next();
+        Iterator<E> iterator = this.iterator();
+        while (iterator.hasNext()) {
+            E item = iterator.next();
             if (item.equals(o)) {
-                listIterator.remove();
+                iterator.remove();
                 return true;
             }
         }
         return false;
     }
-    
-    /**
-     * Tarkistaa kuuluuko kaikki annetun tietorakenteen alkiot listaan.
-     * 
-     * @param clctn Tietorakenne, jonka alkioiden listaan kuuluvuus tarkistetaan.
-     * @return true jos kaikki kuuluu
-     */
-    @Override
-    public boolean containsAll(Collection<?> clctn) {
-        for (Object obj : clctn) {
-            if (!this.contains((E) obj)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Lisää kaikki annetun tietorakenteen alkiot listan loppuun.
-     * 
-     * @param clctn Tietorakenne, jonka alkiot lisätään.
-     * @return true jos listaa muutettiin, eli aina kun clctn ei ole tyhjä.
-     */
-    @Override
-    public boolean addAll(Collection<? extends E> clctn) {
-        if (clctn.isEmpty()) {
-            return false;
-        }
-        
-        for (E item : clctn) {
-            this.add(item);
-        }
-        
-        return true;
-    }
-    
-    /**
-     * Poistaa kaikki annetun tietorakenteen alkiot listasta.
-     * 
-     * @param clctn Tietorakenne, jonka sisältämät alkiot listasta poistetaan.
-     * @return true, jos lista muuttui
-     */
-    @Override
-    public boolean removeAll(Collection<?> clctn) {
-        boolean changed = false;
-        for (Object obj : clctn) {
-            if (this.remove((E) obj)) {
-                changed = true;
-            }
-        }
-        return changed;
-    }
-    
-    /**
-     * Poistaa listasta kaikki muut paitsi annetussa tietorakenteessa olevat alkiot. 
-     * 
-     * @param clctn Tietorakenne, jonka sisältämät alkiot listassa säilytetään. 
-     * @return true jos lista muuttui
-     */
-    @Override
-    public boolean retainAll(Collection<?> clctn) {
-        ListIterator<E> listIterator = this.listIterator();
-        boolean changed = false;
-        while (listIterator.hasNext()) {
-            E item = listIterator.next();
-            if (!clctn.contains(item)) {
-                listIterator.remove();
-                changed = true;
-            }
-        }
-        return changed;
-    }
-    
-    
 
     /**
      * Etsii annetun alkion indeksin listassa.
@@ -237,5 +116,31 @@ public abstract class OwnAbstractList<E> implements List<E> {
     @Override
     public ListIterator<E> listIterator() {
         return listIterator(0);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        
+        if (o == null || !(o instanceof List) || ((List)o).size() != size()) {
+            return false;
+        }
+        
+        Iterator thisIt = iterator();
+        Iterator oIt = iterator();
+        while (thisIt.hasNext()) {
+            Object thisVal = thisIt.next();
+            Object oVal = oIt.next();
+            if (thisVal == null) {
+                if (oVal != null) {
+                    return false;
+                }
+            } else if (!thisVal.equals(oVal)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

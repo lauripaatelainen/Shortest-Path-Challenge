@@ -66,12 +66,24 @@ public class GameFieldEdge {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == null || o.getClass() != this.getClass()) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        
-        return this.hashCode() == o.hashCode();
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final GameFieldEdge other = (GameFieldEdge) obj;
+        if (this.weight != other.weight) {
+            return false;
+        }
+        if (!Objects.equals(this.nodes, other.nodes)) {
+            return false;
+        }
+        return true;
     }
 
     @Override

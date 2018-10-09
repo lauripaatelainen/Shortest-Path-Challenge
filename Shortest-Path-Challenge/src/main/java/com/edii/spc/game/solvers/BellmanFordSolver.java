@@ -13,8 +13,8 @@ import java.util.Set;
  */
 public class BellmanFordSolver implements Solver {
 
-    private Map<GameFieldNode, Integer> distance = new OwnMap<>();
-    private Map<GameFieldNode, GameFieldEdge> edgeToPrevious = new OwnMap<>();
+    private Map<GameFieldNode, Integer> distance;
+    private Map<GameFieldNode, GameFieldEdge> edgeToPrevious;
     private Set<GameFieldNode> nodes;
     private Set<GameFieldEdge> edges;
 
@@ -23,6 +23,9 @@ public class BellmanFordSolver implements Solver {
      * ja edeltäjäksi null. Lähtösolmun etäisyydeksi annetaan nolla.
      */
     private void init(GameField field) {
+        distance = new OwnMap<>();
+        edgeToPrevious = new OwnMap<>();
+        
         nodes = field.getNodes();
         edges = field.getEdges();
         for (GameFieldNode node : nodes) {
@@ -52,8 +55,10 @@ public class BellmanFordSolver implements Solver {
     }
 
     private void relax(GameFieldEdge edge) {
-        if (distance.get(edge.getNodes().getFirst()) != Integer.MAX_VALUE && distance.get(edge.getNodes().getFirst()) + edge.getWeight() < distance.get(edge.getNodes().getSecond())) {
-            distance.put(edge.getNodes().getSecond(), distance.get(edge.getNodes().getFirst()) + edge.getWeight());
+        int firstDistance = distance.get(edge.getNodes().getFirst());
+        int secondDistance = distance.get(edge.getNodes().getSecond());
+        if (firstDistance != Integer.MAX_VALUE && firstDistance + edge.getWeight() < secondDistance) {
+            distance.put(edge.getNodes().getSecond(), firstDistance + edge.getWeight());
             edgeToPrevious.put(edge.getNodes().getSecond(), edge.inverse());
         }
     }

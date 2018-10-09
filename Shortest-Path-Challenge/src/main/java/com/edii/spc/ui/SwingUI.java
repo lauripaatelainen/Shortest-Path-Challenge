@@ -2,6 +2,7 @@ package com.edii.spc.ui;
 
 import com.edii.spc.game.Game;
 import com.edii.spc.game.GameFieldPath;
+import com.edii.spc.game.solvers.AStarSolver;
 import com.edii.spc.game.solvers.BellmanFordSolver;
 import com.edii.spc.game.solvers.DijkstraSolver;
 import com.edii.spc.game.solvers.Solver;
@@ -18,7 +19,7 @@ import javax.swing.JPanel;
  * Graafinen käyttöliittymä, joka on toteutettu javan Swing-kirjastolla.
  */
 public class SwingUI extends JFrame implements GameFieldUI.PathChangedListener {
-    private static final int GAME_DURATION = 30;
+    private static final int GAME_DURATION = 10;
     
     private Game game;
     private boolean gameOver;

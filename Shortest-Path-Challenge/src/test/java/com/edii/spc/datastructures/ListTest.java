@@ -112,19 +112,19 @@ public class ListTest {
      */
     @Test
     public void testAddAndRemove() {
-        Integer rand1 = random.nextInt(1000);
-        Integer rand2 = random.nextInt(1000);
-        Integer rand3 = random.nextInt(1000);
-        Integer rand4 = random.nextInt(1000);
-        intList.add(rand1);
-        intList.add(rand2);
-        intList.add(rand3);
-        intList.add(rand4);
-        intList.remove(rand3);
-        Assert.assertEquals(3, intList.size());
-        Assert.assertEquals(rand1, intList.get(0));
-        Assert.assertEquals(rand2, intList.get(1));
-        Assert.assertEquals(rand4, intList.get(2));
+        String rand1 = "One";
+        String rand2 = "Two";
+        String rand3 = "Three";
+        String rand4 = "Four";
+        stringList.add(rand1);
+        stringList.add(rand2);
+        stringList.add(rand3);
+        stringList.add(rand4);
+        Assert.assertTrue(stringList.remove(rand3));
+        Assert.assertEquals(3, stringList.size());
+        Assert.assertEquals(rand1, stringList.get(0));
+        Assert.assertEquals(rand2, stringList.get(1));
+        Assert.assertEquals(rand4, stringList.get(2));
     }
 
     /**

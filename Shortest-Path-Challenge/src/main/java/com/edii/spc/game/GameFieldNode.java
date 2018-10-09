@@ -177,25 +177,33 @@ public class GameFieldNode {
         }
         return null;
     }
-  
+
     @Override
-    public boolean equals(Object o) {
-        if (o == null || o.getClass() != this.getClass()) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        
-        return this.hashCode() == o.hashCode();
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final GameFieldNode other = (GameFieldNode) obj;
+        if (this.x != other.x) {
+            return false;
+        }
+        if (this.y != other.y) {
+            return false;
+        }
+        return true;
     }
-
+  
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 23 * hash + this.x;
-        hash = 23 * hash + this.y;
-/*        hash = 23 * hash + Objects.hashCode(this.leftEdge);
-        hash = 23 * hash + Objects.hashCode(this.rightEdge);
-        hash = 23 * hash + Objects.hashCode(this.upEdge);
-        hash = 23 * hash + Objects.hashCode(this.downEdge);*/
+        hash = 41 * hash + this.x;
+        hash = 41 * hash + this.y;
         return hash;
     }
 }

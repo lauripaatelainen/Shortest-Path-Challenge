@@ -101,7 +101,7 @@ public class AStarSolver implements Solver {
                     openSet.add(neighbor);
                 }
                 
-                int tentative_gScore = gScore.get(current) + edge.getWeight(); //dist_between(current, neighbor);
+                int tentative_gScore = gScore.get(current) + edge.getWeight();
 
                 if (gScore.get(current) == Integer.MAX_VALUE || tentative_gScore >= gScore.get(neighbor)) {
                     continue;

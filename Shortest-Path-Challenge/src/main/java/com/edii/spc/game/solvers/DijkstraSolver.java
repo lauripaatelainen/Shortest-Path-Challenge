@@ -20,17 +20,35 @@ public class DijkstraSolver implements Solver {
         }
     };
     
-    private final Map<GameFieldNode, Integer> distance = new OwnMap<>();
-    private final Map<GameFieldNode, GameFieldEdge> edgeToPrevious = new OwnMap<>();
+    private GameField field;
+    private Map<GameFieldNode, Integer> distance;
+    private Map<GameFieldNode, GameFieldEdge> edgeToPrevious;
+    private MinHeap<GameFieldNode> queue;
     
-    @Override
-    public GameFieldPath solve(GameField field) {
+    private void init(GameField field) {
+        this.field = field;
+        this.distance = new OwnMap<>();
+        this.edgeToPrevious = new OwnMap<>();
+        
         for (GameFieldNode node : field.getNodes()) {
             distance.put(node, Integer.MAX_VALUE);
         }
         
         distance.put(field.getStart(), 0);
-        MinHeap<GameFieldNode> queue = new MinHeap<>(field.getNodes(), comparator);
+        queue = new MinHeap<>(field.getNodes(), comparator);
+    }
+    
+    private GameFieldPath formPath() {
+        GameFieldPath path = new GameFieldPath(field.getFinish());
+        while (!path.getEndNode().equals(field.getStart())) {
+            path.addEdge(edgeToPrevious.get(path.getEndNode()));
+        }
+        return path.reverse();
+    }
+    
+    @Override
+    public GameFieldPath solve(GameField field) {
+        init(field);
         
         while (!queue.isEmpty()) {
             GameFieldNode u = queue.extractMin();
@@ -43,14 +61,6 @@ public class DijkstraSolver implements Solver {
             }
         }
         
-        return formPath(field);
-    }
-    
-    private GameFieldPath formPath(GameField field) {
-        GameFieldPath path = new GameFieldPath(field.getFinish());
-        while (!path.getEndNode().equals(field.getStart())) {
-            path.addEdge(edgeToPrevious.get(path.getEndNode()));
-        }
-        return path.reverse();
+        return formPath();
     }
 }

@@ -56,19 +56,31 @@ public class Pair<T> {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == null || o.getClass() != this.getClass()) {
-            return false;
-        }
-        
-        return this.hashCode() == o.hashCode();
+    public int hashCode() {
+        int hash = 5;
+        hash = 23 * hash + Objects.hashCode(this.first);
+        hash = 23 * hash + Objects.hashCode(this.second);
+        return hash;
     }
 
     @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.first);
-        hash = 53 * hash + Objects.hashCode(this.second);
-        return hash;
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Pair<?> other = (Pair<?>) obj;
+        if (!Objects.equals(this.first, other.first)) {
+            return false;
+        }
+        if (!Objects.equals(this.second, other.second)) {
+            return false;
+        }
+        return true;
     }
 }

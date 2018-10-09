@@ -2,6 +2,7 @@ package com.edii.spc.datastructures;
 
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,7 @@ import java.util.Map;
  * 
  * @param <T> Tietotyyppi jonka alkoita minimikeko sisältää. 
  */
-public class MinHeap<T> {
+public class MinHeap<T> extends OwnAbstractCollection<T> {
     private static final int DEFAULT_MIN_HEAP_SIZE = 10;
     
     private List<T> list;
@@ -127,14 +128,17 @@ public class MinHeap<T> {
      * Lisää alkion minimikekoon.
      * 
      * @param item Lisättävä alkio
+     * @return Palauttaa aina true
      */
-    public void insert(T item) {
+    @Override
+    public boolean add(T item) {
         if (indices.containsKey(item)) {
             throw new IllegalArgumentException("Löytyy jo");
         }
         
         this.addListItem(item);
         decreaseKey(size() - 1);
+        return true;
     }
     
     /**
@@ -179,6 +183,7 @@ public class MinHeap<T> {
      * 
      * @return Palauttaa true jos minimikeko on tyhjä
      */
+    @Override
     public boolean isEmpty() {
         return list.isEmpty();
     }
@@ -211,7 +216,49 @@ public class MinHeap<T> {
      * 
      * @return Alkioiden määrä
      */
+    @Override
     public int size() {
         return list.size();
+    }
+    
+    /**
+     * Tyhjentää minimikeon.
+     */
+    @Override
+    public void clear() {
+        list.clear();
+        indices.clear();
+    }
+    
+    /**
+     * Poistaa annetun alkion minimikeosta.
+     */
+    @Override
+    public boolean remove(Object obj) {
+        if (indices.containsKey((T) obj)) {
+            int i = indices.remove((T) obj);
+            exchange(size() - 1, i);
+            list.remove(size() - 1);
+            minHeapify(i);
+            return true;
+        }
+        
+        return false;
+    }
+
+    /**
+     * Tarkistaa kuuluuko annettu alkio minimikekoon. 
+     * 
+     * @param o Tarkistettava alkio.
+     * @return Palauttaa true jos alkio on keon jäsen.
+     */
+    @Override
+    public boolean contains(Object o) {
+        return indices.containsKey((T) o);
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return list.iterator();
     }
 }

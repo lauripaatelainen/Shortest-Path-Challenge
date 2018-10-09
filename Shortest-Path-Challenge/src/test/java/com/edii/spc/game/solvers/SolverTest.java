@@ -39,6 +39,7 @@ public class SolverTest {
         List<Solver[]> solvers = new OwnList<>();
         solvers.add(new Solver[] { new DijkstraSolver() });
         solvers.add(new Solver[] { new BellmanFordSolver() });
+        solvers.add(new Solver[] { new AStarSolver() });
         return solvers;
     }
     
@@ -62,7 +63,10 @@ public class SolverTest {
             GameFieldPath shortestPath = solver.solve(gameField);
             Assert.assertEquals(path1.getStartNode(), shortestPath.getStartNode());
             Assert.assertEquals(path1.getEndNode(), shortestPath.getEndNode());
-            Assert.assertTrue(shortestPath.getWeight() <= path1.getWeight());
+            Assert.assertTrue(
+                    String.format("%d > %d", shortestPath.getWeight(), path1.getWeight()),
+                    shortestPath.getWeight() <= path1.getWeight()
+            );
         }
     }
     
@@ -86,7 +90,10 @@ public class SolverTest {
             GameFieldPath shortestPath = solver.solve(gameField);
             Assert.assertEquals(path2.getStartNode(), shortestPath.getStartNode());
             Assert.assertEquals(path2.getEndNode(), shortestPath.getEndNode());
-            Assert.assertTrue(shortestPath.getWeight() <= path2.getWeight());
+            Assert.assertTrue(
+                    String.format("%d > %d", shortestPath.getWeight(), path2.getWeight()),
+                    shortestPath.getWeight() <= path2.getWeight()
+            );
         }
     }
     
@@ -107,7 +114,10 @@ public class SolverTest {
             GameFieldPath shortestPath = solver.solve(gameField);
             Assert.assertEquals(path3.getStartNode(), shortestPath.getStartNode());
             Assert.assertEquals(path3.getEndNode(), shortestPath.getEndNode());
-            Assert.assertTrue(shortestPath.getWeight() <= path3.getWeight());
+            Assert.assertTrue(
+                    String.format("%d > %d", shortestPath.getWeight(), path3.getWeight()),
+                    shortestPath.getWeight() <= path3.getWeight()
+            );
         }
     }
     
@@ -128,7 +138,10 @@ public class SolverTest {
             GameFieldPath shortestPath = solver.solve(gameField);
             Assert.assertEquals(path4.getStartNode(), shortestPath.getStartNode());
             Assert.assertEquals(path4.getEndNode(), shortestPath.getEndNode());
-            Assert.assertTrue(shortestPath.getWeight() <= path4.getWeight());
+            Assert.assertTrue(
+                    String.format("%d > %d", shortestPath.getWeight(), path4.getWeight()),
+                    shortestPath.getWeight() <= path4.getWeight()
+            );
             
             GameFieldPath shortestPath2 = solver.solve(gameField);
             Assert.assertEquals(shortestPath.getWeight(), shortestPath2.getWeight());

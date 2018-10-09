@@ -43,10 +43,10 @@ public class MinHeapTest {
     @Test
     public void testConstructors1() {
         MinHeap<Integer> minHeap = new MinHeap<>(intComparator);
-        minHeap.insert(10);
-        minHeap.insert(30);
-        minHeap.insert(11);
-        minHeap.insert(50);
+        minHeap.add(10);
+        minHeap.add(30);
+        minHeap.add(11);
+        minHeap.add(50);
         assertEquals(4, minHeap.size());
         assertEquals(10, (int) minHeap.extractMin());
         assertEquals(3, minHeap.size());
@@ -58,10 +58,10 @@ public class MinHeapTest {
     @Test
     public void testConstructors2() {
         MinHeap<String> minHeap = new MinHeap<>(stringLengthComparator);
-        minHeap.insert("Testi");
-        minHeap.insert("Pidempi testi");
-        minHeap.insert("A");
-        minHeap.insert("ABC");
+        minHeap.add("Testi");
+        minHeap.add("Pidempi testi");
+        minHeap.add("A");
+        minHeap.add("ABC");
         assertEquals(4, minHeap.size());
         assertEquals("A", minHeap.extractMin());
         assertEquals(3, minHeap.size());
@@ -94,7 +94,7 @@ public class MinHeapTest {
     public void testExtractMin() {
         MinHeap<Integer> minHeap = new MinHeap(intComparator);
         for (int i = 0; i < 50; i++) {
-            minHeap.insert(random.nextInt());
+            minHeap.add(random.nextInt());
         }
         
         int edellinen = Integer.MIN_VALUE;
@@ -113,7 +113,7 @@ public class MinHeapTest {
     public void testExtractMin2() {
         MinHeap<Integer> minHeap = new MinHeap(intComparator);
         for (int i = 0; i < 50; i++) {
-            minHeap.insert(random.nextInt());
+            minHeap.add(random.nextInt());
         }
         
         for (int i = 0; i < 51; i++) {
@@ -217,9 +217,9 @@ public class MinHeapTest {
         WeightedObject c = new WeightedObject(300);
         
         MinHeap<WeightedObject> minHeap = new MinHeap<>(weightedObjectComparator);
-        minHeap.insert(a);
-        minHeap.insert(b);
-        minHeap.insert(c);
+        minHeap.add(a);
+        minHeap.add(b);
+        minHeap.add(c);
         
         b.setWeight(50);
         minHeap.decreaseKey(b);
@@ -232,7 +232,7 @@ public class MinHeapTest {
     @Test(expected = IllegalArgumentException.class)
     public void testSameObjectTwice() {
         MinHeap<Integer> minHeap = new MinHeap<>(intComparator);
-        minHeap.insert(1);
-        minHeap.insert(1);
+        minHeap.add(1);
+        minHeap.add(1);
     }
 }

@@ -26,7 +26,7 @@ public class PerformanceTest {
         
         for (int i = 0; i < minHeapSize; i++) {
             long start = System.currentTimeMillis();
-            minHeap.insert(java.util.UUID.randomUUID().toString());
+            minHeap.add(java.util.UUID.randomUUID().toString());
             long end = System.currentTimeMillis();
             if (i % 100000 == 0 || end - start > 10) {
                 System.out.printf("%d\t%d\n", i, end - start);

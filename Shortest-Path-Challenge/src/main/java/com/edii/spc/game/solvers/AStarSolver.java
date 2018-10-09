@@ -84,37 +84,45 @@ public class AStarSolver implements Solver {
         init(field);
         while (!openSet.isEmpty()) {
             GameFieldNode current = openSet.extractMin();
-            
             if (current.equals(goal)) {
                 break;
             }
-
-            closedSet.add(current);
-
-            for (GameFieldEdge edge : current.getEdges()) {
-                GameFieldNode neighbor = edge.getNodes().getSecond();
-                if (closedSet.contains(neighbor)) {
-                    continue;
-                }
-                
-                if (!openSet.contains(neighbor)) {
-                    openSet.add(neighbor);
-                }
-                
-                int tentative_gScore = gScore.get(current) + edge.getWeight();
-
-                if (gScore.get(current) == Integer.MAX_VALUE || tentative_gScore >= gScore.get(neighbor)) {
-                    continue;
-                }
-
-                edgeToPrevious.put(neighbor, edge.inverse());
-                gScore.put(neighbor, tentative_gScore);
-                fScore.put(neighbor, tentative_gScore + heuristicCostEstimate(neighbor, goal));
-                openSet.decreaseKey(neighbor);
-            }
+            
+            handleNode(current);
         }
         
         return formPath();
+    }
+    
+    private void handleNode(GameFieldNode current) {
+        closedSet.add(current);
+        for (GameFieldEdge edge : current.getEdges()) {
+            handleEdge(edge);
+        }
+    }
+    
+    private void handleEdge(GameFieldEdge edge) {
+        GameFieldNode current = edge.getNodes().getFirst();
+        GameFieldNode neighbor = edge.getNodes().getSecond();
+        if (closedSet.contains(neighbor)) {
+            return;
+        }
+
+        if (!openSet.contains(neighbor)) {
+            openSet.add(neighbor);
+        }
+
+        int currentGScore = gScore.get(current);
+        int tentativeGScore = currentGScore + edge.getWeight();
+
+        if (currentGScore == Integer.MAX_VALUE || tentativeGScore >= gScore.get(neighbor)) {
+            return;
+        }
+
+        edgeToPrevious.put(neighbor, edge.inverse());
+        gScore.put(neighbor, tentativeGScore);
+        fScore.put(neighbor, tentativeGScore + heuristicCostEstimate(neighbor, goal));
+        openSet.decreaseKey(neighbor);
     }
     
     private GameFieldPath formPath() {

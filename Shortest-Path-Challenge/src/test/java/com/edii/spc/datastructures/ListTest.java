@@ -483,4 +483,12 @@ public class ListTest {
         intList.add(5);
         intList.set(1, 2);
     }
+    
+    /**
+     * Testaa sublist-metodin toimivuus.
+     */
+    @Test
+    public void testSubList() {
+        
+    }
 }

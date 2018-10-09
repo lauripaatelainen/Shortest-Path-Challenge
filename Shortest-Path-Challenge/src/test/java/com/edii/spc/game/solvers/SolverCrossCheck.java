@@ -9,12 +9,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- *
- * @author edii
+ * Tekee ristiintarkistukset eri algoritmien välillä, ja varmistaa että kaikki palauttavat saman tuloksen lyhimmäksi poluksi.
  */
 public class SolverCrossCheck {
     private Collection<Solver> solvers;
     
+    /**
+     * Alustaa testattavat solverit. 
+     */
     @Before
     public void initSolvers() {
         solvers = new OwnList<>();
@@ -23,6 +25,9 @@ public class SolverCrossCheck {
         solvers.add(new AStarSolver());
     }
     
+    /**
+     * Luo erikokoisia pelikenttiä, ja tarkistaa että kaikilla solvereilla ratkaistun lyhimmän polun paino on sama.
+     */
     @Test
     public void crossCheckAllSolvers() {
         for (int i = 2; i <= 20; i++) {

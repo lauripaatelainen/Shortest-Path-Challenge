@@ -3,6 +3,7 @@ package com.edii.spc.datastructures;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Objects;
 
 /**
  * Abstrakti yläluokka List-rajapinnan toteuttaville luokille.
@@ -88,24 +89,21 @@ public abstract class OwnAbstractList<E> extends OwnAbstractCollection<E> implem
     }
     
     /**
-     * Palauttaa listan osan uutena listana.
-     * 
-     * @param start Alkuindeksi, tulee mukaan uuteen listaan.
-     * @param end Loppuindeksi, ei tule mukaan listaan.
-     * @return Palauttaa uuden osalistan.
+     * Ei tuettu toiminto.
+     * Javan List-rajapinnan kuvauksen mukaan kuuluisi olla pakollinen toiminto,
+     * mutta tämän sovelluksen kannalta subListin toteutus on turhan työläs. subListin
+     * kuuluisi palauttaa uusi lista, johon tehdyt muutokset heijastuvat alkuperäiseen listaan.
+     * Jotta tämän saisi toteutettua tehokkaasti, pitäisi eri listan toteutuksilla
+     * olla oma toteutus subListista. 
+     * @param start listan alku
+     * @param end listan loppu
+     * @return Listan osa (ei tuettu)
      */
     @Override
     public List<E> subList(int start, int end) {
-        int i = start;
-        ListIterator<E> listIterator = this.listIterator(start);
-        List<E> newList = new OwnList<>();
-        while (i < end && listIterator.hasNext()) {
-            newList.add(listIterator.next());
-            i++;
-        }
-        return newList;
+        throw new UnsupportedOperationException("Ei tuettu toiminto.");
     }
-    
+
     /**
      * Palauttaa ListIterator-rajapinnan toteuttavan objektin.
      * Kutsuu listIterator(0) -metdia.
@@ -118,26 +116,30 @@ public abstract class OwnAbstractList<E> extends OwnAbstractCollection<E> implem
         return listIterator(0);
     }
 
+    /**
+     * Tarkistaa kahden listan yhtäsuuruuden. 
+     * Tarkistuksessa käydään molemmat listat läpi, ja varmistetaan että samat
+     * elementit löytyvät molemmista listoista samassa järjestyksessä. 
+     * 
+     * @param other Toinen lista
+     * @return Palauttaa true, jos listat ovat identtiset.
+     */
     @Override
-    public boolean equals(Object o) {
-        if (o == this) {
+    public boolean equals(Object other) {
+        if (other == this) {
             return true;
         }
         
-        if (o == null || !(o instanceof List) || ((List)o).size() != size()) {
+        if (other == null || !(other instanceof List) || ((List) other).size() != size()) {
             return false;
         }
         
         Iterator thisIt = iterator();
-        Iterator oIt = iterator();
+        Iterator oIt = ((List) other).iterator();
         while (thisIt.hasNext()) {
             Object thisVal = thisIt.next();
             Object oVal = oIt.next();
-            if (thisVal == null) {
-                if (oVal != null) {
-                    return false;
-                }
-            } else if (!thisVal.equals(oVal)) {
+            if (!Objects.equals(thisVal, oVal)) {
                 return false;
             }
         }

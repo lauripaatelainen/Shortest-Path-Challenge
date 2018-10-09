@@ -11,11 +11,7 @@ import java.util.Map;
  * @param <T> Tietotyyppi, jonka alkioita joukkoon laitetaan.
  */
 public class OwnSet<T> extends OwnAbstractSet<T> {
-    private Map<T, Object> map;
-
-    public OwnSet() {
-        this.map = new OwnMap<>();
-    }
+    private final Map<T, Object> map = new OwnMap<>();
     
     @Override
     public int size() {

@@ -55,7 +55,7 @@ public class MinHeap<T> extends OwnAbstractCollection<T> {
      * Rakentaa minimikeon nykyisistä listan alkioista.
      */
     private void buildMinHeap() {
-        for (int i = (size() - 1) / 2; i >= 0; i--) {
+        for (int i = parent(size()); i >= 0; i--) {
             this.minHeapify(i);
         }
     }
@@ -170,9 +170,10 @@ public class MinHeap<T> extends OwnAbstractCollection<T> {
     public T extractMin() {
         T min = list.get(0);
         if (size() == 1) {
-            list.clear();
+            clear();
         } else {
             this.setListItem(0, list.remove(list.size() - 1));
+            this.indices.remove(min);
             minHeapify(0);
         }
         return min;
@@ -236,8 +237,8 @@ public class MinHeap<T> extends OwnAbstractCollection<T> {
     @Override
     public boolean remove(Object obj) {
         if (indices.containsKey((T) obj)) {
-            int i = indices.remove((T) obj);
-            exchange(size() - 1, i);
+            Integer i = indices.remove((T) obj);
+            setListItem(i, list.get(size() - 1));
             list.remove(size() - 1);
             minHeapify(i);
             return true;

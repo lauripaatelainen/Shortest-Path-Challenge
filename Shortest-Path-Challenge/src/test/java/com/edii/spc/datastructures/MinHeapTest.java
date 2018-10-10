@@ -3,7 +3,9 @@ package com.edii.spc.datastructures;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import junit.framework.Assert;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
@@ -43,10 +45,10 @@ public class MinHeapTest {
     @Test
     public void testConstructors1() {
         MinHeap<Integer> minHeap = new MinHeap<>(intComparator);
-        minHeap.add(10);
-        minHeap.add(30);
-        minHeap.add(11);
-        minHeap.add(50);
+        Assert.assertTrue(minHeap.add(10));
+        Assert.assertTrue(minHeap.add(30));
+        Assert.assertTrue(minHeap.add(11));
+        Assert.assertTrue(minHeap.add(50));
         assertEquals(4, minHeap.size());
         assertEquals(10, (int) minHeap.extractMin());
         assertEquals(3, minHeap.size());
@@ -234,5 +236,69 @@ public class MinHeapTest {
         MinHeap<Integer> minHeap = new MinHeap<>(intComparator);
         minHeap.add(1);
         minHeap.add(1);
+    }
+    
+    /**
+     * Tarkistaa, että clear tyhjentää listan ja normaalit operaatiot toimivat sen jälkeen.
+     */
+    @Test
+    public void testClear() {
+        MinHeap<Integer> minHeap = new MinHeap<>(intComparator);
+        Integer[] testData = new Integer[] { 5, 10, 3, 8, 1, 15 };
+        for (Integer i : testData) {
+            minHeap.add(i);
+        }
+        
+        minHeap.clear();
+        Assert.assertTrue(minHeap.isEmpty());
+        Assert.assertEquals(0, minHeap.size());
+        for (Integer i : testData) {
+            Assert.assertFalse(minHeap.contains(i));
+            minHeap.add(i);
+        }
+        
+        Assert.assertEquals(1, (int) minHeap.extractMin());
+    }
+    
+    /**
+     * Tarkistaa remove() metodin toimivuuden.
+     */
+    @Test
+    public void testRemove() {
+        MinHeap<Integer> minHeap = new MinHeap<>(intComparator);
+        Integer[] testData = new Integer[] { 5, 10, 3, 8, 1, 15 };
+        for (Integer i : testData) {
+            minHeap.add(i);
+        }
+        Assert.assertTrue(minHeap.contains(1));
+        Assert.assertTrue(minHeap.contains(3));
+        Assert.assertTrue(minHeap.contains(5));
+        
+        Assert.assertTrue(minHeap.remove(1));
+        Assert.assertTrue(minHeap.remove(3));
+        Assert.assertFalse(minHeap.remove(3));
+        Assert.assertEquals(5, (int) minHeap.extractMin());
+        
+        Assert.assertFalse(minHeap.contains(1));
+        Assert.assertFalse(minHeap.contains(3));
+        Assert.assertFalse(minHeap.contains(5));
+    }
+    
+    /**
+     * Tarkistaa foreach-silmukan toimivuuden.
+     */
+    @Test
+    public void testForeach() {
+        MinHeap<String> minHeap = new MinHeap<>(stringLengthComparator);
+        List<String> testData = new OwnList<>();
+        for (String s : new String[] {"Yksi", "Kaksi", "Kolme"}) {
+            testData.add(s);
+        }
+        
+        minHeap.addAll(testData);
+        for (String s : minHeap) {
+            Assert.assertTrue(testData.remove(s));
+        }
+        Assert.assertTrue(testData.isEmpty());
     }
 }

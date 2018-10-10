@@ -1,5 +1,7 @@
 package com.edii.spc.datastructures;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -34,6 +36,12 @@ public class ListTest {
     public ListTest(List<Integer> intList, List<String> stringList) {
         this.intList = intList;
         this.stringList = stringList;
+    }
+    
+    private void intListFillWithSquares(int n) {
+        for (int i = 0; i < n; i++) {
+            intList.add(i * i);
+        }
     }
 
     /**
@@ -112,19 +120,16 @@ public class ListTest {
      */
     @Test
     public void testAddAndRemove() {
-        String rand1 = "One";
-        String rand2 = "Two";
-        String rand3 = "Three";
-        String rand4 = "Four";
-        stringList.add(rand1);
-        stringList.add(rand2);
-        stringList.add(rand3);
-        stringList.add(rand4);
-        Assert.assertTrue(stringList.remove(rand3));
+        String[] rand = new String[] {"One", "Two", "Three", "Four"};
+        stringList.add(rand[0]);
+        stringList.add(rand[1]);
+        stringList.add(rand[2]);
+        stringList.add(rand[3]);
+        Assert.assertTrue(stringList.remove(rand[2]));
         Assert.assertEquals(3, stringList.size());
-        Assert.assertEquals(rand1, stringList.get(0));
-        Assert.assertEquals(rand2, stringList.get(1));
-        Assert.assertEquals(rand4, stringList.get(2));
+        Assert.assertEquals(rand[0], stringList.get(0));
+        Assert.assertEquals(rand[1], stringList.get(1));
+        Assert.assertEquals(rand[3], stringList.get(2));
     }
 
     /**
@@ -132,9 +137,7 @@ public class ListTest {
      */
     @Test
     public void testForEach() {
-        for (int i = 0; i < 10; i++) {
-            intList.add(i * i);
-        }
+        intListFillWithSquares(10);
         int i = 0;
         for (Integer value : intList) {
             Assert.assertEquals(i * i, (int) value);
@@ -165,9 +168,7 @@ public class ListTest {
      */
     @Test
     public void testToArray() {
-        for (int i = 0; i < 10; i++) {
-            intList.add(i * i);
-        }
+        intListFillWithSquares(10);
         Object[] arr = intList.toArray();
         Assert.assertEquals(10, arr.length);
         for (int i = 0; i < 10; i++) {
@@ -180,10 +181,7 @@ public class ListTest {
      */
     @Test
     public void testToArray2() {
-        for (int i = 0; i < 10; i++) {
-            intList.add(i * i);
-        }
-        
+        intListFillWithSquares(10);
         Integer[] arr1 = new Integer[10];
         Integer[] arr2 = intList.toArray(arr1);
         Assert.assertSame(arr1, arr2);
@@ -198,9 +196,7 @@ public class ListTest {
      */
     @Test
     public void testToArray3() {
-        for (int i = 0; i < 10; i++) {
-            intList.add(i * i);
-        }
+        intListFillWithSquares(10);
         Integer[] arr1 = new Integer[12];
         Integer[] arr2 = intList.toArray(arr1);
         Assert.assertSame(arr1, arr2);
@@ -215,10 +211,7 @@ public class ListTest {
      */
     @Test
     public void testToArray4() {
-        for (int i = 0; i < 10; i++) {
-            intList.add(i * i);
-        }
-        
+        intListFillWithSquares(10);
         Integer[] arr1 = new Integer[8];
         Integer[] arr2 = intList.toArray(arr1);
         Assert.assertNotSame(arr1, arr2);
@@ -289,8 +282,7 @@ public class ListTest {
         stringList.add("String 1");
         stringList.add("String 2");
         stringList.add("String 3");
-        boolean returnVal = stringList.remove("String 2");
-        Assert.assertTrue(returnVal);
+        Assert.assertTrue(stringList.remove("String 2"));
         Assert.assertTrue(stringList.contains("String 1"));
         Assert.assertFalse(stringList.contains("String 2"));
         Assert.assertTrue(stringList.contains("String 3"));
@@ -298,8 +290,7 @@ public class ListTest {
         Assert.assertEquals("String 1", listIterator.next());
         listIterator = stringList.listIterator(stringList.size());
         Assert.assertEquals("String 3", listIterator.previous());
-        returnVal = stringList.remove("String 2");
-        Assert.assertFalse(returnVal);
+        Assert.assertFalse(stringList.remove("String 2"));
     }
 
     /**
@@ -360,20 +351,18 @@ public class ListTest {
      */
     @Test
     public void testRemoveAll() {
-        Set<Integer> randInts = new HashSet<>();
-        while (randInts.size() < 10) {
-            randInts.add(random.nextInt(1000));
-        }
-        Assert.assertTrue(intList.addAll(randInts));
-        List<Integer> randList = new ArrayList<>(randInts);
+        intListFillWithSquares(10);
+        List<Integer> retained = new ArrayList<>(intList);
         List<Integer> removed = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            removed.add(randList.remove(i));
+            removed.add(retained.remove(3));
         }
-        Assert.assertTrue(intList.containsAll(randList));
+        Assert.assertTrue(intList.containsAll(retained));
         Assert.assertTrue(intList.containsAll(removed));
         Assert.assertTrue(intList.removeAll(removed));
-        Assert.assertTrue(intList.containsAll(randList));
+        Assert.assertTrue(intList.containsAll(retained));
+        Assert.assertEquals(retained.size(), intList.size());
+        Assert.assertEquals(10 - removed.size(), intList.size());
         for (Integer removedInteger : removed) {
             Assert.assertFalse(intList.contains(removedInteger));
         }
@@ -384,21 +373,19 @@ public class ListTest {
      */
     @Test
     public void testRetainAll() {
-        Set<Integer> randInts = new HashSet<>();
-        while (randInts.size() < 10) {
-            randInts.add(random.nextInt(1000));
-        }
-        Assert.assertTrue(intList.addAll(randInts));
-        List<Integer> randList = new ArrayList<>(randInts);
+        intListFillWithSquares(10);
+        List<Integer> retained = new ArrayList<>(intList);
         List<Integer> removed = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            removed.add(randList.remove(i));
+            removed.add(retained.remove(3));
         }
-        Assert.assertTrue(intList.containsAll(randList));
-        Assert.assertTrue(intList.retainAll(randList));
-        Assert.assertTrue(intList.containsAll(randList));
+        Assert.assertTrue(intList.containsAll(retained));
+        Assert.assertTrue(intList.retainAll(retained));
+        Assert.assertTrue(intList.containsAll(retained));
+        Assert.assertEquals(retained.size(), intList.size());
+        Assert.assertEquals(10 - removed.size(), intList.size());
         for (Integer removedInteger : removed) {
-            Assert.assertFalse(intList.contains(removedInteger));
+            Assert.assertFalse(String.format("intList sisältää %d vaikka pitäisi olla poistettu", removedInteger), intList.contains(removedInteger));
         }
     }
     
@@ -407,14 +394,9 @@ public class ListTest {
      */
     @Test
     public void testIndexOf() {
-        Set<Integer> randInts = new HashSet<>();
-        while (randInts.size() < 10) {
-            randInts.add(random.nextInt(1000));
-        }
-        List<Integer> randList = new ArrayList<>(randInts);
-        Assert.assertTrue(intList.addAll(randList));
+        intListFillWithSquares(10);
         for (int i = 0; i < 10; i++) {
-            Assert.assertEquals(i, intList.indexOf(randList.get(i)));
+            Assert.assertEquals(i, intList.indexOf(i * i));
         }
         Assert.assertEquals(-1, intList.indexOf(1005));
     }
@@ -424,17 +406,10 @@ public class ListTest {
      */
     @Test
     public void testLastIndexOf() {
-        Set<Integer> randInts = new HashSet<>();
-        while (randInts.size() < 10) {
-            randInts.add(random.nextInt(1000));
-        }
-        List<Integer> randList = new ArrayList<>(randInts);
+        intListFillWithSquares(10);
+        intListFillWithSquares(10);
         for (int i = 0; i < 10; i++) {
-            randList.add(randList.get(i));
-        }
-        Assert.assertTrue(intList.addAll(randList));
-        for (int i = 0; i < 10; i++) {
-            Assert.assertEquals(i + 10, intList.lastIndexOf(randList.get(i)));
+            Assert.assertEquals(i + 10, intList.lastIndexOf(i * i));
         }
         Assert.assertEquals(-1, intList.lastIndexOf(1005));
     }
@@ -444,14 +419,10 @@ public class ListTest {
      */
     @Test
     public void testSet() {
-        List<Integer> randInts = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            randInts.add(random.nextInt(1000));
-        }
-        Assert.assertTrue(intList.addAll(randInts));
-        Assert.assertEquals(randInts.get(5), intList.set(5, 1005));
-        Assert.assertTrue(intList.contains(1005));
-        Assert.assertEquals(1005, (int) intList.get(5));
+        intListFillWithSquares(10);
+        Assert.assertEquals(5 * 5, (int) intList.set(5, 105));
+        Assert.assertTrue(intList.contains(105));
+        Assert.assertEquals(105, (int) intList.get(5));
     }
     
     /**
@@ -485,10 +456,41 @@ public class ListTest {
     }
     
     /**
-     * Testaa sublist-metodin toimivuus.
+     * Testaa equals-metodin toimivuus.
      */
     @Test
-    public void testSubList() {
-        
+    public void equals() {
+        try {
+            Constructor<? extends List> constructor = stringList.getClass().getConstructor();
+            List newList = constructor.newInstance();
+            for (String str : new String[] {"Yksi", "Kaksi", "Kolme"}) {
+                newList.add(str);
+                stringList.add(str);
+            }
+            
+            Assert.assertEquals(newList, stringList);
+            newList.set(1, "Korvattu");
+            Assert.assertFalse(newList.equals(stringList));
+            newList.remove(1);
+            Assert.assertFalse(newList.equals(stringList));
+            Assert.assertFalse(newList.equals(null));
+            Assert.assertFalse(newList.equals(new OwnSet()));
+        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            Assert.fail("Listan luonti oletuskonstruktorilla epäonnistui: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Testaa sublist-metodin toimivuus.
+     * Omissa toteutuksissa se ei ole tuettu, joten tarkistetaan että UnsupportedOperationException tapahtuu.
+     */
+    @Test(expected = UnsupportedOperationException.class)
+    public void sublist() {
+        if (stringList instanceof OwnAbstractList) {
+            stringList.add("Yksi");
+            stringList.subList(0, 1);
+        } else {
+            throw new UnsupportedOperationException();
+        }
     }
 }

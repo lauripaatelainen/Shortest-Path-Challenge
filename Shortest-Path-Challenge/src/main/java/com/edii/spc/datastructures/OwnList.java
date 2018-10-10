@@ -288,6 +288,7 @@ public class OwnList<E> extends OwnAbstractList<E> {
         @Override
         public void remove() {
             OwnList.this.remove(last);
+            i--;
         }
 
         @Override

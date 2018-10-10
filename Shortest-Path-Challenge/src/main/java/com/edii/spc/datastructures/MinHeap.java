@@ -23,6 +23,19 @@ public class MinHeap<T> extends OwnAbstractCollection<T> {
     private final Comparator<T> comparator;
     
     /**
+     * Luo minimikeon luonnollisella järjestyksellä.
+     */
+    public MinHeap() {
+        this(new Comparator<T>() {
+            @Override
+            public int compare(T obj1, T obj2) {
+                Comparable<T> comp1 = (Comparable<T>) obj1;
+                return comp1.compareTo(obj2);
+            }
+        });
+    }
+    
+    /**
      * Luo minimikeon annetulla vertailufunktiolla. 
      * 
      * @param comparator Vertailufunktio
@@ -237,8 +250,9 @@ public class MinHeap<T> extends OwnAbstractCollection<T> {
     @Override
     public boolean remove(Object obj) {
         if (indices.containsKey((T) obj)) {
-            Integer i = indices.remove((T) obj);
+            Integer i = indices.get((T) obj);
             setListItem(i, list.get(size() - 1));
+            indices.remove((T) obj);
             list.remove(size() - 1);
             minHeapify(i);
             return true;
@@ -261,5 +275,21 @@ public class MinHeap<T> extends OwnAbstractCollection<T> {
     @Override
     public Iterator<T> iterator() {
         return list.iterator();
+    }
+
+    /**
+     * Lisää kaikki annetun tietorakenteen alkiot minimikekoon.
+     * 
+     * @param clctn Tietorakenne jonka alkiot lisätään
+     * @return Palauttaa true, jos minimikeko muuttui, eli jos clctn ei ole tyhjä
+     */
+    @Override
+    public boolean addAll(Collection<? extends T> clctn) {
+        boolean changed = false;
+        for (T t : clctn) {
+            add(t);
+            changed = true;
+        }
+        return changed;
     }
 }

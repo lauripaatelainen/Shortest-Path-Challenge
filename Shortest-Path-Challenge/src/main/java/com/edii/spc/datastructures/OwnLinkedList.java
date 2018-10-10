@@ -69,7 +69,7 @@ public class OwnLinkedList<E> extends OwnAbstractList<E> {
     
     private LinkedListNode<E> getNode(int i) {
         if (i < 0 || i >= size()) {
-            throw new IndexOutOfBoundsException();
+            return null;
         }
         
         LinkedListNode<E> node = this.first;
@@ -121,17 +121,17 @@ public class OwnLinkedList<E> extends OwnAbstractList<E> {
      */
     @Override
     public boolean addAll(int i, Collection<? extends E> clctn) {
-        LinkedListNode<E> next = getNode(i);
-        LinkedListNode<E> prev = next.getPrev();
-        for (E item : clctn) {
-            LinkedListNode<E> node = new LinkedListNode<>(item);
-            node.setPrev(prev);
-            node.setNext(next);
-            prev.setNext(node);
-            next.setPrev(node);
-            prev = node;
-            itemsCount++;
+        if (i < 0 || i > size()) {
+            throw new IndexOutOfBoundsException();
+        } else if (clctn.isEmpty()) {
+            return false;
         }
+        
+        LinkedListNode<E> next = getNode(i);
+        for (E e : clctn) {
+            add(next, e);
+        }
+        
         return true;
     }
 
@@ -148,6 +148,10 @@ public class OwnLinkedList<E> extends OwnAbstractList<E> {
 
     @Override
     public E set(int i, E e) {
+        if (i < 0 || i >= size()) {
+            throw new IndexOutOfBoundsException();
+        }
+        
         LinkedListNode<E> node = getNode(i);
         E prev = node.getItem();
         node.setItem(e);
@@ -158,14 +162,17 @@ public class OwnLinkedList<E> extends OwnAbstractList<E> {
     public void add(int i, E e) {
         if (i < 0 || i > size()) {
             throw new IndexOutOfBoundsException();
-        } else if (isEmpty() || i == size()) {
-            add(e);
         } else {
             add(getNode(i), e);
         }
     }
     
-    private void add(LinkedListNode next, E e) {
+    private LinkedListNode add(LinkedListNode next, E e) {
+        if (next == null) {
+            add(e);
+            return first.getPrev();
+        }
+        
         LinkedListNode<E> node = new LinkedListNode<>(e);
         next.getPrev().setNext(node);
         node.setPrev(next.getPrev());
@@ -177,36 +184,33 @@ public class OwnLinkedList<E> extends OwnAbstractList<E> {
         }
         
         itemsCount++;
+        return node;
     }
 
     @Override
     public E remove(int i) {
-        if (isEmpty()) {
-            throw new ArrayIndexOutOfBoundsException("List is empty");
-        } else if (size() == 1) {
-            E item = this.first.getItem();
-            clear();
-            return item;
-        } else {
-            LinkedListNode<E> node = getNode(i);
-            return remove(node);
-        }
+        if (i < 0 || i >= size()) {
+            throw new ArrayIndexOutOfBoundsException("");
+        } 
+        
+        LinkedListNode<E> node = getNode(i);
+        return remove(node);
     }
     
     private E remove(LinkedListNode<E> node) {
-        if (size() == 1) {
-            clear();
-            return node.getItem();
-        } else {
-            if (node == first) {
+        node.getPrev().setNext(node.getNext());
+        node.getNext().setPrev(node.getPrev());
+        itemsCount--;
+
+        if (node == first) {
+            if (itemsCount == 0) {
+                first = null;
+            } else {
                 first = first.getNext();
             }
-            
-            node.getPrev().setNext(node.getNext());
-            node.getNext().setPrev(node.getPrev());
-            itemsCount--;
-            return node.getItem();
         }
+
+        return node.getItem();
     }
 
     @Override
@@ -234,7 +238,7 @@ public class OwnLinkedList<E> extends OwnAbstractList<E> {
             nextIndex++;
             
             E val = next.getItem();
-            next =  next.getNext();
+            next = next.getNext();
             if (next == first) {
                 next = null;
             }

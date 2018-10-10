@@ -3,7 +3,6 @@ package com.edii.spc.datastructures;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import junit.framework.Assert;
 import static org.junit.Assert.assertEquals;
@@ -12,7 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Testitapaukset luokalla MinHeap.
+ * Testitapaukset luokalle MinHeap.
  */
 public class MinHeapTest {
     private final Comparator<Integer> intComparator = new Comparator<Integer>() {
@@ -223,9 +222,9 @@ public class MinHeapTest {
         minHeap.add(b);
         minHeap.add(c);
         
-        b.setWeight(50);
-        minHeap.decreaseKey(b);
-        assertEquals(b, minHeap.extractMin());
+        c.setWeight(50);
+        minHeap.decreaseKey(c);
+        assertEquals(c, minHeap.extractMin());
     }
     
     /**
@@ -278,6 +277,7 @@ public class MinHeapTest {
         Assert.assertTrue(minHeap.remove(3));
         Assert.assertFalse(minHeap.remove(3));
         Assert.assertEquals(5, (int) minHeap.extractMin());
+        Assert.assertEquals(3, minHeap.size());
         
         Assert.assertFalse(minHeap.contains(1));
         Assert.assertFalse(minHeap.contains(3));

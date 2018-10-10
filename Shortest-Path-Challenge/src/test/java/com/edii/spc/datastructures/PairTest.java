@@ -44,6 +44,7 @@ public class PairTest {
         Pair<Integer> pair2 = new Pair<>(1, 2);
         Pair<Integer> pair3 = new Pair<>(3, 4);
         
+        assertEquals(pair1, pair1);
         assertEquals(pair1, pair2);
         assertFalse(pair1.equals(pair3));
         assertFalse(pair1.equals(null));

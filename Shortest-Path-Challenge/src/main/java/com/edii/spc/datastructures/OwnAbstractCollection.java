@@ -74,25 +74,6 @@ public abstract class OwnAbstractCollection<E> implements Collection<E> {
     }
 
     /**
-     * Lisää kaikki annetun tietorakenteen alkiot listan loppuun.
-     *
-     * @param clctn Tietorakenne, jonka alkiot lisätään.
-     * @return true jos listaa muutettiin, eli aina kun clctn ei ole tyhjä.
-     */
-    @Override
-    public boolean addAll(Collection<? extends E> clctn) {
-        if (clctn.isEmpty()) {
-            return false;
-        }
-
-        for (E item : clctn) {
-            this.add(item);
-        }
-
-        return true;
-    }
-
-    /**
      * Poistaa kaikki annetun tietorakenteen alkiot listasta.
      *
      * @param clctn Tietorakenne, jonka sisältämät alkiot listasta poistetaan.

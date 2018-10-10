@@ -60,7 +60,7 @@ public class OwnList<E> extends OwnAbstractList<E> {
 
     /**
      * Siirtää listan alkioita eteenpäin annetun määrän. 
-     * Tarvittaessa kasvattaa taulukon kokoa, mutta ei muuta size-parametrin määrää.
+     * Tarvittaessa kasvattaa taulukon kokoa ja muuttaa size-parametrin määrän.
      * 
      * @param i indeksi, josta alkaen loppuja alkioita siirretään
      * @param count siirrettävä määrä
@@ -73,7 +73,7 @@ public class OwnList<E> extends OwnAbstractList<E> {
         for (int j = this.size - 1; j >= i; j--) {
             this.items[j + count] = this.items[j];
         }
-        size += count;
+        this.size += count;
     }
     
     /**
@@ -147,8 +147,6 @@ public class OwnList<E> extends OwnAbstractList<E> {
             set(i + j, item);
             j++;
         }
-        
-        this.size += clctn.size();
         
         return true;
     }

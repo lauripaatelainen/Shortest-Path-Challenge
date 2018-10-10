@@ -301,7 +301,7 @@ public class OwnMap<K, V> implements Map<K, V> {
         return entrySet;
     }
     
-    private class KeySet extends OwnAbstractCollection<K> implements Set<K> {
+    private class KeySet extends OwnAbstractSet<K> implements Set<K> {
         @Override
         public int size() {
             return OwnMap.this.size();
@@ -339,7 +339,7 @@ public class OwnMap<K, V> implements Map<K, V> {
         
     }
     
-    private class ValueCollection extends OwnAbstractCollection<V> implements Collection<V> {
+    private class ValueCollection extends OwnAbstractSet<V> implements Collection<V> {
         @Override
         public int size() {
             return OwnMap.this.size();
@@ -381,7 +381,7 @@ public class OwnMap<K, V> implements Map<K, V> {
         
     }
     
-    private class EntrySet extends OwnAbstractCollection<Map.Entry<K, V>> implements Set<Map.Entry<K, V>> {
+    private class EntrySet extends OwnAbstractSet<Map.Entry<K, V>> implements Set<Map.Entry<K, V>> {
         @Override
         public int size() {
             return OwnMap.this.size();

@@ -1,5 +1,6 @@
 package com.edii.spc.datastructures;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -144,5 +145,16 @@ public abstract class OwnAbstractList<E> extends OwnAbstractCollection<E> implem
             }
         }
         return true;
+    }
+    
+    /**
+     * Lisää kaikki annetun tietorakenteen alkiot listan loppuun.
+     *
+     * @param clctn Tietorakenne, jonka alkiot lisätään.
+     * @return true jos listaa muutettiin, eli aina kun clctn ei ole tyhjä.
+     */
+    @Override
+    public boolean addAll(Collection<? extends E> clctn) {
+        return addAll(size(), clctn);
     }
 }

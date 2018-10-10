@@ -4,12 +4,10 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Random;
-import java.util.Set;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -62,74 +60,12 @@ public class ListTest {
     }
     
     /**
-     * Testaa List.clear() toiminto.
+     * Tyhjennä listat ennen testejä.
      */
     @Before
     public void clearLists() {
         intList.clear();
         stringList.clear();
-    }
-    
-    /**
-     * Testaa List.size() toiminto.
-     */
-    @Test
-    public void testSize() {
-        intList.add(1);
-        stringList.add("a");
-        Assert.assertTrue(intList.size() == 1);
-        Assert.assertTrue(stringList.size() == 1);
-    }
-
-    /**
-     * Testaa List.isEmpty() toiminto.
-     */
-    @Test
-    public void testIsEmpty() {
-        Assert.assertTrue(intList.isEmpty());
-        Assert.assertTrue(stringList.isEmpty());
-        intList.add(1);
-        stringList.add("a");
-        Assert.assertFalse(intList.isEmpty());
-        Assert.assertFalse(stringList.isEmpty());
-    }
-
-    /**
-     * Testaa List.contains() toiminto.
-     */
-    @Test
-    public void testContains() {
-        int[] randomInts = new int[] {
-            random.nextInt(),
-            random.nextInt(),
-            random.nextInt()
-        };
-        Assert.assertFalse(intList.contains(randomInts[0]));
-        Assert.assertFalse(intList.contains(randomInts[1]));
-        Assert.assertFalse(intList.contains(randomInts[2]));
-        intList.add(randomInts[2]);
-        intList.add(randomInts[1]);
-        intList.add(randomInts[0]);
-        Assert.assertTrue(intList.contains(randomInts[0]));
-        Assert.assertTrue(intList.contains(randomInts[1]));
-        Assert.assertTrue(intList.contains(randomInts[2]));
-    }
-    
-    /**
-     * Testaa listan add- ja remove-toiminnot.
-     */
-    @Test
-    public void testAddAndRemove() {
-        String[] rand = new String[] {"One", "Two", "Three", "Four"};
-        stringList.add(rand[0]);
-        stringList.add(rand[1]);
-        stringList.add(rand[2]);
-        stringList.add(rand[3]);
-        Assert.assertTrue(stringList.remove(rand[2]));
-        Assert.assertEquals(3, stringList.size());
-        Assert.assertEquals(rand[0], stringList.get(0));
-        Assert.assertEquals(rand[1], stringList.get(1));
-        Assert.assertEquals(rand[3], stringList.get(2));
     }
 
     /**
@@ -144,23 +80,6 @@ public class ListTest {
             i++;
         }
         Assert.assertEquals(10, i);
-    }
-    
-    /**
-     * Testaa listaan kohdistuvan foreach-silmukan toimivuus, kun listassa on vain yksi alkio.
-     */
-    @Test
-    public void testForEachWithOneItem() {
-        int rand = random.nextInt(1000);
-        intList.add(rand);
-        int value = -1;
-        int i = 0;
-        for (Integer val : intList) {
-            value = val;
-            i++;
-        }
-        Assert.assertEquals(value, rand);
-        Assert.assertEquals(1, i);
     }
 
     /**
@@ -291,24 +210,8 @@ public class ListTest {
         listIterator = stringList.listIterator(stringList.size());
         Assert.assertEquals("String 3", listIterator.previous());
         Assert.assertFalse(stringList.remove("String 2"));
-    }
-
-    /**
-     * Testaa List.addAll() ja List.constainsAll() -toimintojen toimivuus yhdessä.
-     */
-    @Test
-    public void testAddAllAndContainsAll() {
-        List<Integer> randInts = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            randInts.add(random.nextInt(1000));
-        }
-        Assert.assertTrue(intList.addAll(randInts));
-        Assert.assertEquals(10, intList.size());
-        Assert.assertTrue(intList.containsAll(randInts));
-        randInts.set(5, 1005);
-        Assert.assertFalse(intList.containsAll(randInts));
-        randInts.remove(5);
-        Assert.assertTrue(intList.containsAll(randInts));
+        Assert.assertEquals("String 3", stringList.remove(1));
+        Assert.assertEquals("String 1", stringList.remove(0));
     }
 
     /**
@@ -332,40 +235,18 @@ public class ListTest {
     }
     
     /**
-     * Testaa List.addAll(Collection) toimivuus kun parametrina annetaan tyhjä tietorakenne.
+     * Testaa List.addAll(Collection) toimivuus, kun sen jälkeen tehdään poisto-operaatio.
      */
     @Test
-    public void testAddAllWithEmptyCollection() {
-        List<Integer> randInts = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            randInts.add(random.nextInt(1000));
-        }
-        Assert.assertTrue(intList.addAll(randInts));
-        Assert.assertEquals(10, intList.size());
-        Assert.assertFalse(intList.addAll(new ArrayList<>()));
-        Assert.assertEquals(10, intList.size());
-    }
-
-    /**
-     * Testaa List.removeAll()-toiminnon toimivuus.
-     */
-    @Test
-    public void testRemoveAll() {
+    public void testAddAllAndRemove() {
         intListFillWithSquares(10);
-        List<Integer> retained = new ArrayList<>(intList);
-        List<Integer> removed = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            removed.add(retained.remove(3));
-        }
-        Assert.assertTrue(intList.containsAll(retained));
-        Assert.assertTrue(intList.containsAll(removed));
-        Assert.assertTrue(intList.removeAll(removed));
-        Assert.assertTrue(intList.containsAll(retained));
-        Assert.assertEquals(retained.size(), intList.size());
-        Assert.assertEquals(10 - removed.size(), intList.size());
-        for (Integer removedInteger : removed) {
-            Assert.assertFalse(intList.contains(removedInteger));
-        }
+        List<Integer> tempList = new OwnList<>();
+        tempList.addAll(intList);
+        intList.clear();
+        Assert.assertTrue(intList.addAll(tempList));
+        intList.remove(5);
+        Assert.assertEquals(4 * 4, (int) intList.get(4));
+        Assert.assertEquals(6 * 6, (int) intList.get(5));
     }
 
     /**
@@ -468,6 +349,7 @@ public class ListTest {
                 stringList.add(str);
             }
             
+            Assert.assertEquals(stringList, stringList);
             Assert.assertEquals(newList, stringList);
             newList.set(1, "Korvattu");
             Assert.assertFalse(newList.equals(stringList));
@@ -493,4 +375,9 @@ public class ListTest {
             throw new UnsupportedOperationException();
         }
     }
+    
+    /**
+     * Testaa listan iteraattorin toimivuus.
+     */
+    
 }

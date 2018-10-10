@@ -9,13 +9,19 @@ import org.junit.Test;
  * Sellaiset testitapaukset OwnSet-luokalle, joita geneerinen CollectionTest ei kata.
  */
 public class SetTest {
-    Set<Integer> set = new OwnSet<>();
+    private Set<Integer> set = new OwnSet<>();
     
+    /**
+     * Tyhjennä joukko ennen testitapauksia.
+     */
     @Before
     public void clearSet() {
         set.clear();
     }
     
+    /**
+     * Tarkista, että joukko toimii oikein kun yritetään lisätä duplikaattiarvo.
+     */
     @Test
     public void addDuplicate() {
         Assert.assertEquals(0, set.size());
@@ -24,6 +30,9 @@ public class SetTest {
         Assert.assertEquals(1, set.size());
     }
     
+    /**
+     * Tarkista, että alkion poisto toimii oikein.
+     */
     @Test
     public void removeExisting() {
         Assert.assertTrue(set.add(5));
@@ -31,6 +40,9 @@ public class SetTest {
         Assert.assertEquals(0, set.size());
     }
     
+    /**
+     * Tarkista, että poisto-operaatio toimii oikein kun alkiota ei löydy joukosta.
+     */
     @Test
     public void removeNonExistent() {
         Assert.assertTrue(set.add(5));
@@ -38,6 +50,9 @@ public class SetTest {
         Assert.assertEquals(1, set.size());
     }
     
+    /**
+     * Tarkista, että joukon tyhjennys toimii oikein.
+     */
     @Test
     public void testClear() {
         Assert.assertEquals(0, set.size());

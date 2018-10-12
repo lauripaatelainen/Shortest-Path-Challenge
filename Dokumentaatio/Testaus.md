@@ -81,3 +81,8 @@ Bellman-Ford: O(S^2 * S^2) => O(S^4)
 
 Tähän muotoon muutetuista aikavaativuuksista on selvää, että Bellman-Fordin suoritus kestää pidempään. 
 
+### Tilanne 12.10.2018
+
+Kuluneen viikon aikana A* toteutuksen myötä toteutettiin ristiinvertailutesti, jolla oli tarkoitus varmistaa että kaikki algoritmit palauttavat saman tuloksen (tarkemmin saman painoisen tuloksen), ja voidaan varmistua siitä että kaikki algoritmit todella löytävät lyhimmän reitin, eikä vain jotain reittiä.  Ristiinvertailun tuloksena löytyi hankalasti löydettävä bugi, joka liittyi pelikentän solmun .equals()-metodin oikeellisuuteen. Kun pelikentän koko oli noin 24, equals() alkoi antamaan "false positive" tuloksia, jonka seurauksena algoritmit eivät ole aiemmin palauttaneet täysin oikeita tuloksia. Vian korjauksen jälkeen algoritmien kesto pidentyi, joten ylläolevat aiempien viikkojen mittaustulokset eivät ole oikeellisia. 
+
+Suoritukseen ja tietorakenteisiin liittyvä koodi on valmista ja kattavasti testattua. Lisäksi kuluvan viikon aikana on tehty mekanismi tarkempien mittaustulosten saamiseen, joka vaatii vielä pieniä hiomisia. Ensi viikona aikana testausdokumentti päivittyy lopulliseen muotoonsa.

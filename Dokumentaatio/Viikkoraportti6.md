@@ -1,10 +1,23 @@
 # Viikkoraportti 6
 
-Viikolla viimeistelty kaikki omat toteutukset tietorakenteista ja algoritmeista.
-Yksikkötestauksen kattavuus on hyvällä tasolla (**>95%** rivi ja mutaatiotestit).
-**Suorituskykytestauksen automatiikka rakennettu.**
-**Totetutusdokumentaatio edennyt hyvin**
-Pelin käyttöliittymä vaatii vielä hiomista lopulliseen palautukseen. Tarkoitus on käyttöliittymässä näyttää lyhyt vertailu siitä, miten eri algoritmit suorituivat pelin ratkaisemisesta.
+Tällä viikolla tehtyä:
+
+ - Viimeistelty kaikki omat toteutukset tietorakenteista ja algoritmeista. Kaikki muut oli tehty edellisellä viikolla, paitsi Set-tietorakenne ja A* algoritmi. 
+ - Toteutettu automatiikka suorituskykytestaukseen, joka vaatii vielä pienen viilauksen. 
+ - Toteutusdokumentaatio O-analyysejä vaille valmis.
+ - Javadoc tehty täysin.
+ - Yksikkötestausta lisätty, ei vielä täysin kunnossa.
+ - Lisäksi paljon korjauksia, ja koodin järkeistämistä olemassa olevaan koodiin. 
+
+Lopulliseen palautukseen jää tekemistä vielä:
+
+ - Yksikkötestauksen viimeistely.
+ - Testausautomatiikan viimeistely.
+ - Testitulosten taulukointi ja graafinen esitys.
+ - O-analyysi toteutusdokumenttiin. 
+ - Käyttöliittymän viilaus lopulliseen muotoon.
+
+Aikaa käytetty noin 25h
 
 [Testausdokumentti](Testaus.md)
 

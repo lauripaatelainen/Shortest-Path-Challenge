@@ -14,6 +14,7 @@ import java.util.Map;
  * Tukee toimintoja add(T item), decreaseKey(T item) ja extractMin(), joiden kaikkien aikavaativuus on O(log n)
  * 
  * @param <T> Tietotyyppi jonka alkoita minimikeko sisältää. 
+ * @see OwnAbstractCollection
  */
 public class MinHeap<T> extends OwnAbstractCollection<T> {
     private static final int DEFAULT_MIN_HEAP_SIZE = 10;

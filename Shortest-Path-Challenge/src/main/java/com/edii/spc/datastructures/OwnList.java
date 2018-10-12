@@ -6,7 +6,18 @@ import java.util.ListIterator;
 
 /**
  * Javan ArrayList-tietorakennetta vastaava oma tietorakenne. 
- * null-arvot ei ole sallittuja.
+ * Perii luokan {@link OwnAbstractList}, jossa on toteutettu jotain yleiskäyttöisiä {@link java.util.List}-rajapinnan metodeja. 
+ * Toteuttaa suurimman osan {@link java.util.List}-rajapinnan määrittelemistä toiminnoista. 
+ * Listan sisäinen rakenne koostuu Javan natiivista taulukosta, jota kasvatetaan aina kun siitä loppuu tila.
+ * Kasvuoperaatio tehdään vasta sillä hetkellä, kun tilaa tarvitaan, ja se aina tuplaa taulukon koon. 
+ * Listaa kasvattaessa koko lista joudutaan kopioimaan uuteen taulukkoon, joten kasvuoperaation
+ * aikavaativuus on O(n). Muissa aikavaativuuskommenteissa kasvuoperaatiota pidetään niin harvinaisena,
+ * että keskitytään aikavaativuuteen tapauksessa, kun listan sisäinen tietorakenn on entuudestaan
+ * tarvittavan suuri. 
+ * 
+ * Tietorakenteen pienennysoperaatiota ei ole toteutettu.
+ * 
+ * @see OwnAbstractList
  */
 public class OwnList<E> extends OwnAbstractList<E> {
     /**
@@ -27,9 +38,9 @@ public class OwnList<E> extends OwnAbstractList<E> {
     }
     
     /**
-     * Luo tyhjän listan annetun kokoisella tietorakenteella.
+     * Luo tyhjän listan annetun kokoisella sisäisellä tietorakenteella.
      * 
-     * @param initialCapacity Tietorakenteen koko
+     * @param initialCapacity Sisäisen tietorakenteen koko
      */
     public OwnList(int initialCapacity) {
         items = (E[]) new Object[initialCapacity];
@@ -100,17 +111,8 @@ public class OwnList<E> extends OwnAbstractList<E> {
     }
 
     /**
-     * Luo listasta iteraattorin.
-     * 
-     * @return Palauttaa listan iteraattorin.
-     */
-    @Override
-    public Iterator<E> iterator() {
-        return new OwnListIterator(0);
-    }
-
-    /**
-     * Lisää annetun alkion listan viimeiseksi. 
+     * Lisää annetun alkion listan loppuun. 
+     * Aikavaativuus O(1)
      * 
      * @param e Lisättävä alkio
      * @return Palauttaa aina true
@@ -129,13 +131,19 @@ public class OwnList<E> extends OwnAbstractList<E> {
     /**
      * Lisää kaikki annetun tietorakenteen alkiot annettuun listan indeksiin. 
      * Kyseisestä indeksistä eteenpäin olevia alkioita siirretään tarvittava määrä eteenpäin. 
+     * Aikavaativuus O(n)
      * 
      * @param i Indeksi, mihin alkiot lisätään.
      * @param clctn Tietorakenne, jonka alkiot lisätään.
      * @return true jos listaa muutettiin, eli aina kun clctn ei ole tyhjä.
+     * @throws IndexOutOfBoundsException Jos i &lt; 0 || i &gt;= size()
      */
     @Override
     public boolean addAll(int i, Collection<? extends E> clctn) {
+        if (i < 0 || i >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        
         if (clctn.isEmpty()) {
             return false;
         }
@@ -153,6 +161,8 @@ public class OwnList<E> extends OwnAbstractList<E> {
 
     /**
      * Tyhjentää listan.
+     * Huomaa, että tietorakenteen pienennysoperaatiota ei ole toteutettu, joten
+     * sisäinen tietorakenne säilyy saman kokoisena mitä se oli aiemmin.
      */
     @Override
     public void clear() {
@@ -167,14 +177,12 @@ public class OwnList<E> extends OwnAbstractList<E> {
      * 
      * @param i indeksi, jossa oleva alkio haetaan.
      * @return Palauttaa annetussa indeksissä olevan alkion.
+     * @throws IndexOutOfBoundsException Jos i &lt; 0 || i &gt;= size()
      */
     @Override
     public E get(int i) {
-        if (i >= size) {
-            throw new IndexOutOfBoundsException(String.format("%d >= %d", i, size));
-        }
-        if (i < 0) {
-            throw new IndexOutOfBoundsException(String.format("%d < 0", i));
+        if (i < 0 || i >= size) {
+            throw new IndexOutOfBoundsException();
         }
         
         return items[i];
@@ -182,6 +190,7 @@ public class OwnList<E> extends OwnAbstractList<E> {
 
     /**
      * Asettaa alkion annettuun indeksiin. 
+     * Aikavaativuus O(1)
      * 
      * @param i indeksi mihin alkio asetetaan.
      * @param e alkio joka lisätään.
@@ -204,9 +213,11 @@ public class OwnList<E> extends OwnAbstractList<E> {
     /**
      * Lisää alkion annetuun listan indeksiin. 
      * Indeksin jälkeen tulevia alkioita siirretään eteenpäin. 
+     * Aikavaativuus O(n)
      * 
      * @param i indeksi
      * @param e lisättävä alkio.
+     * @throws IndexOutOfBoundsException Jos i &lt; 0 || i &gt;= size()
      */
     @Override
     public void add(int i, E e) {
@@ -222,9 +233,13 @@ public class OwnList<E> extends OwnAbstractList<E> {
      * 
      * @param i indeksi, josta alkio poistetaan.
      * @return poistettu alkio.
+     * @throws IndexOutOfBoundsException Jos i &lt; 0 || i &gt;= size()
      */
     @Override
     public E remove(int i) {
+        if (i < 0 || i > size()) {
+            throw new IndexOutOfBoundsException();
+        }
         E item = items[i];
         shiftBack(i + 1, 1);
         this.size--;
@@ -233,6 +248,7 @@ public class OwnList<E> extends OwnAbstractList<E> {
 
     /**
      * Palauttaa ListIterator-objektin listaan kohdistuvia toimintoja varten.
+     * Kaikki iteraattorin valinnaiset metodit, kuten set() ja remove() ovat tuettuja.
      * 
      * @param i indeksi
      * @return Palautta ListIterator-objektin.
@@ -242,6 +258,9 @@ public class OwnList<E> extends OwnAbstractList<E> {
         return new OwnListIterator(i);
     }
     
+    /**
+     * Sisäinen luokka, joka toteuttaa ListIterator-rajapinnan. 
+     */
     private class OwnListIterator implements ListIterator<E> {
         private int i = 0;
         private int last = -1;

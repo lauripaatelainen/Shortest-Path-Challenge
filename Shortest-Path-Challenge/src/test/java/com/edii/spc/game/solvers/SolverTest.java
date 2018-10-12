@@ -45,6 +45,7 @@ public class SolverTest {
     
     /**
      * Tarkistaa että algoritmin tekemä polku on polku alkusolmusta loppusolmuun, ja että se on painoltaan pienempi kuin yksinkertainen vasenta laitaa alas ja alareunaa oikealle kulkeva polku. 
+     * @throws InterruptedException Jos solverin suoritus keskeytetään ennenaikaisesti.
      */
     @Test
     public void testSolver1() throws InterruptedException {
@@ -72,6 +73,7 @@ public class SolverTest {
     
     /**
      * Tarkistaa että algoritmin tekemä polku on polku alkusolmusta loppusolmuun, ja että se on painoltaan pienempi kuin yksinkertainen yläreunaa oikealle ja oikeaa reunaa alas kulkeva polku. 
+     * @throws InterruptedException Jos solverin suoritus keskeytetään ennenaikaisesti.
      */
     @Test
     public void testSolver2() throws InterruptedException {
@@ -99,6 +101,7 @@ public class SolverTest {
     
     /**
      * Tarkistaa että algoritmin tekemä polku on polku alkusolmusta loppusolmuun, ja että se on painoltaan pienempi kuin yksinkertainen vuorotellen oikealle ja alas kulkeva polku.
+     * @throws InterruptedException Jos solverin suoritus keskeytetään ennenaikaisesti.
      */
     @Test
     public void testSolver3() throws InterruptedException {
@@ -123,6 +126,7 @@ public class SolverTest {
     
     /**
      * Tarkistaa että algoritmin tekemä polku on polku alkusolmusta loppusolmuun, ja että se on painoltaan pienempi kuin yksinkertainen vuorotellen alas ja oikealle kulkeva polku.
+     * @throws InterruptedException Jos solverin suoritus keskeytetään ennenaikaisesti.
      */
     @Test
     public void testSolver4() throws InterruptedException {

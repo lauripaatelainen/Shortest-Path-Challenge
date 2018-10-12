@@ -4,6 +4,16 @@ import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Iterator;
 
+/**
+ * Abstrakti yläluokka kaikille Collection-rajapinnan toteuttaville luokille. 
+ * Tässä luokassa toteutettu muutamia metodeja, jotka ovat kaikille kokoelmille samat. 
+ * @param <E> Geneerinen tyyppi
+ * @see OwnAbstractList
+ * @see OwnAbstractSet
+ * @see OwnList
+ * @see OwnLinkedList
+ * @see OwnSet
+ */
 public abstract class OwnAbstractCollection<E> implements Collection<E> {
     private E[] e = (E[]) Array.newInstance(this.getClass(), 1);
 

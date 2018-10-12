@@ -27,6 +27,7 @@ public class SolverCrossCheck {
     
     /**
      * Luo erikokoisia pelikenttiä, ja tarkistaa että kaikilla solvereilla ratkaistun lyhimmän polun paino on sama.
+     * @throws InterruptedException Jos solverin suoritus keskeytetään ennenaikaisesti.
      */
     @Test
     public void crossCheckAllSolvers() throws InterruptedException {

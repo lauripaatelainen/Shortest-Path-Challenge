@@ -8,7 +8,12 @@ import java.util.Objects;
 
 /**
  * Abstrakti yläluokka List-rajapinnan toteuttaville luokille.
- * Käytetään OwnLinkedList ja OwnList -luokissa niiden metodien osalta, joihin ei ole toteutuskohtaista suorituskykyvaikutusta. 
+ * Käytetään OwnLinkedList ja OwnList -luokissa niiden metodien osalta,
+ * joihin ei ole toteutuskohtaista suorituskykyvaikutusta, ja joita ei ole
+ * toteutettu OwnAbstractCollection-luokassa.
+ * @see OwnAbstractCollection
+ * @see OwnList
+ * @see OwnLinkedList
  */
 public abstract class OwnAbstractList<E> extends OwnAbstractCollection<E> implements List<E> {
     /**
@@ -104,13 +109,25 @@ public abstract class OwnAbstractList<E> extends OwnAbstractCollection<E> implem
     public List<E> subList(int start, int end) {
         throw new UnsupportedOperationException("Ei tuettu toiminto.");
     }
+    
+    /**
+     * Palauttaa Iteratorj-rajapinnan toteuttavan olion listan läpikäyntiä varten.
+     * Kaikki iteraattorin valinnaiset metodit, kuten set() ja remove() ovat tuettuja.
+     * Iteraattori osoittaa listan alkuun. 
+     * @return Palauttaa iteraattorin
+     */
+    @Override    
+    public Iterator<E> iterator() {
+        return listIterator();
+    }
 
     /**
      * Palauttaa ListIterator-rajapinnan toteuttavan objektin.
+     * Kaikki iteraattorin valinnaiset metodit, kuten set() ja remove() ovat tuettuja.
      * Kutsuu listIterator(0) -metdia.
+     * Palautettu iteraattori osoittaa listan alkuun. 
      * 
      * @return ListIterator
-     * @throws UnsupportedOperationException jos toteuttava luokka ei tue listIterator(int) metodia.
      */
     @Override
     public ListIterator<E> listIterator() {

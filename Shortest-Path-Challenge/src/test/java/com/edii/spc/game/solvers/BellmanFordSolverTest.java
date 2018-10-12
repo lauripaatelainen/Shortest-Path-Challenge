@@ -14,6 +14,7 @@ public class BellmanFordSolverTest {
     /**
      * Tarkista, että kun BellmanFordSolveria kutsutaan pelikentällä, jossa
      * on negatiivinen sykli, syntyy IllegalArgumentException.
+     * @throws InterruptedException Jos solverin suoritus keskeytetään ennenaikaisesti.
      */
     @Test(expected = IllegalArgumentException.class)
     public void testNegativeCycle() throws InterruptedException {

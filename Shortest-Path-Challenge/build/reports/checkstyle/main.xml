@@ -2,13 +2,18 @@
 <checkstyle version="6.19">
 <file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/datastructures/MinHeap.java">
 </file>
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/datastructures/OwnAbstractCollection.java">
+</file>
 <file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/datastructures/OwnAbstractList.java">
+</file>
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/datastructures/OwnAbstractSet.java">
 </file>
 <file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/datastructures/OwnLinkedList.java">
 </file>
 <file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/datastructures/OwnList.java">
 </file>
 <file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/datastructures/OwnMap.java">
+<error line="1" severity="error" message="File length is 638 lines (max allowed is 500)." source="com.puppycrawl.tools.checkstyle.checks.sizes.FileLengthCheck"/>
 </file>
 <file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/datastructures/OwnSet.java">
 </file>
@@ -24,6 +29,8 @@
 </file>
 <file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/game/GameFieldPath.java">
 </file>
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/game/solvers/AStarSolver.java">
+</file>
 <file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/game/solvers/BellmanFordSolver.java">
 </file>
 <file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/game/solvers/DijkstraSolver.java">
@@ -32,10 +39,22 @@
 </file>
 <file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/perf/PerformanceTest.java">
 </file>
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/perf/SolverTest.java">
+</file>
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/perf/Test.java">
+</file>
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/perf/TestCase.java">
+</file>
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/perf/TestResult.java">
+</file>
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/perf/TestRunner.java">
+</file>
 <file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/ui/GameFieldUI.java">
 </file>
 <file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/ui/NewGameDialog.java">
 </file>
 <file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/ui/SwingUI.java">
+</file>
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/ui/TextUtil.java">
 </file>
 </checkstyle>

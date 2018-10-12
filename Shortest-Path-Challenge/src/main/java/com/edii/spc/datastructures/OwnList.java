@@ -1,7 +1,6 @@
 package com.edii.spc.datastructures;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.ListIterator;
 
 /**
@@ -140,8 +139,8 @@ public class OwnList<E> extends OwnAbstractList<E> {
      */
     @Override
     public boolean addAll(int i, Collection<? extends E> clctn) {
-        if (i < 0 || i >= size) {
-            throw new IndexOutOfBoundsException();
+        if (i < 0 || i > size) {
+            throw new IndexOutOfBoundsException(String.format("%d", i));
         }
         
         if (clctn.isEmpty()) {

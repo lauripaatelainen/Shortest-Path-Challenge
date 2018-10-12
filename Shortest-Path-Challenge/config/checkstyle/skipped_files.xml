@@ -9,4 +9,5 @@
     <suppress files="com.edii.spc.ui.NewGameDialog.java" checks="[a-zA-Z0-9]*"/>
     <suppress files="com.edii.spc.ui.SwingUI.java" checks="[a-zA-Z0-9]*"/>
     <suppress files="com.edii.spc.ui.TextUI.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="com.edii.spc.perf.*" checks="[a-zA-Z0-9]*" />
 </suppressions>

@@ -1,4 +1,4 @@
-# Viikkoraportti 4
+# Viikkoraportti 5
 
 Tällä viikolla toteutettu suurin osa tietorakenteista. Omina toteutuksina on nyt tehty minimikeko, lista, linkitetty lista ja hajautustaulu.
 Ensi viikolle jäljelle jää joukko-tietorakenteen toteuttaminen, jonka pitäisi olla yksinkertainen tehtävä. 

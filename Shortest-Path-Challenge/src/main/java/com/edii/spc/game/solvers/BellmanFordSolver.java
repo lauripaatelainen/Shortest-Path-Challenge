@@ -5,6 +5,7 @@ import com.edii.spc.game.GameField;
 import com.edii.spc.game.GameFieldEdge;
 import com.edii.spc.game.GameFieldNode;
 import com.edii.spc.game.GameFieldPath;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,7 +13,7 @@ import java.util.Set;
  * Ratkaisee pelikentän Bellman-Ford algoritmilla.
  */
 public class BellmanFordSolver implements Solver {
-
+    private volatile boolean interrupted = false;
     private Map<GameFieldNode, Integer> distance;
     private Map<GameFieldNode, GameFieldEdge> edgeToPrevious;
     private Set<GameFieldNode> nodes;
@@ -37,21 +38,25 @@ public class BellmanFordSolver implements Solver {
     }
 
     @Override
-    public GameFieldPath solve(GameField field) {
+    public GameFieldPath solve(GameField field) throws InterruptedException {
         init(field);
-        for (int i = 1; i < nodes.size(); i++) {
+        for (int i = 1; !interrupted && i < nodes.size(); i++) {
+            Iterator<GameFieldEdge> iterator = edges.iterator();
+            while (!interrupted && iterator.hasNext()) {
+                relax(iterator.next());
+            }
+        }
+        
+        if (interrupted) {
+            throw new InterruptedException();
+        } else {
             for (GameFieldEdge edge : edges) {
-                relax(edge);
+                if (distance.get(edge.getNodes().getFirst()) + edge.getWeight() < distance.get(edge.getNodes().getSecond())) {
+                    throw new IllegalArgumentException("Pelikentässä negatiivinen sykli");
+                }
             }
+            return formPath(field);
         }
-
-        for (GameFieldEdge edge : edges) {
-            if (distance.get(edge.getNodes().getFirst()) + edge.getWeight() < distance.get(edge.getNodes().getSecond())) {
-                throw new IllegalArgumentException("Pelikentässä negatiivinen sykli");
-            }
-        }
-
-        return formPath(field);
     }
 
     private void relax(GameFieldEdge edge) {
@@ -69,5 +74,10 @@ public class BellmanFordSolver implements Solver {
             path.addEdge(edgeToPrevious.get(path.getEndNode()));
         }
         return path.reverse();
+    }
+
+    @Override
+    public void interrupt() {
+        interrupted = true;
     }
 }

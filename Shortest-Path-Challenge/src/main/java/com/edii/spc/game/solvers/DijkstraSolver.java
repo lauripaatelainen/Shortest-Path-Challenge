@@ -19,7 +19,8 @@ public class DijkstraSolver implements Solver {
             return distance.get(node1) - distance.get(node2);
         }
     };
-    
+
+    private volatile boolean interrupted = false;
     private GameField field;
     private Map<GameFieldNode, Integer> distance;
     private Map<GameFieldNode, GameFieldEdge> edgeToPrevious;
@@ -47,10 +48,10 @@ public class DijkstraSolver implements Solver {
     }
     
     @Override
-    public GameFieldPath solve(GameField field) {
+    public GameFieldPath solve(GameField field) throws InterruptedException {
         init(field);
         
-        while (!queue.isEmpty()) {
+        while (!interrupted && !queue.isEmpty()) {
             GameFieldNode u = queue.extractMin();
             for (GameFieldEdge edge : u.getEdges()) {
                 if (distance.get(edge.getNodes().getSecond()) > distance.get(u) + edge.getWeight()) {
@@ -61,6 +62,15 @@ public class DijkstraSolver implements Solver {
             }
         }
         
+        if (interrupted) {
+            throw new InterruptedException();
+        }
+        
         return formPath();
+    }
+
+    @Override
+    public void interrupt() {
+        interrupted = true;
     }
 }

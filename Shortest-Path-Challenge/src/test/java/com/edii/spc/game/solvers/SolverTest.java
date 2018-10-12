@@ -47,7 +47,7 @@ public class SolverTest {
      * Tarkistaa että algoritmin tekemä polku on polku alkusolmusta loppusolmuun, ja että se on painoltaan pienempi kuin yksinkertainen vasenta laitaa alas ja alareunaa oikealle kulkeva polku. 
      */
     @Test
-    public void testSolver1() {
+    public void testSolver1() throws InterruptedException {
         for (int i = 2; i < 5; i++) {
             GameField gameField = GameField.generateRandomField(i);
             GameFieldPath path1 = new GameFieldPath(gameField.getStart());
@@ -74,7 +74,7 @@ public class SolverTest {
      * Tarkistaa että algoritmin tekemä polku on polku alkusolmusta loppusolmuun, ja että se on painoltaan pienempi kuin yksinkertainen yläreunaa oikealle ja oikeaa reunaa alas kulkeva polku. 
      */
     @Test
-    public void testSolver2() {
+    public void testSolver2() throws InterruptedException {
         for (int i = 2; i < 5; i++) {
             GameField gameField = GameField.generateRandomField(i);
             GameFieldPath path2 = new GameFieldPath(gameField.getStart());
@@ -101,7 +101,7 @@ public class SolverTest {
      * Tarkistaa että algoritmin tekemä polku on polku alkusolmusta loppusolmuun, ja että se on painoltaan pienempi kuin yksinkertainen vuorotellen oikealle ja alas kulkeva polku.
      */
     @Test
-    public void testSolver3() {
+    public void testSolver3() throws InterruptedException {
         for (int i = 2; i < 5; i++) {
             GameField gameField = GameField.generateRandomField(i);
             GameFieldPath path3 = new GameFieldPath(gameField.getStart());
@@ -125,7 +125,7 @@ public class SolverTest {
      * Tarkistaa että algoritmin tekemä polku on polku alkusolmusta loppusolmuun, ja että se on painoltaan pienempi kuin yksinkertainen vuorotellen alas ja oikealle kulkeva polku.
      */
     @Test
-    public void testSolver4() {
+    public void testSolver4() throws InterruptedException {
         for (int i = 2; i < 5; i++) {
             GameField gameField = GameField.generateRandomField(i);
             GameFieldPath path4 = new GameFieldPath(gameField.getStart());

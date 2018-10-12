@@ -16,7 +16,7 @@ public class BellmanFordSolverTest {
      * on negatiivinen sykli, syntyy IllegalArgumentException.
      */
     @Test(expected = IllegalArgumentException.class)
-    public void testNegativeCycle() {
+    public void testNegativeCycle() throws InterruptedException {
         GameField field = GameField.generateRandomField(5);
         GameFieldNode node = field.getNode(2, 2);
         GameFieldNode secondNode = node.getRightEdge().getNodes().getSecond();

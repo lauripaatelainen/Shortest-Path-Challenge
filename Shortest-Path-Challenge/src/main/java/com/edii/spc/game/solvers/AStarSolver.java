@@ -22,6 +22,7 @@ public class AStarSolver implements Solver {
         }
     };
     
+    private volatile boolean interrupted = false;
     private GameField field;
     private Set<GameFieldNode> nodes;
     private GameFieldNode start;
@@ -80,15 +81,19 @@ public class AStarSolver implements Solver {
     }
 
     @Override
-    public GameFieldPath solve(GameField field) {
+    public GameFieldPath solve(GameField field) throws InterruptedException {
         init(field);
-        while (!openSet.isEmpty()) {
+        while (!interrupted && !openSet.isEmpty()) {
             GameFieldNode current = openSet.extractMin();
             if (current.equals(goal)) {
                 break;
             }
             
             handleNode(current);
+        }
+        
+        if (interrupted) {
+            throw new InterruptedException();
         }
         
         return formPath();
@@ -131,5 +136,10 @@ public class AStarSolver implements Solver {
             path.addEdge(edgeToPrevious.get(path.getEndNode()));
         }
         return path.reverse();
+    }
+
+    @Override
+    public void interrupt() {
+        this.interrupted = true;
     }
 }

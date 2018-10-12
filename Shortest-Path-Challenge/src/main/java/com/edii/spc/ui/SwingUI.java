@@ -166,7 +166,12 @@ public class SwingUI extends JFrame implements GameFieldUI.PathChangedListener {
     private void gameFinished() {
         gameOver = true;
         Solver solver = new BellmanFordSolver();
-        GameFieldPath path = solver.solve(game.getGameField());
+        GameFieldPath path;
+        try {
+            path = solver.solve(game.getGameField());
+        } catch (InterruptedException e) {
+            path = null;
+        }
         gameArea.setShortestPath(path);
         gameArea.setGameOver(true);
         

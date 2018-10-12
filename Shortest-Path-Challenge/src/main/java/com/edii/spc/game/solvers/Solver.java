@@ -13,6 +13,13 @@ public interface Solver {
      * 
      * @param field Ratkaistava pelikenttä
      * @return Palauttaa lyhimmän polun. 
+     * @throws InterruptedException jos ratkaisu keskeytetään ennen kuin se valmistuu
      */
-    public GameFieldPath solve(GameField field);
+    public GameFieldPath solve(GameField field) throws InterruptedException;
+    
+    /**
+     * Keskeytä ratkaisu ennen valmistumista.
+     * Aiheuttaa samaan aikaan ajossa olevan solve()-operaation päätymään InterruptedException -virheesen.
+     */
+    public void interrupt();
 }

@@ -29,7 +29,7 @@ public class SolverCrossCheck {
      * Luo erikokoisia pelikenttiä, ja tarkistaa että kaikilla solvereilla ratkaistun lyhimmän polun paino on sama.
      */
     @Test
-    public void crossCheckAllSolvers() {
+    public void crossCheckAllSolvers() throws InterruptedException {
         for (int i = 2; i <= 20; i++) {
             GameField field = GameField.generateRandomField(i);
             GameFieldPath lastSolution = null;

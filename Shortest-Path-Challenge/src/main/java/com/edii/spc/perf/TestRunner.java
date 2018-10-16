@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.edii.spc.perf;
 
 import com.edii.spc.datastructures.OwnList;
@@ -18,6 +13,15 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author edii
  */
 public class TestRunner {
+    public interface TestRunnerListener {
+        public void testRunnerStarted(TestRunner runner);
+        public void testRunnerFinished(TestRunner runner);
+        public void testStarted(Test test);
+        public void testFinished(Test test);
+        public void testCaseStarted(TestCase testCase);
+        public void testCaseFinished(TestCase testCase);
+    }
+    
 
     private interface Task {
 
@@ -105,6 +109,7 @@ public class TestRunner {
     private Test currentTest = null;
     private TestCase currentTestCase = null;
     private volatile boolean currentTestInterrupted = false;
+    private TestRunnerListener listener = null;
 
     private final long testTimeout;
     private final long testCaseTimeout;
@@ -118,6 +123,10 @@ public class TestRunner {
     public TestRunner(long testTimeout, long testCaseTimeout) {
         this.testTimeout = testTimeout;
         this.testCaseTimeout = testCaseTimeout;
+    }
+    
+    public void setTestRunnerListener(TestRunnerListener listener) {
+        this.listener = listener;
     }
 
     public void addTest(Test test) {
@@ -184,7 +193,9 @@ public class TestRunner {
         while (!interrupted && !currentTestInterrupted && iterator.hasNext()) {
             currentTestCase = iterator.next();
             Task testCaseRunnable = new TestCaseTask(currentTestCase);
+            notifyTestCaseStarted(currentTestCase);
             runWithTimeout(testCaseTimeout, testCaseRunnable);
+            notifyTestCaseStarted(currentTestCase);
         }
         currentTestCase = null;
     }
@@ -195,11 +206,13 @@ public class TestRunner {
             currentTestInterrupted = false;
             currentTest = iterator.next();
             Task testRunnable = new TestTask(currentTest);
+            notifyTestStarted(currentTest);
             runWithTimeout(testTimeout, testRunnable);
 
             testResultsLock.lock();
             try {
                 testResults.add(currentTest.getTestResults());
+                notifyTestFinished(currentTest);
                 moreResults.signalAll();
             } finally {
                 testResultsLock.unlock();
@@ -228,7 +241,9 @@ public class TestRunner {
                     } finally {
                         startLock.unlock();
                     }
+                    notifyTestRunnerStarted();
                     TestRunner.this.run();
+                    notifyTestRunnerFinished();
                 } catch (InterruptedException e) {
                     System.err.println("InterruptedException TestRunnerin ajossa");
                     e.printStackTrace(System.err);
@@ -259,5 +274,41 @@ public class TestRunner {
 
     public Iterator<TestResult> getTestResultIterator() {
         return new TestResultIterator();
+    }
+    
+    private void notifyTestRunnerStarted() {
+        if (this.listener != null) {
+            this.listener.testRunnerStarted(this);
+        }
+    }
+    
+    private void notifyTestRunnerFinished() {
+        if (this.listener != null) {
+            this.listener.testRunnerFinished(this);
+        }
+    }
+    
+    private void notifyTestStarted(Test test) {
+        if (this.listener != null) {
+            this.listener.testStarted(test);
+        }
+    }
+    
+    private void notifyTestFinished(Test test) {
+        if (this.listener != null) {
+            this.listener.testFinished(test);
+        }
+    }
+    
+    private void notifyTestCaseStarted(TestCase testCase) {
+        if (this.listener != null) {
+            this.listener.testCaseStarted(testCase);
+        }
+    }
+    
+    private void notifyTestCaseFinished(TestCase testCase) {
+        if (this.listener != null) {
+            this.listener.testCaseFinished(testCase);
+        }
     }
 }

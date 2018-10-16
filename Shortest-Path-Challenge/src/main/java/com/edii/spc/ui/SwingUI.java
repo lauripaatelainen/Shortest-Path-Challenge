@@ -1,5 +1,7 @@
 package com.edii.spc.ui;
 
+import com.edii.spc.datastructures.OwnList;
+import com.edii.spc.datastructures.OwnMap;
 import com.edii.spc.game.Game;
 import com.edii.spc.game.GameFieldPath;
 import com.edii.spc.game.solvers.AStarSolver;
@@ -8,6 +10,8 @@ import com.edii.spc.game.solvers.DijkstraSolver;
 import com.edii.spc.game.solvers.Solver;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import java.util.List;
+import java.util.Map;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,6 +25,13 @@ import javax.swing.JPanel;
 public class SwingUI extends JFrame implements GameFieldUI.PathChangedListener {
     private static final int GAME_DURATION = 10;
     
+    private final List<Solver> solvers = new OwnList<>();
+    {
+        solvers.add(new BellmanFordSolver());
+        solvers.add(new DijkstraSolver());
+        solvers.add(new AStarSolver());
+    }
+
     private Game game;
     private boolean gameOver;
     private JButton newGameButton;
@@ -32,30 +43,59 @@ public class SwingUI extends JFrame implements GameFieldUI.PathChangedListener {
     private JLabel timeLeftText;
     private JButton acceptButton;
     
-    private boolean timerThreadRunning = false;
-    private Thread timerThread = null;
-    private final Runnable timerRunnable = new Runnable() {
+    private GameTimer currentGameTimer;
+    
+    private static class GameTimer implements Runnable {
+        private final Runnable onTimeChange;
+        private final Runnable onFinish;
+
+        private volatile boolean canceled = false;
+        private volatile boolean interrupted = false;
+        private volatile boolean running = false;
+        private int timeLeft;
+        
+        public GameTimer(int time, Runnable onTimeChange, Runnable onFinish) {
+            this.timeLeft = time;
+            this.onTimeChange = onTimeChange;
+            this.onFinish = onFinish;
+        }
+
         @Override
         public void run() {
-            timerThreadRunning = true;
+            running = true;
             
-            int timeLeft = GAME_DURATION;
-            while (!gameOver && timeLeft > 0) {
-                timeLeftUpdated(timeLeft);
-                
+            while (!interrupted && timeLeft > 0) {
+                onTimeChange.run();
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     return;
                 }
+                
                 timeLeft--;
             }
-            if (!gameOver) {
-                gameFinished();
+            onTimeChange.run();
+            
+            if (!canceled) {
+                onFinish.run();
             }
-            timerThreadRunning = false;
+            
+            running = false;
         }
-    };
+        
+        public void interrupt() {
+            this.interrupted = true;
+        }
+        
+        public void cancel() {
+            this.canceled = true;
+            interrupt();
+        }
+        
+        public boolean isRunning() {
+            return this.running;
+        }
+    }
     
     /**
      * Oletuskonstruktori, jossa luodaan käyttöliittymä ja alustetaan toiminnot.
@@ -131,7 +171,7 @@ public class SwingUI extends JFrame implements GameFieldUI.PathChangedListener {
         game = new Game(size);
         gameOver = false;
         generateGameArea();
-        startTimer();
+        startTimer(GAME_DURATION);
     }
     
     /**
@@ -139,12 +179,29 @@ public class SwingUI extends JFrame implements GameFieldUI.PathChangedListener {
      * 
      * Laskee sekunteja alaspäin.
      */
-    private void startTimer() {
-        if (timerThreadRunning) {
-            timerThread.interrupt();
+    private void startTimer(int time) {
+        if (currentGameTimer != null && currentGameTimer.isRunning()) {
+            currentGameTimer.cancel();
         }
-        timerThread = new Thread(timerRunnable);
-        timerThread.start();
+        
+        Runnable onTimeChange = new Runnable() {
+            @Override
+            public void run() {
+                timeLeftUpdated(currentGameTimer.timeLeft);
+            }
+        };
+        
+        Runnable onFinish = new Runnable() {
+            @Override
+            public void run() {
+                if (!gameOver) {
+                    gameFinished();
+                }
+            }
+        };
+        
+        currentGameTimer = new GameTimer(time, onTimeChange, onFinish);
+        new Thread(currentGameTimer).start();
     }
     
     /**
@@ -165,22 +222,35 @@ public class SwingUI extends JFrame implements GameFieldUI.PathChangedListener {
      */
     private void gameFinished() {
         gameOver = true;
-        Solver solver = new BellmanFordSolver();
-        GameFieldPath path;
-        try {
-            path = solver.solve(game.getGameField());
-        } catch (InterruptedException e) {
-            path = null;
+        
+        Map<Solver, GameFieldPath> shortestPaths = new OwnMap<>();
+        Map<Solver, Long> solverDurations = new OwnMap<>();
+        int shortestPathWeight = Integer.MAX_VALUE;
+        for (Solver solver : solvers) {
+            GameFieldPath path;
+            try {
+                long start = System.currentTimeMillis();
+                path = solver.solve(game.getGameField());
+                long end = System.currentTimeMillis();
+                shortestPathWeight = Math.min(path.getWeight(), shortestPathWeight);
+                shortestPaths.put(solver, path);
+                solverDurations.put(solver, end - start);
+                
+            } catch (InterruptedException e) {
+                path = null;
+            }
         }
-        gameArea.setShortestPath(path);
+        
+        gameArea.setShortestPaths(shortestPaths);
+        gameArea.setSolverDurations(solverDurations);
         gameArea.setGameOver(true);
         
         GameFieldPath userPath = gameArea.getUserPath();
         String notificationText;
         if (!userPath.getEndNode().equals(game.getGameField().getFinish())) {
-            notificationText = "Peli ohi! Lyhimmän polun pituus olisi ollut " + path.getWeight() + ". Sinun polku ei saavuttanut maalia.";
-        } else if (userPath.getWeight() != path.getWeight()) {
-            notificationText = "Peli ohi! Lyhimmän polun pituus olisi ollut " + path.getWeight() + ". Sinun polku on pidempi, pituus " + userPath.getWeight() + ".";
+            notificationText = "Peli ohi! Lyhimmän polun pituus olisi ollut " + shortestPathWeight + ". Sinun polkusi ei saavuttanut maalia.";
+        } else if (userPath.getWeight() != shortestPathWeight) {
+            notificationText = "Peli ohi! Lyhimmän polun pituus olisi ollut " + shortestPathWeight + ". Sinun polkusi on pidempi, pituus " + userPath.getWeight() + ".";
         } else {
             notificationText = "Onneksi olkoon, löysit lyhimmän polun!";
         }
@@ -192,6 +262,10 @@ public class SwingUI extends JFrame implements GameFieldUI.PathChangedListener {
      * Tapahtuma, joka liipaistaan kun pelaaja hyväksyy sen hetkisen polun.
      */
     private void acceptClicked() {
+        if (currentGameTimer != null && currentGameTimer.isRunning()) {
+            currentGameTimer.cancel();
+        }
+        
         gameFinished();
     }
 

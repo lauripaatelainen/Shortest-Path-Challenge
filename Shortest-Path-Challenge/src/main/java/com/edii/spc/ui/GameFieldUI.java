@@ -13,11 +13,13 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
+import java.awt.Stroke;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -31,17 +33,20 @@ import javax.swing.JPanel;
  * @see SwingUI
  */
 public class GameFieldUI extends JPanel {
+
     private static final int PATH_COLOR = 0x000000;
     private static final int NODE_EDGE_COLOR = 0x000000;
     private static final int EMPTY_NODE_COLOR = 0xFFFFFF;
-    
+
     private static final int USER_PATH_COLOR = 0x88FF88;
     private static final int USER_PATH_END_NODE_COLOR = 0x00FF00;
     private static final int USER_PATH_NODE_COLOR = 0x88FF88;
-    
+
     private static final int[] SHORTEST_PATH_COLORS = {
-        0xFF4444, 0xFFFF00, 0xFF00FF
+        0xFF0000, 0xFFFF00, 0x0000FF
     };
+
+    private static final int LEGEND_HEIGHT = 150;
 
     /**
      * Kuuntelija, jolla voi seurata pelaajan sen hetkisen polun muuttumista.
@@ -74,8 +79,8 @@ public class GameFieldUI extends JPanel {
             @Override
             public void mousePressed(MouseEvent me) {
                 if (!gameOver) {
-                    int x = Math.round(((float) peli.getSize() - 1) * ((float) me.getX()) / ((float) getWidth()));
-                    int y = Math.round(((float) peli.getSize() - 1) * ((float) me.getY()) / ((float) getHeight()));
+                    int x = Math.round(((float) peli.getSize() - 1) * ((float) me.getX()) / ((float) gameFieldWidth));
+                    int y = Math.round(((float) peli.getSize() - 1) * ((float) me.getY()) / ((float) gameFieldHeight));
                     nodeClicked(x, y);
                 }
             }
@@ -169,8 +174,8 @@ public class GameFieldUI extends JPanel {
         this.revalidate();
     }
 
-    private int width = getWidth();
-    private int height = getHeight();
+    private int gameFieldWidth = getWidth();
+    private int gameFieldHeight = getHeight();
     private int cellWidth = 1;
     private int cellHeight = 1;
     private int fontHeight = 1;
@@ -187,12 +192,12 @@ public class GameFieldUI extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
         AffineTransform originalTransform = g2.getTransform();
 
-        width = getWidth();
-        height = getHeight();
-        cellWidth = width / game.getSize();
-        cellHeight = height / game.getSize();
+        gameFieldWidth = getWidth();
+        gameFieldHeight = getHeight() - LEGEND_HEIGHT;
+        cellWidth = gameFieldWidth / game.getSize();
+        cellHeight = gameFieldHeight / game.getSize();
 
-        fontHeight = height / game.getSize() / 3;
+        fontHeight = gameFieldHeight / game.getSize() / 3;
         fontWidth = fontHeight / 3;
 
         g.setFont(new Font("Arial", Font.BOLD, fontHeight));
@@ -200,28 +205,48 @@ public class GameFieldUI extends JPanel {
         paintShortestPaths(g2);
         paintUserPath(g2);
         paintGameField(g2);
+
+        paintLegend(g2);
     }
 
     private void paintShortestPaths(Graphics2D g2) {
+        AffineTransform transform = g2.getTransform();
+        int strokeWidth = Math.min(cellWidth, cellHeight) / 20;
+        g2.setStroke(new BasicStroke(strokeWidth));
         for (int i = 0; i < solvers.size(); i++) {
+            if (i % 2 == 0) {
+                g2.translate((i + 1) * strokeWidth, (i + 1) * -strokeWidth);
+            } else {
+                g2.translate((i + 1) * -strokeWidth, (i + 1) * strokeWidth);
+            }
             g2.setPaint(new Color(SHORTEST_PATH_COLORS[i % SHORTEST_PATH_COLORS.length]));
-            g2.setStroke(new BasicStroke(10 + 10 * (solvers.size() - i)));
             paintPath(g2, shortestPaths.get(solvers.get(i)));
         }
+
+        g2.setTransform(transform);
     }
+
+    /*
+    private void paintShortestPaths(Graphics2D g2) {
+        for (int i = 0; i < solvers.size(); i++) {
+            g2.setPaint(new Color(SHORTEST_PATH_COLORS[i % SHORTEST_PATH_COLORS.length]));
+            g2.setStroke(new BasicStroke(Math.min(cellWidth, cellHeight) / 20 * (solvers.size() - i + 1)));
+            paintPath(g2, shortestPaths.get(solvers.get(i)));
+        }
+    }*/
 
     private void paintUserPath(Graphics2D g2) {
         g2.setPaint(new Color(USER_PATH_COLOR));
-        g2.setStroke(new BasicStroke(10));
+        g2.setStroke(new BasicStroke(Math.min(cellWidth, cellHeight) / 15));
         paintPath(g2, userPath);
     }
-    
+
     private void paintPath(Graphics2D g2, GameFieldPath path) {
         for (GameFieldEdge edge : path.getEdges()) {
-            Shape line = new Line2D.Double(cellWidth * edge.getNodes().getFirst().getX()  + cellWidth / 2,
-                cellHeight * edge.getNodes().getFirst().getY() + cellHeight / 2,
-                cellWidth * edge.getNodes().getSecond().getX() + cellWidth / 2,
-                cellHeight * edge.getNodes().getSecond().getY() + cellHeight / 2
+            Shape line = new Line2D.Double(cellWidth * edge.getNodes().getFirst().getX() + cellWidth / 2,
+                    cellHeight * edge.getNodes().getFirst().getY() + cellHeight / 2,
+                    cellWidth * edge.getNodes().getSecond().getX() + cellWidth / 2,
+                    cellHeight * edge.getNodes().getSecond().getY() + cellHeight / 2
             );
             g2.draw(line);
         }
@@ -229,7 +254,7 @@ public class GameFieldUI extends JPanel {
 
     private void paintGameField(Graphics2D g2) {
         Set<GameFieldNode> userPathNodes = userPath.getNodes();
-        
+
         for (int y = 0; y < game.getSize(); y++) {
             for (int x = 0; x < game.getSize(); x++) {
                 GameFieldNode node = game.getGameField().getNode(x, y);
@@ -272,7 +297,7 @@ public class GameFieldUI extends JPanel {
                 Shape nodeCircle = new Ellipse2D.Double(cellWidth * x + cellWidth / 3, cellHeight * y + cellHeight / 3, cellWidth / 3, cellHeight / 3);
 
                 int nodeColor;
-                
+
                 if (userPath.getEndNode().equals(node)) {
                     nodeColor = USER_PATH_END_NODE_COLOR;
                 } else if (userPathNodes.contains(node)) {
@@ -280,12 +305,39 @@ public class GameFieldUI extends JPanel {
                 } else {
                     nodeColor = EMPTY_NODE_COLOR;
                 }
-                
+
                 g2.setPaint(new Color(nodeColor));
                 g2.fill(nodeCircle);
                 g2.setPaint(new Color(NODE_EDGE_COLOR));
                 g2.draw(nodeCircle);
             }
+        }
+    }
+
+    private void paintLegend(Graphics2D g2) {
+        Shape rect = new Rectangle2D.Double(10, gameFieldHeight + 10, 20, 20);
+        g2.setPaint(new Color(USER_PATH_END_NODE_COLOR));
+        g2.fill(rect);
+
+        g2.setPaint(new Color(0x000000));
+        g2.setStroke(new BasicStroke(1));
+        g2.draw(rect);
+
+        char[] chars = "Pelaajan polku".toCharArray();
+        g2.setPaint(new Color(0x000000));
+        g2.setFont(new Font("Arial", Font.PLAIN, 14));
+        g2.drawChars(chars, 0, chars.length, 40, gameFieldHeight + 25);
+
+        for (int i = 0; i < solvers.size(); i++) {
+            rect = new Rectangle2D.Double(10, gameFieldHeight + 50 + 30 * i, 20, 20);
+            g2.setPaint(new Color(SHORTEST_PATH_COLORS[i]));
+            g2.fill(rect);
+            g2.setPaint(new Color(0x000000));
+            g2.setStroke(new BasicStroke(1));
+            g2.draw(rect);
+
+            chars = String.format("%s (%d ms)", solvers.get(i).getClass().getSimpleName(), solverDurations.get(solvers.get(i))).toCharArray();
+            g2.drawChars(chars, 0, chars.length, 40, gameFieldHeight + 65 + 30 * i);
         }
     }
 }

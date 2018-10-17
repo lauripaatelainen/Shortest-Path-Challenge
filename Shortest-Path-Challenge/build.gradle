@@ -24,6 +24,15 @@ if (!hasProperty('mainClass')) {
     //ext.mainClass = 'com.edii.spc.perf.PerformanceTest'
 }
 
+jar {
+  manifest {
+    attributes(
+      'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+      'Main-Class': 'com.edii.spc.ui.SwingUI'
+    )
+  }
+}
+
 repositories {
     mavenCentral()
     // You may define additional repositories, or even remove "mavenCentral()".

@@ -316,7 +316,7 @@ public class OwnLinkedList<E> extends OwnAbstractList<E> {
      * Sisäinen luokka, joka toteuttaa ListIterator-rajapinnan. 
      */
     private class LinkedListListIterator implements ListIterator<E> {
-        private OwnLinkedList.LinkedListNode<E> next = first;
+        private LinkedListNode<E> next;
         private LinkedListNode<E> last;
         private int nextIndex;
         
@@ -376,6 +376,9 @@ public class OwnLinkedList<E> extends OwnAbstractList<E> {
 
         @Override
         public void remove() {
+            if (last == null) {
+                throw new IllegalStateException();
+            }
             OwnLinkedList.this.remove(last);
             last = null;
         }

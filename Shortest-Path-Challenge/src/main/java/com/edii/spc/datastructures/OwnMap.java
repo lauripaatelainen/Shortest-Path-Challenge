@@ -160,10 +160,11 @@ public class OwnMap<K, V> implements Map<K, V> {
      * @param key Avain
      * @param create Vipu, jolla määritellään luodaanko lista jos sitä ei entuudestaan ole olemassa. 
      * @return Linkitetty lista, tai null, jos sitä ei ole olemassa ja create-parametri on false.
+     * @throws NullPointerException Jos key == null
      */
     private OwnLinkedList<MapItem<K, V>> getListForKey(Object key, boolean create) {
         if (key == null) {
-            return null;
+            throw new NullPointerException();
         }
         
         int hashCode = key.hashCode();
@@ -579,6 +580,7 @@ public class OwnMap<K, V> implements Map<K, V> {
      */
     private abstract class MapIterator {
         private int i = 0;
+        private Iterator<MapItem<K, V>> lastIt;
         private Iterator<MapItem<K, V>> it;
         
         public MapIterator() {
@@ -610,12 +612,13 @@ public class OwnMap<K, V> implements Map<K, V> {
 
         public Map.Entry<K, V> nextMapItem() {
             MapItem<K, V> item = it.next();
+            lastIt = it;
             findNext();
             return item;
         }
 
         public void remove() {
-            it.remove();
+            lastIt.remove();
             itemsCount--;
         }
     }

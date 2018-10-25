@@ -26,32 +26,11 @@ import java.util.Set;
  * @param <V> Tietotyyppi, jonka alkioita arvot on
  */
 public class OwnMap<K, V> implements Map<K, V> {
-    /**
-     * Oletusarvo sisäinen tietorakenteen lähtökoolle.
-     */
     private static final int DEFAULT_INITIAL_CAPACITY = 10;
-    
-    /**
-     * Oletusarvo hajautustaulun täyttöasteelle.
-     */
     private static final float DEFAULT_LOAD_FACTOR = 0.75f;
     
-    /**
-     * Hajautustaulun avaimia kuvaava joukko.
-     * @see #keySet() 
-     */
     private final KeySet keySet = new KeySet();
-    
-    /**
-     * Hajautustaulun arvoja kuvaava kokoelma.
-     * @see #values() 
-     */
     private final ValueCollection valueCollection = new ValueCollection();
-    
-    /**
-     * Hajautustaulun arvo-avain -pareja kuvaava joukko.
-     * @see #entrySet() 
-     */
     private final EntrySet entrySet = new EntrySet();
     private OwnLinkedList<OwnMapItem<K, V>>[] items;
     private final float loadFactor;
@@ -95,16 +74,13 @@ public class OwnMap<K, V> implements Map<K, V> {
         if (key == null) {
             throw new NullPointerException();
         }
-        
         int hashCode = key.hashCode();
         int idx = Math.abs(hashCode % items.length);
         OwnLinkedList<OwnMapItem<K, V>> list = items[idx];
-        
         if (create && list == null) {
             list = new OwnLinkedList<>();
             items[idx] = list;
         }
-        
         return list;
     }
     
@@ -114,23 +90,13 @@ public class OwnMap<K, V> implements Map<K, V> {
      */
     private void growIfNeeded() {
         if ((float) itemsCount / (float) items.length >= loadFactor) {
-            grow();
-        }
-    }
-    
-    /**
-     * Kasvattaa sisäistä tietorakennetta.
-     * Tietorakenteen koko tuplataan aina.
-     */
-    private void grow() {
-        Object[] entries = entrySet().toArray();
-        
-        items = new OwnLinkedList[items.length * 2];
-        itemsCount = 0;
-        
-        for (Object obj : entries) {
-            Entry<K, V> entry = (Entry<K, V>) obj;
-            put(entry.getKey(), entry.getValue());
+            Object[] entries = entrySet().toArray();
+            items = new OwnLinkedList[items.length * 2];
+            itemsCount = 0;
+            for (Object obj : entries) {
+                Entry<K, V> entry = (Entry<K, V>) obj;
+                put(entry.getKey(), entry.getValue());
+            }
         }
     }
 
@@ -164,13 +130,11 @@ public class OwnMap<K, V> implements Map<K, V> {
         if (list == null) {
             return false;
         }
-        
         for (OwnMapItem<K, V> item : list) {
             if (o.equals(item.getKey())) {
                 return true;
             }
         }
-        
         return false;
     }
 
@@ -188,7 +152,6 @@ public class OwnMap<K, V> implements Map<K, V> {
                 return true;
             }
         }
-        
         return false;
     }
 
@@ -203,13 +166,11 @@ public class OwnMap<K, V> implements Map<K, V> {
         if (list == null) {
             return null;
         }
-        
         for (OwnMapItem<K, V> item : list) {
             if (o.equals(item.getKey())) {
                 return item.getValue();
             }
         }
-        
         return null;
     }
 
@@ -224,14 +185,12 @@ public class OwnMap<K, V> implements Map<K, V> {
     public V put(K k, V v) {
         OwnLinkedList<OwnMapItem<K, V>> list = getListForKey(k, true);
         V prev = null;
-        
         for (OwnMapItem<K, V> item : list) {
             if (item.getKey().equals(k)) {
                 prev = item.getValue();
                 item.setValue(v);
             }
         }
-        
         if (prev == null) {
             list.add(new OwnMapItem<>(k, v));
             itemsCount++;
@@ -251,7 +210,6 @@ public class OwnMap<K, V> implements Map<K, V> {
         if (list == null) {
             return null;
         }
-        
         ListIterator<OwnMapItem<K, V>> listIterator = list.listIterator();
         while (listIterator.hasNext()) {
             OwnMapItem<K, V> entry = listIterator.next();
@@ -261,7 +219,6 @@ public class OwnMap<K, V> implements Map<K, V> {
                 return entry.getValue();
             }
         }
-        
         return null;
     }
 
@@ -277,7 +234,6 @@ public class OwnMap<K, V> implements Map<K, V> {
         if (list == null) {
             return false;
         }
-        
         ListIterator<OwnMapItem<K, V>> listIterator = list.listIterator();
         while (listIterator.hasNext()) {
             OwnMapItem<K, V> entry = listIterator.next();
@@ -287,7 +243,6 @@ public class OwnMap<K, V> implements Map<K, V> {
                 return true;
             }
         }
-        
         return false;
     }
 
@@ -364,15 +319,30 @@ public class OwnMap<K, V> implements Map<K, V> {
     }
     
     /**
-     * Sisäinen aliluokka hajautustaulun avaimia kuvaavalle joukolle.
-     * @see #keySet() 
+     * Sisäinen abstrakti yläluokka keySet(), values() ja entrySet() metodien palauttamille joukoille.
      */
-    private class KeySet extends OwnAbstractSet<K> implements Set<K> {
+    private abstract class AbstractMapSet<K> extends OwnAbstractSet<K> {
         @Override
         public int size() {
             return OwnMap.this.size();
         }
 
+        @Override
+        public boolean add(K e) {
+            throw new UnsupportedOperationException("Not supported.");
+        }
+
+        @Override
+        public void clear() {
+            OwnMap.this.clear();
+        }
+    }
+    
+    /**
+     * Sisäinen aliluokka hajautustaulun avaimia kuvaavalle joukolle.
+     * @see #keySet() 
+     */
+    private class KeySet extends AbstractMapSet<K> implements Set<K> {
         @Override
         public boolean contains(Object o) {
             return OwnMap.this.containsKey(o);
@@ -384,33 +354,16 @@ public class OwnMap<K, V> implements Map<K, V> {
         }
 
         @Override
-        public boolean add(Object e) {
-            throw new UnsupportedOperationException("Not supported.");
-        }
-
-        @Override
         public boolean remove(Object o) {
             if (OwnMap.this.containsKey(o)) {
                 OwnMap.this.remove(o);
                 return true;
             }
-            
             return false;
         }
-
-        @Override
-        public void clear() {
-            OwnMap.this.clear();
-        }
-        
     }
     
-    private class ValueCollection extends OwnAbstractSet<V> implements Collection<V> {
-        @Override
-        public int size() {
-            return OwnMap.this.size();
-        }
-
+    private class ValueCollection extends AbstractMapSet<V> implements Collection<V> {
         @Override
         public boolean contains(Object o) {
             return OwnMap.this.containsValue(o);
@@ -419,11 +372,6 @@ public class OwnMap<K, V> implements Map<K, V> {
         @Override
         public Iterator<V> iterator() {
             return new ValueCollectionIterator();
-        }
-
-        @Override
-        public boolean add(Object e) {
-            throw new UnsupportedOperationException("Not supported.");
         }
 
         @Override
@@ -436,33 +384,20 @@ public class OwnMap<K, V> implements Map<K, V> {
                     return true;
                 }
             }
-            
             return false;
         }
-
-        @Override
-        public void clear() {
-            OwnMap.this.clear();
-        }
-        
     }
     
     /**
      * Sisäinen aliluokka hajautustaulun arvo-avain -pareja kuvaavalle joukolle.
      * @see #entrySet() 
      */
-    private class EntrySet extends OwnAbstractSet<Map.Entry<K, V>> implements Set<Map.Entry<K, V>> {
-        @Override
-        public int size() {
-            return OwnMap.this.size();
-        }
-
+    private class EntrySet extends AbstractMapSet<Map.Entry<K, V>> implements Set<Map.Entry<K, V>> {
         @Override
         public boolean contains(Object o) {
             if (o == null) {
                 return false;
             }
-            
             Entry entry = (Entry) o;
             V val = OwnMap.this.get(entry.getKey());
             if (val == entry.getValue() || (val != null && val.equals(entry.getValue()))) {
@@ -478,19 +413,9 @@ public class OwnMap<K, V> implements Map<K, V> {
         }
 
         @Override
-        public boolean add(Entry<K, V> e) {
-            throw new UnsupportedOperationException("Not supported.");
-        }
-
-        @Override
         public boolean remove(Object o) {
             Entry entry = (Entry) o;
             return OwnMap.this.remove(entry.getKey(), entry.getValue());
-        }
-
-        @Override
-        public void clear() {
-            OwnMap.this.clear();
         }
     }
     
@@ -513,11 +438,9 @@ public class OwnMap<K, V> implements Map<K, V> {
                 if (it.hasNext()) {
                     return;
                 }
-
                 it = null;
                 i++;
             }
-            
             while (i < items.length) {
                 if (items[i] != null && items[i].size() > 0) {
                     it = items[i].iterator();

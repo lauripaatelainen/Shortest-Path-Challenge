@@ -11,10 +11,14 @@ import java.util.Objects;
  * @param <V> Arvon tyyppi
  */
 public class OwnMapItem<K, V> implements Map.Entry<K, V> {
-
     private final K key;
     private V value;
 
+    /**
+     * Luo avain-arvo parin annetulla avaimella ja arvolla. Luokan ainoa konstruktori. 
+     * @param key Avain
+     * @param value Arvo
+     */
     public OwnMapItem(K key, V value) {
         this.key = key;
         this.value = value;

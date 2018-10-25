@@ -236,7 +236,7 @@ public class OwnList<E> extends OwnAbstractList<E> {
      */
     @Override
     public E remove(int i) {
-        if (i < 0 || i > size()) {
+        if (i < 0 || i >= size()) {
             throw new IndexOutOfBoundsException();
         }
         E item = items[i];
@@ -298,7 +298,7 @@ public class OwnList<E> extends OwnAbstractList<E> {
 
         @Override
         public int previousIndex() {
-            return i - 1;
+            return last;
         }
 
         @Override
@@ -314,7 +314,8 @@ public class OwnList<E> extends OwnAbstractList<E> {
 
         @Override
         public void add(E e) {
-            OwnList.this.set(last, e);
+            OwnList.this.add(i, e);
+            i++;
         }
     }
 }

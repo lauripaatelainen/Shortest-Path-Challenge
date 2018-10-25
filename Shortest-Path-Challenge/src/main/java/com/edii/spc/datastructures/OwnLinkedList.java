@@ -319,6 +319,7 @@ public class OwnLinkedList<E> extends OwnAbstractList<E> {
         private LinkedListNode<E> next;
         private LinkedListNode<E> last;
         private int nextIndex;
+        private int lastIndex = -1;
         
         public LinkedListListIterator(int i) {
             if (i == size()) {
@@ -332,6 +333,7 @@ public class OwnLinkedList<E> extends OwnAbstractList<E> {
         @Override
         public E next() {
             last = next;
+            lastIndex = nextIndex;
             nextIndex++;
             
             E val = next.getItem();
@@ -361,6 +363,7 @@ public class OwnLinkedList<E> extends OwnAbstractList<E> {
             next = next.getPrev();
             last = next;
             nextIndex--;
+            lastIndex = nextIndex;
             return next.getItem();
         }
 
@@ -371,7 +374,10 @@ public class OwnLinkedList<E> extends OwnAbstractList<E> {
 
         @Override
         public int previousIndex() {
-            return nextIndex - 1;
+            if (lastIndex == -1) {
+                throw new IllegalStateException();
+            }
+            return lastIndex;
         }
 
         @Override
@@ -390,7 +396,7 @@ public class OwnLinkedList<E> extends OwnAbstractList<E> {
 
         @Override
         public void add(E e) {
-            OwnLinkedList.this.add(last, e);
+            OwnLinkedList.this.add(next, e);
         }
     }
 }

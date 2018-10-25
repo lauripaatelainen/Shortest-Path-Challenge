@@ -196,10 +196,6 @@ public class OwnMap<K, V> implements Map<K, V> {
     private void grow() {
         Object[] entries = entrySet().toArray();
         
-        for (int i = 0; i < items.length; i++) {
-            items[i] = null;
-        }
-        
         items = new OwnLinkedList[items.length * 2];
         itemsCount = 0;
         
@@ -258,12 +254,8 @@ public class OwnMap<K, V> implements Map<K, V> {
      */
     @Override
     public boolean containsValue(Object o) {
-        if (o == null) {
-            return false;
-        }
-        
         for (V v : this.values()) {
-            if (v.equals(o)) {
+            if (Objects.equals(v, o)) {
                 return true;
             }
         }
@@ -510,7 +502,7 @@ public class OwnMap<K, V> implements Map<K, V> {
             Iterator<V> it = this.iterator();
             while (it.hasNext()) {
                 V val = it.next();
-                if (val == o || (val != null && val.equals(o))) {
+                if (Objects.equals(val, o)) {
                     it.remove();
                     return true;
                 }

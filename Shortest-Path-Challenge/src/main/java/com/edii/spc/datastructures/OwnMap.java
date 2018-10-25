@@ -27,77 +27,6 @@ import java.util.Set;
  */
 public class OwnMap<K, V> implements Map<K, V> {
     /**
-     * Sisäinen luokka avain-arvo parille. Toteuttaa javan yleisen rajapinnan Map.Entry<K, V>
-     * 
-     * @param <K> Avaimen tyyppi
-     * @param <V> Arvon tyyppi
-     */
-    private static class MapItem<K, V> implements Map.Entry<K, V> {
-        private final K key;
-        private V value;
-        
-        public MapItem(K key, V value) {
-            this.key = key;
-            this.value = value;
-        }
-
-        /**
-         * Palauttaa avain-arvo -parin avaimen.
-         * @return Avain
-         */
-        @Override
-        public K getKey() {
-            return key;
-        }
-
-        /**
-         * Palauttaa avain-arvo -parin arvon.
-         * @return Arvo
-         */
-        @Override
-        public V getValue() {
-            return value;
-        }
-
-        /**
-         * Asettaa avain-arvo -pariin uuden arvon.
-         * @param value Uusi arvo
-         */
-        @Override
-        public V setValue(V value) {
-            V old = this.value;
-            this.value = value;
-            return old;
-        }
-
-        @Override
-        public int hashCode() {
-            return (this.getKey()==null   ? 0 : this.getKey().hashCode()) ^ (this.getValue()==null ? 0 : this.getValue().hashCode());
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj == null) {
-                return false;
-            }
-            if (getClass() != obj.getClass()) {
-                return false;
-            }
-            final MapItem<?, ?> other = (MapItem<?, ?>) obj;
-            if (!Objects.equals(this.key, other.key)) {
-                return false;
-            }
-            if (!Objects.equals(this.value, other.value)) {
-                return false;
-            }
-            return true;
-        }
-    }
-    
-    /**
      * Oletusarvo sisäinen tietorakenteen lähtökoolle.
      */
     private static final int DEFAULT_INITIAL_CAPACITY = 10;
@@ -124,7 +53,7 @@ public class OwnMap<K, V> implements Map<K, V> {
      * @see #entrySet() 
      */
     private final EntrySet entrySet = new EntrySet();
-    private OwnLinkedList<MapItem<K, V>>[] items;
+    private OwnLinkedList<OwnMapItem<K, V>>[] items;
     private final float loadFactor;
     private int itemsCount = 0;
     
@@ -162,14 +91,14 @@ public class OwnMap<K, V> implements Map<K, V> {
      * @return Linkitetty lista, tai null, jos sitä ei ole olemassa ja create-parametri on false.
      * @throws NullPointerException Jos key == null
      */
-    private OwnLinkedList<MapItem<K, V>> getListForKey(Object key, boolean create) {
+    private OwnLinkedList<OwnMapItem<K, V>> getListForKey(Object key, boolean create) {
         if (key == null) {
             throw new NullPointerException();
         }
         
         int hashCode = key.hashCode();
         int idx = Math.abs(hashCode % items.length);
-        OwnLinkedList<MapItem<K, V>> list = items[idx];
+        OwnLinkedList<OwnMapItem<K, V>> list = items[idx];
         
         if (create && list == null) {
             list = new OwnLinkedList<>();
@@ -231,12 +160,12 @@ public class OwnMap<K, V> implements Map<K, V> {
      */
     @Override
     public boolean containsKey(Object o) {
-        List<MapItem<K, V>> list = getListForKey(o, false);
+        List<OwnMapItem<K, V>> list = getListForKey(o, false);
         if (list == null) {
             return false;
         }
         
-        for (MapItem<K, V> item : list) {
+        for (OwnMapItem<K, V> item : list) {
             if (o.equals(item.getKey())) {
                 return true;
             }
@@ -270,12 +199,12 @@ public class OwnMap<K, V> implements Map<K, V> {
      */
     @Override
     public V get(Object o) {
-        OwnLinkedList<MapItem<K, V>> list = getListForKey(o, false);
+        OwnLinkedList<OwnMapItem<K, V>> list = getListForKey(o, false);
         if (list == null) {
             return null;
         }
         
-        for (MapItem<K, V> item : list) {
+        for (OwnMapItem<K, V> item : list) {
             if (o.equals(item.getKey())) {
                 return item.getValue();
             }
@@ -293,10 +222,10 @@ public class OwnMap<K, V> implements Map<K, V> {
      */
     @Override
     public V put(K k, V v) {
-        OwnLinkedList<MapItem<K, V>> list = getListForKey(k, true);
+        OwnLinkedList<OwnMapItem<K, V>> list = getListForKey(k, true);
         V prev = null;
         
-        for (MapItem<K, V> item : list) {
+        for (OwnMapItem<K, V> item : list) {
             if (item.getKey().equals(k)) {
                 prev = item.getValue();
                 item.setValue(v);
@@ -304,7 +233,7 @@ public class OwnMap<K, V> implements Map<K, V> {
         }
         
         if (prev == null) {
-            list.add(new MapItem<>(k, v));
+            list.add(new OwnMapItem<>(k, v));
             itemsCount++;
             growIfNeeded();
         }
@@ -318,14 +247,14 @@ public class OwnMap<K, V> implements Map<K, V> {
      */
     @Override
     public V remove(Object o) {
-        OwnLinkedList<MapItem<K, V>> list = getListForKey(o, false);
+        OwnLinkedList<OwnMapItem<K, V>> list = getListForKey(o, false);
         if (list == null) {
             return null;
         }
         
-        ListIterator<MapItem<K, V>> listIterator = list.listIterator();
+        ListIterator<OwnMapItem<K, V>> listIterator = list.listIterator();
         while (listIterator.hasNext()) {
-            MapItem<K, V> entry = listIterator.next();
+            OwnMapItem<K, V> entry = listIterator.next();
             if (entry.getKey().equals(o)) {
                 listIterator.remove();
                 itemsCount--;
@@ -344,14 +273,14 @@ public class OwnMap<K, V> implements Map<K, V> {
      */
     @Override
     public boolean remove(Object key, Object value) {
-        OwnLinkedList<MapItem<K, V>> list = getListForKey(key, false);
+        OwnLinkedList<OwnMapItem<K, V>> list = getListForKey(key, false);
         if (list == null) {
             return false;
         }
         
-        ListIterator<MapItem<K, V>> listIterator = list.listIterator();
+        ListIterator<OwnMapItem<K, V>> listIterator = list.listIterator();
         while (listIterator.hasNext()) {
-            MapItem<K, V> entry = listIterator.next();
+            OwnMapItem<K, V> entry = listIterator.next();
             if (entry.getKey().equals(key) && entry.getValue().equals(value)) {
                 listIterator.remove();
                 itemsCount--;
@@ -572,8 +501,8 @@ public class OwnMap<K, V> implements Map<K, V> {
      */
     private abstract class MapIterator {
         private int i = 0;
-        private Iterator<MapItem<K, V>> lastIt;
-        private Iterator<MapItem<K, V>> it;
+        private Iterator<OwnMapItem<K, V>> lastIt;
+        private Iterator<OwnMapItem<K, V>> it;
         
         public MapIterator() {
             findNext();
@@ -603,7 +532,7 @@ public class OwnMap<K, V> implements Map<K, V> {
         }
 
         public Map.Entry<K, V> nextMapItem() {
-            MapItem<K, V> item = it.next();
+            OwnMapItem<K, V> item = it.next();
             lastIt = it;
             findNext();
             return item;

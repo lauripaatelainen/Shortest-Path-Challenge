@@ -72,10 +72,7 @@ public class OwnMap<K, V> implements Map<K, V> {
 
         @Override
         public int hashCode() {
-            int hash = 7;
-            hash = 31 * hash + Objects.hashCode(this.key);
-            hash = 31 * hash + Objects.hashCode(this.value);
-            return hash;
+            return (this.getKey()==null   ? 0 : this.getKey().hashCode()) ^ (this.getValue()==null ? 0 : this.getValue().hashCode());
         }
 
         @Override
@@ -425,6 +422,23 @@ public class OwnMap<K, V> implements Map<K, V> {
     @Override
     public Set<Entry<K, V>> entrySet() {
         return entrySet;
+    }
+
+    @Override
+    public int hashCode() {
+        int sum = 0;
+        for (Entry<K, V> entry : entrySet()) {
+            sum += entry.hashCode();
+        }
+        return sum;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || !(o instanceof Map)) {
+            return false;
+        }
+        return this.entrySet().equals(((Map) o).entrySet());
     }
     
     /**

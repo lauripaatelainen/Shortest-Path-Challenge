@@ -141,6 +141,24 @@ public class ListTest {
     }
     
     /**
+     * Testaa listan get() toiminnon negatiivisella indeksillä.
+     */
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testGetNegativeIndex() {
+        intListFillWithSquares(10);
+        intList.get(-1);
+    }
+    
+    /**
+     * Testaa listan get() toiminnon liian suurella indeksilla.
+     */
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testGetTooLargeIndex() {
+        intListFillWithSquares(10);
+        intList.get(10);
+    }
+    
+    /**
      * Testaa listan add-toiminnon toimivuus, kun lisätään null-arvo.
      */
     @Test
@@ -213,6 +231,24 @@ public class ListTest {
         Assert.assertEquals("String 3", stringList.remove(1));
         Assert.assertEquals("String 1", stringList.remove(0));
     }
+    
+    /**
+     * Testaa List.remove() toiminto negatiivisella indeksillä.
+     */
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testRemoveWithNegativeIndex() {
+        stringList.add("String 1");
+        stringList.remove(-1);
+    }
+    
+    /**
+     * Testaa List.remove() toiminto liian suurella indeksillä.
+     */
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testRemoveWithTooLargeIndex() {
+        stringList.add("String 1");
+        stringList.remove(1);
+    }
 
     /**
      * Testaa listan List.addAll(int, Collection) toimivuus.
@@ -232,6 +268,28 @@ public class ListTest {
         Assert.assertEquals(randInts.get(9), intList.get(12));
         Assert.assertEquals(3, (int) intList.get(13));
         Assert.assertEquals(9, (int) intList.get(19));
+    }
+
+    /**
+     * Testaa listan List.addAll(int, Collection) toimivuus.
+     */
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testAddAllWithNegativeIndex() {
+        List<Integer> anotherList = new ArrayList<>();
+        anotherList.add(1);
+        anotherList.add(2);
+        intList.addAll(-1, anotherList);
+    }
+
+    /**
+     * Testaa listan List.addAll(int, Collection) toimivuus.
+     */
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testAddAllWithTooLargeIndex() {
+        List<Integer> anotherList = new ArrayList<>();
+        anotherList.add(1);
+        anotherList.add(2);
+        intList.addAll(1, anotherList);
     }
     
     /**
@@ -377,7 +435,61 @@ public class ListTest {
     }
     
     /**
-     * Testaa listan iteraattorin toimivuus.
+     * Testaa listan iteraattorin nextIndex() toiminto.
      */
+    @Test
+    public void testListIteratorNextIndex() {
+        intListFillWithSquares(10);
+        ListIterator<Integer> it = intList.listIterator();
+        Assert.assertEquals(0, it.nextIndex());
+        it.next();
+        Assert.assertEquals(1, it.nextIndex());
+        it.next();
+        Assert.assertEquals(2, it.nextIndex());
+        it.previous();
+        Assert.assertEquals(1, it.nextIndex());
+    }
     
+    /**
+     * Testaa listan iteraattorin nextIndex() toiminto.
+     */
+    @Test
+    public void testListIteratorPreviousIndex() {
+        intListFillWithSquares(10);
+        ListIterator<Integer> it = intList.listIterator();
+        it.next();
+        Assert.assertEquals(0, it.previousIndex());
+        it.next();
+        Assert.assertEquals(1, it.previousIndex());
+        it.previous();
+        Assert.assertEquals(1, it.nextIndex());
+    }
+    
+    /**
+     * Testaa listan iteraattorin set() toiminto.
+     */
+    @Test
+    public void testListIteratorSet() {
+        intListFillWithSquares(10);
+        ListIterator<Integer> it = intList.listIterator();
+        it.next();
+        it.next();
+        it.set(0);
+        Assert.assertEquals(0, (int) intList.get(1));
+    }
+    
+    /**
+     * Testaa listan iteraattorin set() toiminto.
+     */
+    @Test
+    public void testListIteratorAdd() {
+        intListFillWithSquares(10);
+        ListIterator<Integer> it = intList.listIterator();
+        it.next();
+        it.next();
+        it.add(0);
+        Assert.assertEquals(0, (int) intList.get(2));
+        Assert.assertEquals(2 * 2, (int) intList.get(3));
+        Assert.assertEquals(11, intList.size());
+    }
 }

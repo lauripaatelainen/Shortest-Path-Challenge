@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -156,17 +158,20 @@ public class CollectionTest {
      */
     @Test
     public void testAddAllAndContainsAll() {
-        List<Integer> randInts = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        Set<Integer> randInts = new HashSet<>();
+        while (randInts.size() < 10) {
             randInts.add(random.nextInt(1000));
         }
-        Assert.assertTrue(intList.addAll(randInts));
+        
+        List<Integer> randIntsList = new ArrayList<>();
+        randIntsList.addAll(randInts);
+        Assert.assertTrue(intList.addAll(randIntsList));
         Assert.assertEquals(10, intList.size());
-        Assert.assertTrue(intList.containsAll(randInts));
-        randInts.set(5, 1005);
-        Assert.assertFalse(intList.containsAll(randInts));
-        randInts.remove(5);
-        Assert.assertTrue(intList.containsAll(randInts));
+        Assert.assertTrue(intList.containsAll(randIntsList));
+        randIntsList.set(5, 1005);
+        Assert.assertFalse(intList.containsAll(randIntsList));
+        randIntsList.remove(5);
+        Assert.assertTrue(intList.containsAll(randIntsList));
     }
     
     /**
@@ -174,14 +179,27 @@ public class CollectionTest {
      */
     @Test
     public void testAddAllWithEmptyCollection() {
-        List<Integer> randInts = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        Set<Integer> randInts = new HashSet<>();
+        while (randInts.size() < 10) {
             randInts.add(random.nextInt(1000));
         }
-        Assert.assertTrue(intList.addAll(randInts));
+        
+        List<Integer> randIntsList = new ArrayList<>();
+        randIntsList.addAll(randInts);
+        Assert.assertTrue(intList.addAll(randIntsList));
         Assert.assertEquals(10, intList.size());
         Assert.assertFalse(intList.addAll(new ArrayList<>()));
         Assert.assertEquals(10, intList.size());
+    }
+    
+    /**
+     * Testaa kokoelman ainoan alkion poiston
+     */
+    @Test
+    public void testRemoveLastItem() {
+        intList.add(1);
+        intList.remove(1);
+        Assert.assertTrue(intList.isEmpty());
     }
 
     /**
@@ -208,5 +226,17 @@ public class CollectionTest {
         for (Integer removedInteger : removed) {
             Assert.assertFalse("Kokoelma sisältää poistetun luvun: " + removedInteger, intList.contains(removedInteger));
         }
+    }
+    
+    /**
+     * Testaa alkoiden poiston iteraattorin kautta.
+     */
+    @Test
+    public void testRemoveWithIterator() {
+        intListFillWithSquares(10);
+        Iterator<Integer> it = intList.iterator();
+        it.next();
+        it.remove();
+        Assert.assertEquals(9, intList.size());
     }
 }

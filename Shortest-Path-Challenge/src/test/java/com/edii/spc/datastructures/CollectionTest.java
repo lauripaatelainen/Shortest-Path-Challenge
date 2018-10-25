@@ -193,7 +193,7 @@ public class CollectionTest {
     }
     
     /**
-     * Testaa kokoelman ainoan alkion poiston
+     * Testaa kokoelman ainoan alkion poiston.
      */
     @Test
     public void testRemoveLastItem() {

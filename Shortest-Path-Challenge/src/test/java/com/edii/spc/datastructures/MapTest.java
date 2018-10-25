@@ -18,11 +18,17 @@ import org.junit.Test;
 public class MapTest {
     private Map<Integer, String> map;
     
+    /**
+     * Alustaa testien alkuun tyhjän tietorakenteen.
+     */
     @Before
     public void initList() {
         map = new OwnMap<>();
     }
     
+    /**
+     * Tarkistaa isEmpty()-toiminnon toimivuuden lähtötilanteessa ja lisäyksen jälkeen.
+     */
     @Test
     public void testIsEmpty() {
         assertTrue(map.isEmpty());
@@ -30,6 +36,9 @@ public class MapTest {
         assertFalse(map.isEmpty());
     }
     
+    /**
+     * Tarkistaa size()-toiminnon toimivuuden lähtötilanteessa ja lisäyksien jälkeen.
+     */
     @Test
     public void testSize() {
         assertEquals(0, map.size());
@@ -39,6 +48,9 @@ public class MapTest {
         }
     }
     
+    /**
+     * Tarkistaa clear()-toiminnon toimivuuden.
+     */
     @Test
     public void testClear() {
         map.put(1, "Testi");
@@ -47,6 +59,9 @@ public class MapTest {
         assertFalse(map.containsKey(1));
     }
     
+    /**
+     * Tarkistaa keySet()-metodin palauttaneen joukon kautta suoritetun clear()-toiminnon toimivuuden.
+     */
     @Test
     public void testClearWithKeySet() {
         map.put(1, "Testi");
@@ -55,6 +70,9 @@ public class MapTest {
         assertFalse(map.containsKey(1));
     }
     
+    /**
+     * Tarkistaa values()-metodin palauttaneen joukon kautta suoritetun clear()-toiminnon toimivuuden.
+     */
     @Test
     public void testClearWithValues() {
         map.put(1, "Testi");
@@ -63,6 +81,9 @@ public class MapTest {
         assertFalse(map.containsKey(1));
     }
     
+    /**
+     * Tarkistaa entrySet()-metodin palauttaneen joukon kautta suoritetun clear()-toiminnon toimivuuden.
+     */
     @Test
     public void testClearWithEntrySet() {
         map.put(1, "Testi");
@@ -71,6 +92,9 @@ public class MapTest {
         assertFalse(map.containsKey(1));
     }
     
+    /**
+     * Tarkistaa containsKey()-toiminnon toimivuuden tilanteessa, jossa avainta ei löydy ja jossa avain löytyy.
+     */
     @Test
     public void testContainsKey() {
         assertFalse(map.containsKey(1));
@@ -78,6 +102,9 @@ public class MapTest {
         assertTrue(map.containsKey(1));
     }
     
+    /**
+     * Tarkistaa containsValue()-toiminnon toimivuuden tilanteessa, jossa arvoa ei löydy ja jossa arvo löytyy.
+     */
     @Test
     public void testContainsValue() {
         assertFalse(map.containsValue("Testi"));
@@ -85,6 +112,9 @@ public class MapTest {
         assertTrue(map.containsValue("Testi"));
     }
     
+    /**
+     * Tarkistaa get()-toiminnon toimivuuden eri arvoilla.
+     */
     @Test
     public void testGet() {
         map.put(1, "Testi 1");
@@ -93,11 +123,17 @@ public class MapTest {
         assertEquals("Testi 2", map.get(2));
     }
     
+    /**
+     * Tarkistaa get()-toiminnon toimivuuden, kun annettua avainta ei löydy.
+     */
     @Test
     public void testGetWithoutValue() {
         assertNull(map.get(1));
     }
     
+    /**
+     * Tarkistaa put()-toiminnon toimivuuden ja oikean paluuarvon.
+     */
     @Test
     public void testPut() {
         assertNull(map.put(1, "Testi 1"));
@@ -105,15 +141,22 @@ public class MapTest {
         assertEquals("Testi 2", map.get(1));
     }
     
+    /**
+     * Tarkistaa, että put()-toiminto toimii kun lisätään suuri määrä alkioita (10000kpl).
+     * Tietorakenteen sisäisesti tämä vaatii sisäisen tietorakenteen kasvatusta, joten tällä tulee tarkistettua että kasvu toimii oikein.
+     */
     @Test
     public void testPutMany() {
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10000; i++) {
             map.put(i, "Testi " + i);
         }
         
-        assertEquals(1000, map.size());
+        assertEquals(10000, map.size());
     }
     
+    /**
+     * Tarkistaa remove()-toiminnon toimivuuden ja paluuarvon.
+     */
     @Test
     public void testRemove() {
         map.put(1, "Testi 1");
@@ -121,11 +164,17 @@ public class MapTest {
         assertFalse(map.containsKey(1));
     }
     
+    /**
+     * Tarkistaa, että remove()-toiminto palauttaa null-arvon kun annettua avainta ei löydy.
+     */
     @Test
     public void testRemoveWithoutValue() {
         assertNull(map.remove(1));
     }
 
+    /**
+     * Tarkistaa remove(arvo, avain)-toiminnon toimivuuden.
+     */
     @Test
     public void testRemoveExact() {
         map.put(1, "Testi 1");
@@ -136,6 +185,9 @@ public class MapTest {
         assertFalse(map.containsKey(1));
     }
     
+    /**
+     * Tarkistaa putAll()-toiminnon toimivuuden.
+     */
     @Test
     public void testPutAll() {
         Map<Integer, String> anotherMap = new OwnMap<>();
@@ -149,6 +201,9 @@ public class MapTest {
         assertEquals(3, map.size());
     }
     
+    /**
+     * Tarkistaa keySet()-metodin palauttaman joukon toimivuuden.
+     */
     @Test
     public void testKeySet() {
         map.put(1, "Testi 1");
@@ -161,6 +216,9 @@ public class MapTest {
         assertEquals(3, keySet.size());
     }
     
+    /**
+     * Tarkistaa keySet()-metodin palauttaman joukon kautta tehdyn poisto-operaation toimivuuden.
+     */
     @Test
     public void testKeySetRemove() {
         map.put(1, "Testi 1");
@@ -175,6 +233,9 @@ public class MapTest {
         assertEquals(2, keySet.size());
     }
     
+    /**
+     * Tarkistaa values()-metodin palauttaman joukon toimivuuden.
+     */
     @Test
     public void testValues() {
         map.put(1, "Testi 1");
@@ -187,6 +248,9 @@ public class MapTest {
         assertEquals(3, values.size());
     }
     
+    /**
+     * Tarkistaa values()-metodin palauttaman joukon kautta suoritetun poisto-operaation toimivuuden.
+     */
     @Test
     public void testValuesRemove() {
         map.put(1, "Testi 1");
@@ -201,6 +265,9 @@ public class MapTest {
         assertEquals(2, values.size());
     }
     
+    /**
+     * Tarkistaa entrySet()-metodin palauttaman joukon toimivuuden.
+     */
     @Test
     public void testEntrySet() {
         map.put(1, "Testi 1");
@@ -220,6 +287,9 @@ public class MapTest {
         assertEquals(3, entrySet.size());
     }
     
+    /**
+     * Tarkistaa equals()-metodin toimivuuden, kun verrataan samat arvo-avain-parit sisältämään tietorakenteeseen.
+     */
     @Test
     public void testEquals() {
         Map<Integer, String> anotherMap = new OwnMap<>();
@@ -231,12 +301,18 @@ public class MapTest {
         assertEquals(map.hashCode(), anotherMap.hashCode());
     }
     
+    /**
+     * Tarkistaa equals()-metodin toimivuuden null-arvoon verrattaessa.
+     */
     @Test
     public void testEqualsWithNull() {
         map.put(1, "Testi 1");
         assertFalse(map.equals(null));
     }
     
+    /**
+     * Tarkistaa equals()-metodin toimivuuden kun verrataan eri arvot sisältämään tietorakenteeseen (mutta samat avaimet).
+     */
     @Test
     public void testEqualsWithDifferentValues() {
         Map<Integer, String> anotherMap = new OwnMap<>();
@@ -246,6 +322,9 @@ public class MapTest {
         assertNotSame(map.hashCode(), anotherMap.hashCode());
     }
     
+    /**
+     * Tarkistaa equals()-metodin toimivuuden kun verrataan eri avaimet sisältämään tietorakenteeseen (mutta samat arvot).
+     */
     @Test
     public void testEqualsWithDifferentKeys() {
         Map<Integer, String> anotherMap = new OwnMap<>();

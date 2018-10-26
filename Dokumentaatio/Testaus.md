@@ -31,6 +31,7 @@ Kentän koko         | Solmujen määrä      | Kesto               | Keston ker
 9                   | 81                  | 0.00198             | 0.80664
 
 Näytetään testin 'Ratkaistaan pelikenttä algoritmilla DijkstraSolver, pelikentän ko'oilla 2-10, askeleen koko 1' tulokset.
+
 Kentän koko         | Solmujen määrä      | Kesto               | Keston kerroin      
 ------------------- | ------------------- | ------------------- | ------------------- 
 2                   | 4                   | 0.00497             | n/a
@@ -43,6 +44,7 @@ Kentän koko         | Solmujen määrä      | Kesto               | Keston ker
 9                   | 81                  | 0.00085             | 0.18034
 
 Näytetään testin 'Ratkaistaan pelikenttä algoritmilla BellmanFordSolver, pelikentän ko'oilla 2-10, askeleen koko 1' tulokset.
+
 Kentän koko         | Solmujen määrä      | Kesto               | Keston kerroin      
 ------------------- | ------------------- | ------------------- | ------------------- 
 2                   | 4                   | 0.00026             | n/a
@@ -55,6 +57,7 @@ Kentän koko         | Solmujen määrä      | Kesto               | Keston ker
 9                   | 81                  | 0.00384             | 1.67034
 
 Näytetään testin 'Ratkaistaan pelikenttä algoritmilla AStarSolver, pelikentän ko'oilla 10-100, askeleen koko 10' tulokset.
+
 Kentän koko         | Solmujen määrä      | Kesto               | Keston kerroin      
 ------------------- | ------------------- | ------------------- | ------------------- 
 10                  | 100                 | 0.00174             | n/a
@@ -68,6 +71,7 @@ Kentän koko         | Solmujen määrä      | Kesto               | Keston ker
 90                  | 8100                | 0.11476             | 0.55076
 
 Näytetään testin 'Ratkaistaan pelikenttä algoritmilla DijkstraSolver, pelikentän ko'oilla 10-100, askeleen koko 10' tulokset.
+
 Kentän koko         | Solmujen määrä      | Kesto               | Keston kerroin      
 ------------------- | ------------------- | ------------------- | ------------------- 
 10                  | 100                 | 0.00040             | n/a
@@ -81,6 +85,7 @@ Kentän koko         | Solmujen määrä      | Kesto               | Keston ker
 90                  | 8100                | 0.07181             | 0.87757
 
 Näytetään testin 'Ratkaistaan pelikenttä algoritmilla BellmanFordSolver, pelikentän ko'oilla 10-100, askeleen koko 10' tulokset.
+
 Kentän koko         | Solmujen määrä      | Kesto               | Keston kerroin      
 ------------------- | ------------------- | ------------------- | ------------------- 
 10                  | 100                 | 0.00343             | n/a
@@ -94,6 +99,7 @@ Kentän koko         | Solmujen määrä      | Kesto               | Keston ker
 90                  | 8100                | 18.21120            | 1.65054
 
 Näytetään testin 'Ratkaistaan pelikenttä algoritmilla AStarSolver, pelikentän ko'oilla 100-1000, askeleen koko 100' tulokset.
+
 Kentän koko         | Solmujen määrä      | Kesto               | Keston kerroin      
 ------------------- | ------------------- | ------------------- | ------------------- 
 100                 | 10000               | 0.03542             | n/a
@@ -107,6 +113,7 @@ Kentän koko         | Solmujen määrä      | Kesto               | Keston ker
 900                 | 810000              | 9.59223             | 1.21915
 
 Näytetään testin 'Ratkaistaan pelikenttä algoritmilla DijkstraSolver, pelikentän ko'oilla 100-1000, askeleen koko 100' tulokset.
+
 Kentän koko         | Solmujen määrä      | Kesto               | Keston kerroin      
 ------------------- | ------------------- | ------------------- | ------------------- 
 100                 | 10000               | 0.04235             | n/a

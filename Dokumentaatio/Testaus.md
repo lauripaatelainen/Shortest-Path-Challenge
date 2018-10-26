@@ -141,7 +141,9 @@ Kentän koko         | Solmujen määrä      | Kesto               | Keston ker
 900                 | 810000              | timeout             | n/a
 
 ## Suorituskykymittauksen graafinen esitys
-
+![astart_dijkstra_2-100](../img/astart_dijkstra_2-100.png)
+![astar_dijkstra_bellmanford_2-900](../img/astar_dijkstra_bellmanford_2-900.png)
+![astar_dijkstra_2-900](../img/astar_dijkstra_2-900.png)
 
 ## Suorituskykymittauksen analysointi
 Tuloksista nähdään että Dijkstra ja A* ovat tässä käyttötapauksessa ylivoimaisia Bellman-Ford -algoritmiin verrattuna. Tämä oli toki myös odotettavissa aikavaativuuksista päätellessä. 

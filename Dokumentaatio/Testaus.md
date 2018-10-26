@@ -126,6 +126,20 @@ Kentän koko         | Solmujen määrä      | Kesto               | Keston ker
 800                 | 640000              | 11.07111            | 1.45914
 900                 | 810000              | 15.56847            | 1.40622
 
+Näytetään testin 'Ratkaistaan pelikenttä algoritmilla BellmanFordSolver, pelikentän ko'oilla 100-1000, askeleen koko 100' tulokset.
+
+Kentän koko         | Solmujen määrä      | Kesto               | Keston kerroin      
+------------------- | ------------------- | ------------------- | ------------------- 
+100                 | 10000               | 28.50078            | n/a
+200                 | 40000               | timeout             | n/a
+300                 | 90000               | timeout             | n/a
+400                 | 160000              | timeout             | n/a
+500                 | 250000              | timeout             | n/a
+600                 | 360000              | timeout             | n/a
+700                 | 490000              | timeout             | n/a
+800                 | 640000              | timeout             | n/a
+900                 | 810000              | timeout             | n/a
+
 ## Suorituskykymittauksen graafinen esitys
 
 

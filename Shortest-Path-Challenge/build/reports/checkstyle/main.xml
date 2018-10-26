@@ -13,7 +13,8 @@
 <file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/datastructures/OwnList.java">
 </file>
 <file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/datastructures/OwnMap.java">
-<error line="1" severity="error" message="File length is 638 lines (max allowed is 500)." source="com.puppycrawl.tools.checkstyle.checks.sizes.FileLengthCheck"/>
+</file>
+<file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/datastructures/OwnMapItem.java">
 </file>
 <file name="/home/edii/Tiralabra/Shortest-Path-Challenge/Shortest-Path-Challenge/src/main/java/com/edii/spc/datastructures/OwnSet.java">
 </file>

@@ -1,0 +1,5109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>OwnList.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.edii.spc.datastructures;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Collection;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.ListIterator;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Javan ArrayList-tietorakennetta vastaava oma tietorakenne. </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Perii luokan {@link OwnAbstractList}, jossa on toteutettu jotain yleisk&#228;ytt&#246;isi&#228; {@link java.util.List}-rajapinnan metodeja. </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Toteuttaa suurimman osan {@link java.util.List}-rajapinnan m&#228;&#228;rittelemist&#228; toiminnoista. </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Listan sis&#228;inen rakenne koostuu Javan natiivista taulukosta, jota kasvatetaan aina kun siit&#228; loppuu tila.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Kasvuoperaatio tehd&#228;&#228;n vasta sill&#228; hetkell&#228;, kun tilaa tarvitaan, ja se aina tuplaa taulukon koon. </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Listaa kasvattaessa koko lista joudutaan kopioimaan uuteen taulukkoon, joten kasvuoperaation</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * aikavaativuus on O(n). Muissa aikavaativuuskommenteissa kasvuoperaatiota pidet&#228;&#228;n niin harvinaisena,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * ett&#228; keskityt&#228;&#228;n aikavaativuuteen tapauksessa, kun listan sis&#228;inen tietorakenn on entuudestaan</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * tarvittavan suuri. </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Tietorakenteen pienennysoperaatiota ei ole toteutettu.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @see OwnAbstractList</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_21'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>public class OwnList&#60;E&#62; extends OwnAbstractList&#60;E&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Talukko, jossa listan alkiot s&#228;ilytet&#228;&#228;n. </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private E[] items;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Listan t&#228;m&#228;n hetkinen koko.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private int size;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Luo tyhj&#228;n listan.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public OwnList() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_36'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this(2);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_37'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Luo tyhj&#228;n listan annetun kokoisella sis&#228;isell&#228; tietorakenteella.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param initialCapacity Sis&#228;isen tietorakenteen koko</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_44'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public OwnList(int initialCapacity) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_45'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        items = (E[]) new Object[initialCapacity];</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_46'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        size = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_47'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Luo listan annetuilla alkioilla.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param items Alkiot jotka listaan lis&#228;t&#228;&#228;n</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public OwnList(Collection&#60;E&#62; items) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_55'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this(items.size());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_56'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.addAll(items);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_57'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Kasvattaa listaa, jotta uusia alkioita mahtuu. </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Tuplaa listan koon. </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private void grow() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_64'/>
+64
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_64'>1</a>
+<span>
+1. grow : Replaced integer multiplication with division &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        E[] newItems = (E[]) new Object[items.length * 2];</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_65'/>
+65
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_65'>3</a>
+<span>
+1. grow : changed conditional boundary &rarr; KILLED<br/>
+2. grow : Changed increment from 1 to -1 &rarr; KILLED<br/>
+3. grow : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        for (int i = 0; i &#60; this.size; i++) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_66'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            newItems[i] = items[i];</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_68'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        items = newItems;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_69'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Siirt&#228;&#228; listan alkioita eteenp&#228;in annetun m&#228;&#228;r&#228;n. </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Tarvittaessa kasvattaa taulukon kokoa ja muuttaa size-parametrin m&#228;&#228;r&#228;n.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param i indeksi, josta alkaen loppuja alkioita siirret&#228;&#228;n</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param count siirrett&#228;v&#228; m&#228;&#228;r&#228;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private void shift(int i, int count) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_79'/>
+79
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_79'>3</a>
+<span>
+1. shift : changed conditional boundary &rarr; SURVIVED<br/>
+2. shift : Replaced integer addition with subtraction &rarr; KILLED<br/>
+3. shift : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        while (items.length &#60; this.size + count) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_80'/>
+80
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_80'>1</a>
+<span>
+1. shift : removed call to com/edii/spc/datastructures/OwnList::grow &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>            grow();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_83'/>
+83
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_83'>4</a>
+<span>
+1. shift : changed conditional boundary &rarr; KILLED<br/>
+2. shift : Changed increment from -1 to 1 &rarr; KILLED<br/>
+3. shift : Replaced integer subtraction with addition &rarr; KILLED<br/>
+4. shift : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        for (int j = this.size - 1; j &#62;= i; j--) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_84'/>
+84
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_84'>1</a>
+<span>
+1. shift : Replaced integer addition with subtraction &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            this.items[j + count] = this.items[j];</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_86'/>
+86
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_86'>1</a>
+<span>
+1. shift : Replaced integer addition with subtraction &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.size += count;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_87'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Siirt&#228;&#228; listan alkioita taaksep&#228;in annetun m&#228;&#228;r&#228;n. </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Ei muuta size-parametria.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param i indeksi, josta alkaen loppuja alkioita siirret&#228;&#228;n</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param count siirrett&#228;v&#228; m&#228;&#228;r&#228;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private void shiftBack(int i, int count) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_97'/>
+97
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_97'>3</a>
+<span>
+1. shiftBack : changed conditional boundary &rarr; KILLED<br/>
+2. shiftBack : Changed increment from 1 to -1 &rarr; KILLED<br/>
+3. shiftBack : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        for (int j = i; j &#60; size; j++) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_98'/>
+98
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_98'>1</a>
+<span>
+1. shiftBack : Replaced integer subtraction with addition &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            this.items[j - count] = this.items[j];</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_100'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Palauttaa listan koon.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return Palauttaa listan koon.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_107'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public int size() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_109'/>
+109
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_109'>1</a>
+<span>
+1. size : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return this.size;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Lis&#228;&#228; annetun alkion listan loppuun. </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Aikavaativuus O(1)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param e Lis&#228;tt&#228;v&#228; alkio</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return Palauttaa aina true</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_118'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean add(E e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_121'/>
+121
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_121'>1</a>
+<span>
+1. add : negated conditional &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        if (size == this.items.length) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_122'/>
+122
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_122'>1</a>
+<span>
+1. add : removed call to com/edii/spc/datastructures/OwnList::grow &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            grow();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        </span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_125'/>
+125
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_125'>1</a>
+<span>
+1. add : Replaced integer addition with subtraction &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.size++;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_126'/>
+126
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_126'>1</a>
+<span>
+1. add : Replaced integer subtraction with addition &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.set(this.size - 1, e);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_127'/>
+127
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_127'>1</a>
+<span>
+1. add : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_129'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_130'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_131'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Lis&#228;&#228; kaikki annetun tietorakenteen alkiot annettuun listan indeksiin. </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Kyseisest&#228; indeksist&#228; eteenp&#228;in olevia alkioita siirret&#228;&#228;n tarvittava m&#228;&#228;r&#228; eteenp&#228;in. </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_133'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Aikavaativuus O(n)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_134'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_135'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param i Indeksi, mihin alkiot lis&#228;t&#228;&#228;n.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_136'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param clctn Tietorakenne, jonka alkiot lis&#228;t&#228;&#228;n.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_137'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return true jos listaa muutettiin, eli aina kun clctn ei ole tyhj&#228;.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_138'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IndexOutOfBoundsException Jos i &#38;lt; 0 || i &#38;gt;= size()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_139'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean addAll(int i, Collection&#60;? extends E&#62; clctn) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_142'/>
+142
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_142'>4</a>
+<span>
+1. addAll : changed conditional boundary &rarr; KILLED<br/>
+2. addAll : changed conditional boundary &rarr; KILLED<br/>
+3. addAll : negated conditional &rarr; KILLED<br/>
+4. addAll : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (i &#60; 0 || i &#62; size) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_143'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw new IndexOutOfBoundsException(String.format(&#34;%d&#34;, i));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        </span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_146'/>
+146
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_146'>1</a>
+<span>
+1. addAll : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (clctn.isEmpty()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_147'/>
+147
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_147'>1</a>
+<span>
+1. addAll : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_149'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        </span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_150'/>
+150
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_150'>1</a>
+<span>
+1. addAll : removed call to com/edii/spc/datastructures/OwnList::shift &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        shift(i, clctn.size());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_151'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        </span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_152'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        int j = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_153'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        for (E item : clctn) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_154'/>
+154
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_154'>1</a>
+<span>
+1. addAll : Replaced integer addition with subtraction &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            set(i + j, item);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_155'/>
+155
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_155'>1</a>
+<span>
+1. addAll : Changed increment from 1 to -1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            j++;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_156'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_157'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        </span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_158'/>
+158
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_158'>1</a>
+<span>
+1. addAll : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Tyhjent&#228;&#228; listan.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Huomaa, ett&#228; tietorakenteen pienennysoperaatiota ei ole toteutettu, joten</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_164'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * sis&#228;inen tietorakenne s&#228;ilyy saman kokoisena mit&#228; se oli aiemmin.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_165'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_166'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_167'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void clear() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_168'/>
+168
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_168'>3</a>
+<span>
+1. clear : changed conditional boundary &rarr; SURVIVED<br/>
+2. clear : Changed increment from 1 to -1 &rarr; KILLED<br/>
+3. clear : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        for (int i = 0; i &#60; size; i++) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_169'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            items[i] = null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_171'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.size = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_172'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_173'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_174'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_175'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Hakee annetussa indeksiss&#228; olevan alkion.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_176'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_177'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param i indeksi, jossa oleva alkio haetaan.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_178'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return Palauttaa annetussa indeksiss&#228; olevan alkion.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_179'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IndexOutOfBoundsException Jos i &#38;lt; 0 || i &#38;gt;= size()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_180'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_181'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_182'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public E get(int i) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_183'/>
+183
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_183'>4</a>
+<span>
+1. get : changed conditional boundary &rarr; KILLED<br/>
+2. get : changed conditional boundary &rarr; KILLED<br/>
+3. get : negated conditional &rarr; KILLED<br/>
+4. get : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (i &#60; 0 || i &#62;= size) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_184'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw new IndexOutOfBoundsException();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_185'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_186'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        </span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_187'/>
+187
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_187'>1</a>
+<span>
+1. get : mutated return of Object value for com/edii/spc/datastructures/OwnList::get to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return items[i];</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_188'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_189'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_190'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_191'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Asettaa alkion annettuun indeksiin. </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_192'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Aikavaativuus O(1)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_193'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_194'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param i indeksi mihin alkio asetetaan.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_195'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param e alkio joka lis&#228;t&#228;&#228;n.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_196'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return alkio, joka oli samassa indeksiss&#228; aiemmin.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_197'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_198'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_199'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public E set(int i, E e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_200'/>
+200
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_200'>2</a>
+<span>
+1. set : changed conditional boundary &rarr; KILLED<br/>
+2. set : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (i &#62;= size) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_201'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw new IndexOutOfBoundsException(String.format(&#34;%d &#62;= %d&#34;, i, size));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_202'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_203'/>
+203
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_203'>2</a>
+<span>
+1. set : changed conditional boundary &rarr; KILLED<br/>
+2. set : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (i &#60; 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_204'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw new IndexOutOfBoundsException(String.format(&#34;%d &#60; 0&#34;, i));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_205'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_206'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        </span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_207'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        E prev = items[i];</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_208'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        items[i] = e;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_209'/>
+209
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_209'>1</a>
+<span>
+1. set : mutated return of Object value for com/edii/spc/datastructures/OwnList::set to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return prev;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_210'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_211'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_212'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_213'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Lis&#228;&#228; alkion annetuun listan indeksiin. </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_214'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Indeksin j&#228;lkeen tulevia alkioita siirret&#228;&#228;n eteenp&#228;in. </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_215'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Aikavaativuus O(n)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_216'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_217'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param i indeksi</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_218'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param e lis&#228;tt&#228;v&#228; alkio.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_219'/>
+219
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_219'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IndexOutOfBoundsException Jos i &#38;lt; 0 || i &#38;gt;= size()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_220'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_221'/>
+221
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_221'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_222'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void add(int i, E e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_223'/>
+223
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_223'>4</a>
+<span>
+1. add : changed conditional boundary &rarr; KILLED<br/>
+2. add : changed conditional boundary &rarr; KILLED<br/>
+3. add : negated conditional &rarr; KILLED<br/>
+4. add : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (i &#60; 0 || i &#62; size()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_224'/>
+224
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_224'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw new IndexOutOfBoundsException();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_225'/>
+225
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_225'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_226'/>
+226
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_226'>1</a>
+<span>
+1. add : removed call to com/edii/spc/datastructures/OwnList::shift &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        shift(i, 1);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_227'/>
+227
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_227'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        set(i, e);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_228'/>
+228
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_228'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_229'/>
+229
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_229'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_230'/>
+230
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_230'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_231'/>
+231
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_231'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Poistaa alkion annetusta indeksist&#228;. </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_232'/>
+232
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_232'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_233'/>
+233
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_233'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param i indeksi, josta alkio poistetaan.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_234'/>
+234
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_234'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return poistettu alkio.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_235'/>
+235
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_235'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IndexOutOfBoundsException Jos i &#38;lt; 0 || i &#38;gt;= size()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_236'/>
+236
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_236'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_237'/>
+237
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_237'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_238'/>
+238
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_238'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public E remove(int i) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_239'/>
+239
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_239'>4</a>
+<span>
+1. remove : changed conditional boundary &rarr; KILLED<br/>
+2. remove : changed conditional boundary &rarr; KILLED<br/>
+3. remove : negated conditional &rarr; KILLED<br/>
+4. remove : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (i &#60; 0 || i &#62;= size()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_240'/>
+240
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_240'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw new IndexOutOfBoundsException();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_241'/>
+241
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_241'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_242'/>
+242
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_242'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        E item = items[i];</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_243'/>
+243
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_243'>2</a>
+<span>
+1. remove : Replaced integer addition with subtraction &rarr; KILLED<br/>
+2. remove : removed call to com/edii/spc/datastructures/OwnList::shiftBack &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        shiftBack(i + 1, 1);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_244'/>
+244
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_244'>1</a>
+<span>
+1. remove : Replaced integer subtraction with addition &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.size--;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_245'/>
+245
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_245'>1</a>
+<span>
+1. remove : mutated return of Object value for com/edii/spc/datastructures/OwnList::remove to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return item;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_246'/>
+246
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_246'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_247'/>
+247
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_247'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_248'/>
+248
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_248'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_249'/>
+249
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_249'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Palauttaa ListIterator-objektin listaan kohdistuvia toimintoja varten.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_250'/>
+250
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_250'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Kaikki iteraattorin valinnaiset metodit, kuten set() ja remove() ovat tuettuja.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_251'/>
+251
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_251'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_252'/>
+252
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_252'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param i indeksi</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_253'/>
+253
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_253'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return Palautta ListIterator-objektin.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_254'/>
+254
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_254'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_255'/>
+255
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_255'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_256'/>
+256
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_256'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public ListIterator&#60;E&#62; listIterator(int i) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_257'/>
+257
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_257'>1</a>
+<span>
+1. listIterator : mutated return of Object value for com/edii/spc/datastructures/OwnList::listIterator to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return new OwnListIterator(i);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_258'/>
+258
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_258'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_259'/>
+259
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_259'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_260'/>
+260
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_260'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_261'/>
+261
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_261'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Sis&#228;inen luokka, joka toteuttaa ListIterator-rajapinnan. </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_262'/>
+262
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_262'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_263'/>
+263
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_263'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private class OwnListIterator implements ListIterator&#60;E&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_264'/>
+264
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_264'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        private int i = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_265'/>
+265
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_265'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        private int last = -1;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_266'/>
+266
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_266'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        </span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_267'/>
+267
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_267'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        public OwnListIterator(int i) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_268'/>
+268
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_268'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            this.i = i;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_269'/>
+269
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_269'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_270'/>
+270
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_270'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_271'/>
+271
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_271'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_272'/>
+272
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_272'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public boolean hasPrevious() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_273'/>
+273
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_273'>3</a>
+<span>
+1. hasPrevious : changed conditional boundary &rarr; KILLED<br/>
+2. hasPrevious : negated conditional &rarr; KILLED<br/>
+3. hasPrevious : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return i &#62; 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_274'/>
+274
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_274'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_275'/>
+275
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_275'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_276'/>
+276
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_276'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_277'/>
+277
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_277'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public boolean hasNext() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_278'/>
+278
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_278'>3</a>
+<span>
+1. hasNext : changed conditional boundary &rarr; KILLED<br/>
+2. hasNext : negated conditional &rarr; KILLED<br/>
+3. hasNext : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return i &#60; size();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_279'/>
+279
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_279'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_280'/>
+280
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_280'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_281'/>
+281
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_281'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_282'/>
+282
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_282'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public E previous() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_283'/>
+283
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_283'>1</a>
+<span>
+1. previous : Replaced integer subtraction with addition &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            i--;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_284'/>
+284
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_284'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            last = i;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_285'/>
+285
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_285'>1</a>
+<span>
+1. previous : mutated return of Object value for com/edii/spc/datastructures/OwnList$OwnListIterator::previous to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return get(i);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_286'/>
+286
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_286'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_287'/>
+287
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_287'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_288'/>
+288
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_288'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_289'/>
+289
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_289'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public E next() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_290'/>
+290
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_290'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            last = i;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_291'/>
+291
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_291'>2</a>
+<span>
+1. next : Replaced integer addition with subtraction &rarr; KILLED<br/>
+2. next : mutated return of Object value for com/edii/spc/datastructures/OwnList$OwnListIterator::next to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return items[i++];</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_292'/>
+292
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_292'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_293'/>
+293
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_293'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_294'/>
+294
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_294'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_295'/>
+295
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_295'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public int nextIndex() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_296'/>
+296
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_296'>1</a>
+<span>
+1. nextIndex : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return i;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_297'/>
+297
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_297'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_298'/>
+298
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_298'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_299'/>
+299
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_299'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_300'/>
+300
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_300'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public int previousIndex() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_301'/>
+301
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_301'>1</a>
+<span>
+1. previousIndex : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return last;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_302'/>
+302
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_302'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_303'/>
+303
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_303'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_304'/>
+304
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_304'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_305'/>
+305
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_305'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public void remove() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_306'/>
+306
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_306'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            OwnList.this.remove(last);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_307'/>
+307
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_307'>1</a>
+<span>
+1. remove : Replaced integer subtraction with addition &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            i--;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_308'/>
+308
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_308'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_309'/>
+309
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_309'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_310'/>
+310
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_310'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_311'/>
+311
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_311'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public void set(E e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_312'/>
+312
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_312'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            OwnList.this.set(last, e);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_313'/>
+313
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_313'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_314'/>
+314
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_314'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_315'/>
+315
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_315'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_316'/>
+316
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_316'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public void add(E e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_317'/>
+317
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_317'>1</a>
+<span>
+1. add : removed call to com/edii/spc/datastructures/OwnList::add &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            OwnList.this.add(i, e);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_318'/>
+318
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_318'>1</a>
+<span>
+1. add : Replaced integer addition with subtraction &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            i++;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_319'/>
+319
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_319'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_320'/>
+320
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_320'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fee881_321'/>
+321
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fee881_321'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_64'>64</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_64'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>grow<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.sublist[2](com.edii.spc.datastructures.ListTest)</span></span> Replaced integer multiplication with division &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_65'>65</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_65'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>grow<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.sublist[2](com.edii.spc.datastructures.ListTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>grow<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.sublist[2](com.edii.spc.datastructures.ListTest)</span></span> Changed increment from 1 to -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>grow<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testAddNull[1](com.edii.spc.datastructures.ListTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_79'>79</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_79'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>shift<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>shift<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testAddAllWithIndex[2](com.edii.spc.datastructures.ListTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>shift<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testAddWithIndex[2](com.edii.spc.datastructures.ListTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_80'>80</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_80'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>shift<br/><b>Killed by : </b>none</span></span> removed call to com/edii/spc/datastructures/OwnList::grow &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_83'>83</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_83'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>shift<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testAdd[2](com.edii.spc.datastructures.ListTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>shift<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testAdd[2](com.edii.spc.datastructures.ListTest)</span></span> Changed increment from -1 to 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>shift<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testAddWithIndex[2](com.edii.spc.datastructures.ListTest)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>shift<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testAddWithIndex[2](com.edii.spc.datastructures.ListTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_84'>84</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_84'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>shift<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testAdd[2](com.edii.spc.datastructures.ListTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_86'>86</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_86'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>shift<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testAddWithIndex[2](com.edii.spc.datastructures.ListTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_97'>97</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_97'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>shiftBack<br/><b>Killed by : </b>com.edii.spc.game.GameFieldPathTest.testRemoveLastEdge(com.edii.spc.game.GameFieldPathTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>shiftBack<br/><b>Killed by : </b>com.edii.spc.datastructures.CollectionTest.testRemoveWithIterator[3](com.edii.spc.datastructures.CollectionTest)</span></span> Changed increment from 1 to -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>shiftBack<br/><b>Killed by : </b>com.edii.spc.game.GameFieldPathTest.testRemoveLastEdge(com.edii.spc.game.GameFieldPathTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_98'>98</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_98'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>shiftBack<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testRemove[2](com.edii.spc.datastructures.ListTest)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_109'>109</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_109'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>size<br/><b>Killed by : </b>com.edii.spc.game.GameFieldPathTest.testRemoveLastEdge(com.edii.spc.game.GameFieldPathTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_121'>121</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_121'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>add<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_122'>122</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_122'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>add<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.sublist[2](com.edii.spc.datastructures.ListTest)</span></span> removed call to com/edii/spc/datastructures/OwnList::grow &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_125'>125</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_125'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>add<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.sublist[2](com.edii.spc.datastructures.ListTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_126'>126</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_126'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>add<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.sublist[2](com.edii.spc.datastructures.ListTest)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_127'>127</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_127'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>add<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testAddNull[2](com.edii.spc.datastructures.ListTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_142'>142</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_142'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>com.edii.spc.datastructures.CollectionTest.testAddAllWithEmptyCollection[3](com.edii.spc.datastructures.CollectionTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>com.edii.spc.datastructures.CollectionTest.testAddAllWithEmptyCollection[3](com.edii.spc.datastructures.CollectionTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testAddAllWithIndex[2](com.edii.spc.datastructures.ListTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testAddAllWithIndex[2](com.edii.spc.datastructures.ListTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_146'>146</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_146'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testAddAllWithIndex[2](com.edii.spc.datastructures.ListTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_147'>147</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_147'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>com.edii.spc.datastructures.CollectionTest.testAddAllWithEmptyCollection[3](com.edii.spc.datastructures.CollectionTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_150'>150</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_150'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testAddAllWithIndex[2](com.edii.spc.datastructures.ListTest)</span></span> removed call to com/edii/spc/datastructures/OwnList::shift &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_154'>154</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_154'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testAddAllWithIndex[2](com.edii.spc.datastructures.ListTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_155'>155</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_155'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testAddAllWithIndex[2](com.edii.spc.datastructures.ListTest)</span></span> Changed increment from 1 to -1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_158'>158</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_158'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testAddAllWithIndex[2](com.edii.spc.datastructures.ListTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_168'>168</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_168'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>clear<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>clear<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testAddAllAndRemove[2](com.edii.spc.datastructures.ListTest)</span></span> Changed increment from 1 to -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>clear<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.sublist[2](com.edii.spc.datastructures.ListTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_183'>183</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_183'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testAdd[0](com.edii.spc.datastructures.ListTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testGetTooLargeIndex[2](com.edii.spc.datastructures.ListTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.sublist[2](com.edii.spc.datastructures.ListTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.sublist[2](com.edii.spc.datastructures.ListTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_187'>187</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_187'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>get<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.sublist[2](com.edii.spc.datastructures.ListTest)</span></span> mutated return of Object value for com/edii/spc/datastructures/OwnList::get to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_200'>200</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_200'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>set<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testSetLast[2](com.edii.spc.datastructures.ListTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>set<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.sublist[2](com.edii.spc.datastructures.ListTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_203'>203</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_203'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>set<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.sublist[2](com.edii.spc.datastructures.ListTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>set<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.sublist[2](com.edii.spc.datastructures.ListTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_209'>209</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_209'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>set<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.sublist[2](com.edii.spc.datastructures.ListTest)</span></span> mutated return of Object value for com/edii/spc/datastructures/OwnList::set to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_223'>223</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_223'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>add<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testAddWithIndex[2](com.edii.spc.datastructures.ListTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>add<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testAddWithIndex[2](com.edii.spc.datastructures.ListTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>add<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testAddWithIndex[2](com.edii.spc.datastructures.ListTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>add<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testAddWithIndex[2](com.edii.spc.datastructures.ListTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_226'>226</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_226'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>add<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testAddWithIndex[2](com.edii.spc.datastructures.ListTest)</span></span> removed call to com/edii/spc/datastructures/OwnList::shift &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_239'>239</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_239'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>remove<br/><b>Killed by : </b>com.edii.spc.datastructures.CollectionTest.testRemoveWithIterator[3](com.edii.spc.datastructures.CollectionTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>remove<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testRemoveWithTooLargeIndex[2](com.edii.spc.datastructures.ListTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>remove<br/><b>Killed by : </b>com.edii.spc.game.GameFieldPathTest.testRemoveLastEdge(com.edii.spc.game.GameFieldPathTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>remove<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testRemoveWithTooLargeIndex[2](com.edii.spc.datastructures.ListTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_243'>243</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_243'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>remove<br/><b>Killed by : </b>com.edii.spc.game.GameFieldPathTest.testRemoveLastEdge(com.edii.spc.game.GameFieldPathTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>remove<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testRemove[2](com.edii.spc.datastructures.ListTest)</span></span> removed call to com/edii/spc/datastructures/OwnList::shiftBack &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_244'>244</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_244'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>remove<br/><b>Killed by : </b>com.edii.spc.game.GameFieldPathTest.testRemoveLastEdge(com.edii.spc.game.GameFieldPathTest)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_245'>245</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_245'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>remove<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testRemove[2](com.edii.spc.datastructures.ListTest)</span></span> mutated return of Object value for com/edii/spc/datastructures/OwnList::remove to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_257'>257</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_257'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>listIterator<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testListIteratorSet[2](com.edii.spc.datastructures.ListTest)</span></span> mutated return of Object value for com/edii/spc/datastructures/OwnList::listIterator to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_273'>273</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_273'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hasPrevious<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testLastIndexOf[2](com.edii.spc.datastructures.ListTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hasPrevious<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testLastIndexOf[2](com.edii.spc.datastructures.ListTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hasPrevious<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testLastIndexOf[2](com.edii.spc.datastructures.ListTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_278'>278</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_278'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hasNext<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testForEach[2](com.edii.spc.datastructures.ListTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hasNext<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testAddNull[2](com.edii.spc.datastructures.ListTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hasNext<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testAddNull[2](com.edii.spc.datastructures.ListTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_283'>283</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_283'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>previous<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testListIteratorNextIndex[2](com.edii.spc.datastructures.ListTest)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_285'>285</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_285'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>previous<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testLastIndexOf[2](com.edii.spc.datastructures.ListTest)</span></span> mutated return of Object value for com/edii/spc/datastructures/OwnList$OwnListIterator::previous to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_291'>291</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_291'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>next<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testListIteratorSet[2](com.edii.spc.datastructures.ListTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>next<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testAddNull[2](com.edii.spc.datastructures.ListTest)</span></span> mutated return of Object value for com/edii/spc/datastructures/OwnList$OwnListIterator::next to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_296'>296</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_296'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextIndex<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testListIteratorNextIndex[2](com.edii.spc.datastructures.ListTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_301'>301</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_301'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>previousIndex<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testListIteratorPreviousIndex[2](com.edii.spc.datastructures.ListTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_307'>307</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_307'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>remove<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testRetainAll[2](com.edii.spc.datastructures.ListTest)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_317'>317</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_317'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>add<br/><b>Killed by : </b>com.edii.spc.datastructures.ListTest.testListIteratorAdd[2](com.edii.spc.datastructures.ListTest)</span></span> removed call to com/edii/spc/datastructures/OwnList::add &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fee881_318'>318</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fee881_318'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>add<br/><b>Killed by : </b>none</span></span> Replaced integer addition with subtraction &rarr; SURVIVED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.edii.spc.datastructures.CollectionTest.testAddAllWithEmptyCollection[5](com.edii.spc.datastructures.CollectionTest) (2 ms)</li><li>com.edii.spc.datastructures.ListTest.testSetOversizedIndex[0](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddOversizedIndex2[0](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testRemoveLastItem[1](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testAddAndRemove[1](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testLastIndexOf[1](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testListIteratorSet[1](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testRemoveAll[3](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddNegativeIndex[0](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testRemoveWithIterator[3](com.edii.spc.datastructures.CollectionTest) (0 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testIsEmpty[0](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testAddAllAndContainsAll[1](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testListIteratorPreviousIndex[3](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testGetTooLargeIndex[3](com.edii.spc.datastructures.ListTest) (2 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddNull[2](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddNull[3](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.MinHeapTest.testForeach(com.edii.spc.datastructures.MinHeapTest) (0 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testAddAllAndContainsAll[0](com.edii.spc.datastructures.CollectionTest) (5 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testRemoveLastItem[2](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testListIteratorPreviousIndex[2](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testAddAndRemove[2](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testAddAllWithEmptyCollection[4](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddAllAndRemove[1](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddAllAndRemove[0](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.MinHeapTest.testConstructors1(com.edii.spc.datastructures.MinHeapTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.equals[0](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.MinHeapTest.testConstructors2(com.edii.spc.datastructures.MinHeapTest) (0 ms)</li><li>com.edii.spc.datastructures.MinHeapTest.testExtractMin3(com.edii.spc.datastructures.MinHeapTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testSetLast[3](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testIsEmpty[1](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testRemoveWithIterator[2](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testRemoveWithIterator[5](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testSetOversizedIndex[1](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testForEachWithOneItem[5](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testRemoveAll[5](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testAddAndRemove[3](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testRemoveAll[2](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testGetNegativeIndex[3](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.MinHeapTest.testSameObjectTwice(com.edii.spc.datastructures.MinHeapTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddNegativeIndex[1](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddOversizedIndex2[1](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testSize[3](com.edii.spc.datastructures.CollectionTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testLastIndexOf[2](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testLastIndexOf[0](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testSize[0](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.MinHeapTest.testExtractMin2(com.edii.spc.datastructures.MinHeapTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddAllWithNegativeIndex[0](com.edii.spc.datastructures.ListTest) (2 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testRemoveLastItem[0](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testAddAllWithEmptyCollection[6](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.sublist[1](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.sublist[2](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testToArray4[3](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testSize[2](com.edii.spc.datastructures.CollectionTest) (0 ms)</li><li>com.edii.spc.game.solvers.SolverTest.testSolver3[0](com.edii.spc.game.solvers.SolverTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testRemoveWithIterator[4](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testRetainAll[0](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.sublist[3](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testToArray4[2](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testSetNegativeIndex[0](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testSetNegativeIndex[2](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.game.solvers.SolverTest.testSolver1[0](com.edii.spc.game.solvers.SolverTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testSetNegativeIndex[1](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testSet[3](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.game.solvers.SolverTest.testSolver1[1](com.edii.spc.game.solvers.SolverTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testForEachWithOneItem[6](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testSize[1](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testRemoveAll[4](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.game.solvers.SolverTest.testSolver1[2](com.edii.spc.game.solvers.SolverTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testGetNegativeIndex[2](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddOversizedIndex2[2](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddNegativeIndex[2](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddAllWithTooLargeIndex[1](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testLastIndexOf[3](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.MinHeapTest.testChangingWeight(com.edii.spc.datastructures.MinHeapTest) (0 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testRemoveWithIterator[6](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testAdd[2](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testRemoveAll[0](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testListIteratorPreviousIndex[0](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testAddAndRemove[4](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testListIteratorPreviousIndex[1](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testSetLast[1](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testGetTooLargeIndex[2](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.game.GameFieldPathTest.testRemoveLastEdge(com.edii.spc.game.GameFieldPathTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testGetTooLargeIndex[1](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testRemoveWithIterator[1](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.MinHeapTest.testConstructors3(com.edii.spc.datastructures.MinHeapTest) (5 ms)</li><li>com.edii.spc.datastructures.MinHeapTest.testExtractMin4(com.edii.spc.datastructures.MinHeapTest) (0 ms)</li><li>com.edii.spc.datastructures.MinHeapTest.testClear(com.edii.spc.datastructures.MinHeapTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testToArray[0](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testContains[1](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testSize[4](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testForEachWithOneItem[3](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddAllAndRemove[2](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddAllAndRemove[3](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testAddAllAndContainsAll[5](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testSetLast[2](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testSize[6](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testIsEmpty[2](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testAddAllWithEmptyCollection[0](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddAllWithTooLargeIndex[2](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testAdd[3](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddAllWithTooLargeIndex[0](com.edii.spc.datastructures.ListTest) (2 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testRemoveLastItem[3](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testForEachWithOneItem[1](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testAdd[0](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testAdd[1](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.game.GameFieldPathTest.testGetNodes(com.edii.spc.game.GameFieldPathTest) (0 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testAddAllAndContainsAll[3](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testRemoveLastItem[5](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.game.solvers.SolverTest.testSolver2[1](com.edii.spc.game.solvers.SolverTest) (1 ms)</li><li>com.edii.spc.game.solvers.SolverTest.testSolver2[0](com.edii.spc.game.solvers.SolverTest) (0 ms)</li><li>com.edii.spc.game.solvers.SolverTest.testSolver2[2](com.edii.spc.game.solvers.SolverTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testAddAndRemove[0](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testIsEmpty[4](com.edii.spc.datastructures.CollectionTest) (3 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testAddAllWithEmptyCollection[2](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testForEach[2](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.MinHeapTest.testExtractMin(com.edii.spc.datastructures.MinHeapTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testContains[4](com.edii.spc.datastructures.CollectionTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testIndexOf[3](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testRemoveWithTooLargeIndex[2](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testToArray[2](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testToArray2[2](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddAllWithTooLargeIndex[3](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddAllWithNegativeIndex[3](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testRemoveWithNegativeIndex[2](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.game.GameFieldPathTest.testIllegalEdge(com.edii.spc.game.GameFieldPathTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testContains[3](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testListIteratorAdd[0](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testGetTooLargeIndex[0](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testListIteratorAdd[1](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testSetLast[0](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.equals[3](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testToArray[1](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testIsEmpty[6](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testListIteratorNextIndex[2](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testListIteratorNextIndex[3](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddNegativeIndex[3](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.MinHeapTest.testRemove(com.edii.spc.datastructures.MinHeapTest) (0 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testAddAndRemove[6](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testAddAllAndContainsAll[6](com.edii.spc.datastructures.CollectionTest) (2 ms)</li><li>com.edii.spc.datastructures.ListTest.testRemoveWithTooLargeIndex[1](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testToArray2[3](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testToArray2[1](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testRemoveWithNegativeIndex[1](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddOversizedIndex2[3](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testToArray[3](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddAllWithNegativeIndex[2](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testRemoveWithNegativeIndex[3](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testRemoveWithTooLargeIndex[3](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testContains[6](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.sublist[0](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testToArray4[1](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testToArray4[0](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.game.GameFieldPathTest.testConstructor(com.edii.spc.game.GameFieldPathTest) (0 ms)</li><li>com.edii.spc.game.solvers.SolverTest.testSolver3[1](com.edii.spc.game.solvers.SolverTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testSetNegativeIndex[3](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testToArray2[0](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testContains[5](com.edii.spc.datastructures.CollectionTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testRetainAll[1](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testAddAndRemove[5](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testRetainAll[2](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.game.solvers.SolverTest.testSolver3[2](com.edii.spc.game.solvers.SolverTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testGetNegativeIndex[1](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testSet[2](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testRetainAll[3](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testSet[0](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testGetNegativeIndex[0](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testSet[1](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testRemoveWithIterator[0](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testSetOversizedIndex[2](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testAddAllAndContainsAll[4](com.edii.spc.datastructures.CollectionTest) (2 ms)</li><li>com.edii.spc.datastructures.ListTest.testForEach[0](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testRemoveWithNegativeIndex[0](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.game.GameFieldPathTest.testGetEdges(com.edii.spc.game.GameFieldPathTest) (1 ms)</li><li>com.edii.spc.game.GameFieldPathTest.testReverse(com.edii.spc.game.GameFieldPathTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testIndexOf[1](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testListIteratorSet[3](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testContains[0](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testRemoveWithTooLargeIndex[0](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testToArray3[3](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddAllWithNegativeIndex[1](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testSize[5](com.edii.spc.datastructures.CollectionTest) (2 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testRemoveAll[1](com.edii.spc.datastructures.CollectionTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddNull[0](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddNull[1](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.game.solvers.SolverCrossCheck.crossCheckAllSolvers(com.edii.spc.game.solvers.SolverCrossCheck) (1572 ms)</li><li>com.edii.spc.datastructures.ListTest.testListIteratorNextIndex[0](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.equals[2](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testForEachWithOneItem[4](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testRemoveAll[6](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.equals[1](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testListIteratorNextIndex[1](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testListIteratorAdd[3](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testSetOversizedIndex[3](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testContains[2](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testListIteratorAdd[2](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testForEach[3](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testForEach[1](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testIndexOf[2](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testIndexOf[0](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testListIteratorSet[0](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testIsEmpty[5](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testListIteratorSet[2](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testAddAllWithEmptyCollection[3](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testRemoveLastItem[6](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddAllWithIndex[0](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testForEachWithOneItem[2](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testIsEmpty[3](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testRemove[0](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testRemove[1](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testAddAllWithEmptyCollection[1](com.edii.spc.datastructures.CollectionTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testRemove[2](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddAllWithIndex[1](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testToArray3[2](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testRemoveLastItem[4](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddAllWithIndex[2](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.game.solvers.SolverTest.testSolver4[2](com.edii.spc.game.solvers.SolverTest) (1 ms)</li><li>com.edii.spc.game.solvers.SolverTest.testSolver4[1](com.edii.spc.game.solvers.SolverTest) (3 ms)</li><li>com.edii.spc.datastructures.ListTest.testToArray3[0](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.game.solvers.SolverTest.testSolver4[0](com.edii.spc.game.solvers.SolverTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testToArray3[1](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddAllWithIndex[3](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testRemove[3](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddWithIndex[2](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testAddAllAndContainsAll[2](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.CollectionTest.testForEachWithOneItem[0](com.edii.spc.datastructures.CollectionTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddWithIndex[3](com.edii.spc.datastructures.ListTest) (1 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddWithIndex[1](com.edii.spc.datastructures.ListTest) (0 ms)</li><li>com.edii.spc.datastructures.ListTest.testAddWithIndex[0](com.edii.spc.datastructures.ListTest) (1 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.1
+
+</body>
+</html>

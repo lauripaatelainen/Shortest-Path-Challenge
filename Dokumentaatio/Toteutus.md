@@ -56,7 +56,7 @@ Yksinkertainen tietorakenne, joka sisältää kaksi samantyyppistä oliota mää
 Esimerkiksi pelikentän kaari hyödyntää sisäisestä `Pair` oliota, joka sisältää järjestyksessä alku- ja loppusolmut.
 Ainoa erityinen toiminto, jota `Pair` tukee, on `inverse()`, joka luo uuden parin,
 jossa alkuperäisen parin oliot ovat käänteisessä järjestyksessä.
-Tämä on luonnollisesti O(1) aika- ja tilavaativudeen operaatio. 
+Tämä on luonnollisesti `O(1)` aika- ja tilavaativudeen operaatio. 
 
 ### MinHeap
 Minimikeon toteutus binäärikekona. Käyttää sisäisesti Javan natiivia arrayta tietojen säilyttämiseen,
@@ -99,17 +99,40 @@ onnistuu `contains()`-operaation suoritus (keskimäärin) vakioajassa.
 ### OwnLinkedList
 Linkitetyn listan toteutus. Toteuttaa `java.util.List`-rajapinnan kaikki toiminnot `subList()`-toimintoa lukuunottamatta.
 
+Linkitetty lista on toteutettu kahteen suuntaan linkitettynä rengaslistana,
+jonka ensimmäisen alkion edellinen solmu on listan viimeinen solmu ja viimeisestä solmusta seuraava solmu on listan ensimmäinen solmu.
 
+Toteutus mahdollistaa `add()`-toiminnon vakioajassa `O(1)`, jos alkio lisätään listan loppuun. Jos alkio tarvitsee lisätä annetuun indeksiin, joudutaan
+oikea listan solmu etsiä käymällä lista läpi listan ensimmäisestä solmusta alkaen, joten tällöin aikavaativuus on lineaarinen `O(n)`. 
+
+Listan läpikäynti iteraattorilla onnistuu lineaarisessa ajassa `O(n)`. 
+
+`remove()`-operaatio ottaa parametriksi listan indeksin, joka joudutaan jälleen etsimään lineaarisessa ajassa ja aikavaativuus on `O(n)`. 
+
+Listassa ylläpidetään erikseen kokonaislukumuuttujassa listan tämänhetkistä kokoa, joten `size()` operaation aikavaativuus on `O(1)`.
+
+Kaikki operaatiot ovat tilavaativuudeltaan vakiotilaisia `O(1)`-operaatioita.
 
 ### OwnList
 Dynaaminen lista, joka vastaa esim. Javan `java.util.ArrayList`-toteutusta. Toteuttaa `java.util.List`-rajapinnan kaikki toiminnot `subList()`-toimintoa lukuunottamatta.
 
-*TODO: O-analyysi tuetuista operaatioista*
+Lista on toteuttettu käyttämällä sisäisesti Javan array-taulukkotietorakennetta. Koska array on aina tietyn kokoinen, voi olla että listaan lisättäessä joudutaan arrayta kasvattamaan. 
+
+`add()` operaatio on vakioaikainen `O(1)`jos alkio lisätään listan loppuun, ja jos sisäisessa arrayssa on entuudestaan riittävästi tilaa. Jos arrayta joudutaan kasvattamaan,
+joudutaan kaikki listan alkiot siirtämään uuteen arrayyn, jolloin aikavaativuus on `O(n)`. Samoin jos alkio lisätään listan keskelle, pitää alkion jälkeisiä alkioita siirtää eteenpäin
+ja aikavaativuus on `O(n)`. `add()`-operaation aikavaativuus on siis keskimäärin `O(1)` listan loppuun lisättäessä ja `O(n)` listan keskelle lisättäessä. 
+Tilavaativuus on keskimäärin vakioaikainen `O(1)`. Poikkeuksena on tilanne, jolloin sisäistä taulukkoa joudutaan kasvattamaan, jolloin pahimman tapauksen tilavaativuus on `O(n)`.
+
+`get()` operaatio hakee annetulla indeksillä löytyvän alkion suoraan listan sisäisestä taulukosta ja aika- ja tilavaativuudet ovat vakiot `O(1)`.
+
+`remove()` operaatiossa poistettavan alkion jälkeisiä alkioita joudutaan siirtämään, joten aikavaativuus on `O(n)`. Ylimääräistä tilaa poistoon ei tarvita, joten tilavaativuus on `O(1)`.
+
+`set()` operaatio asettaa annettuun indeksiin uuden alkion, ja aika- ja tilavaativuudet ovat vakiot `O(1)`.
 
 ### OwnMap
 Hajautustaulun toteutus, joka vastaa esim. Javan `java.util.HashMap`-toteutusta. Tukee kaikkia `java.util.Map`-rajapinnan toimintoja.
 
-*TODO: O-analyysi tuetuista operaatioista*
+
 
 ### OwnSet
 Joukon toteutus, joka vastaa esim. Javan `java.util.HashSet`-toteutusta. Tukee kaikkia `java.util.Set`-rajapinnan toimintoja.

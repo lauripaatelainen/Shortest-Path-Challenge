@@ -5,6 +5,8 @@ ja jonka käyttöliittymä on tehty Javan Swing-kirjastolla.
 Tässä dokumentissa on kuvattu ohjelman rakenne ja toiminta korkealla tasolla, sekä suorituskykyyn liittyvä analyysi.
 Tarkempi ohjelman rakenne löytyy [Javadocista](http://htmlpreview.github.io/?https://github.com/lauripaatelainen/Shortest-Path-Challenge/blob/master/Shortest-Path-Challenge/build/docs/javadoc/index.html).
 
+Analyysit eri algoritmien suoritusajoista löytyy [testausdokumentista](Testaus.md)
+
 ## Rakenne
 Ohjelma on jaettu useaan Java-pakettiin:
 

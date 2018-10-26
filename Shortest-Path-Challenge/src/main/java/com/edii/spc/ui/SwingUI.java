@@ -23,7 +23,7 @@ import javax.swing.JPanel;
  * Graafinen käyttöliittymä, joka on toteutettu javan Swing-kirjastolla.
  */
 public class SwingUI extends JFrame implements GameFieldUI.PathChangedListener {
-    private static final int GAME_DURATION = 10;
+    private static final int GAME_DURATION = 30;
     
     private final List<Solver> solvers = new OwnList<>();
     {

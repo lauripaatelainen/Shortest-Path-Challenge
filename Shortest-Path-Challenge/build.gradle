@@ -21,7 +21,7 @@ if (!hasProperty('mainClass')) {
     ext.mainClass = 'com.edii.spc.ui.SwingUI'
     
     // Käytä tätä luokkaa suorituskykyraportin suorittamiseen:
-    //ext.mainClass = 'com.edii.spc.perf.PerformanceTest'
+    // ext.mainClass = 'com.edii.spc.perf.PerformanceTest'
 }
 
 jar {

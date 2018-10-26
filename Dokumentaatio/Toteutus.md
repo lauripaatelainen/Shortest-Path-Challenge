@@ -212,7 +212,8 @@ Tilaa varataan `O(V)`
 Kaikki käsiteltävästä solmusta lähtevät kaaret käydään läpi. Kaaria on aina 4kpl, paitsi pelikentän reunalla olevilla solmuilla.
 Kaaren päätössolmun osalta tarkistetaan, onko tämän kaaren kautta lyhyempi matka solmuun, kuin tällä hetkellä tiedossa oleva matka. Jos lyhyempi polku löytyi,
 solmun `distance` ja `edgeToPrevious` päivitetään. Tarkastus ja arvojen päivitys ovat vakioaikaisia operaatioita joita tehdään max. 4kpl solmua kohden. 
-Käsiteltäviä solmuja on `V`kpl, eli tämän vaiheen aikavaativuus on `O(V * 4 * 1) = O(V)`. Tilaa varataan vain funktiokutsuihin vaadittu vakiomäärä `O(1)`.
+Käsiteltäviä solmuja on `V`kpl, eli tämän vaiheen aikavaativuus on `O(V * 4 * 1) = O(V)`.
+Tilaa varataan vain funktiokutsuihin vaadittu vakiomäärä `O(1)`.
 
 *Vaihe 4*. Lopuksi muodostetaan polku lähtemällä maalisolmusta ja seuraamalla `edgeToPrevious`-arvoja, kunnes päästään alkusolmuun. Tämän jälkeen löytynyt polku vielä käännetään toisin päin. 
 Pahimmassa tapauksessa polkuun sisältyy kaikki pelikentän solmut, joten aikavaativuus on `O(V)'. Tilaa polun kääntämiseen tarvitaan myös `O(V)`. 
@@ -221,14 +222,41 @@ Kun eri vaiheiden aikavaativuudet lasketaan yhteen saadaan `O(V) + O(V log V) + 
 Tilavaativuudet taas ovat `O(V) + O(V) + O(1) + O(V) = O(V).` 
 
 ### A*
-A* algoritmin toteutus.
+A*-algoritmin toteutus.
 
-*TODO: Pohdintaa arviointifunktion merkityksestä.*
+A*-algoritmissa käytetään seuraavia sisäisiä tietorakenteita:
+ - `edgeToPrevious`: Hajautustaulu, jonka avaimena on pelikentän solmu ja arvona polku, joka johtaa edelliseen solmuun, jonka kautta tähän solmuun tullaan, tällä hetkellä tiedossa olevaa lyhintä polkua alkusolmusta tähän solmuun pitkin.
+ - `nodes`: Joukko, joka sisältää kaikki pelikentän solmut. Annetaan parametrina algoritmille. 
+ - `fScore`: Hajautustaulu, jonka avaimena on pelikentän solmu ja arvona etäisyysarvio käyttäen arviointifunktiota. 
+ - `gScore`: Hajautustaulu, jonka avaimena on pelikentän solmu ja arvona todellinen etäisyys joka on löytynyt algoritmin suorituksen aikana.
+ - `openSet`: Minimikeko, joka pitää sisällään algoritmin suorituksessa löytyneet solmut siten, että keon huipulla on aina se solmu, jonka etäisyysarvio (`fScore`) on pienin. 
+ - `closedSet`: Joukko, joka sisältää käsitellyt solmut. 
 
-*TODO: O-analyysi ja mittaustulokset* 
+*Vaihe 1*. Algoritmin alussa `fScore`ja `gScore` hajautustaulut alustetaan niin, että jokaisen `nodes`-joukon solmun arvo on suurin mahdollinen (Javan `Integer.MAX_VALUE`).
+Alkusolmun `gScore`-arvoksi asetetaan 0 ja `fScore`-arvoksi lasketaan kustannusarvio arviointifunktiolla. `closedSet` on aluksi tyhjä ja `openSet`:iin lisätään vain alkusolmu.
+Yhden solmun tietojen alustaminen on vakioaikainen operaatio, joka tehdään kaikille `nodes` joukon solmuille, eli alustuksen aikavaativuus on `O(V)`
+Tilaa varataan `2*V = O(V)`. 
 
+*Vaihe 2*. Alustusten jälkeen kaikki solmut käsitellään siten, että `openSet`-keosta otetaan aina ensimmäinen solmu (jonka sen hetkinen `fScore` on pienin). Solmun käsittelyssä tehdään seuraavat toimenpiteet:
+ - Käsiteltävä solmu lisätään käsiteltyjen solmujen joukkoon `closedSet`.
+ - Kaikki käsiteltävästä solmusta lähtevät kaaret käydään läpi. Kaaria on aina 4kpl, paitsi pelikentän reunalla olevilla solmuilla.
+   - Jos käsiteltävän kaaren päätössolmu on jo käsitelty (kuuluu `closedSet`-joukkoon), ei tehdä mitään ja siirrytään seuraavaan kaareen.
+   - Päätössolmu lisätään `openSet`-kekoon, jos se ei kuulu siihen entuudestaan.
+   - Seuraavaksi tarkistetaan onko käsiteltävän kaaren kautta lyhyempi matka päätössolmuun, kuin tällä hetkellä tiedossa oleva matka. Jos lyhyempi polku löytyi, solmun `gScore`, `fScore` ja `edgeToPrevious` päivitetään.
+Kaikki kaaren käsittelyyn liittyvät toimenpiteet ovat vakioaikaisia operaatioita lukuunottamatta `openSet`-kekoon lisäämistä, jonka aikavaativuus on `O(log n)`. Koko vaihe 2:n aikavaativuus on siis `O(V log V)`.
+Tilaa varataan vain funktiokutsuihin vaadittu vakiomäärä `O(1)`.
 
+*Vaihe 3*. Lopuksi muodostetaan polku lähtemällä maalisolmusta ja seuraamalla `edgeToPrevious`-arvoja, kunnes päästään alkusolmuun. Tämän jälkeen löytynyt polku vielä käännetään toisin päin. 
+Pahimmassa tapauksessa polkuun sisältyy kaikki pelikentän solmut, joten aikavaativuus on `O(V)'. Tilaa polun kääntämiseen tarvitaan myös `O(V)`. 
 
+Kun eri vaiheiden aikavaativuudet lasketaan yhteen saadaan `O(V) + O(V log V) + O(V) =  O(V log V)`. 
+Tilavaativuudet taas ovat `O(V) + O(1) + O(V) = O(V).` 
+
+A* algoritmin toimintaan vaikuttaa käytetty arviointifunktio. Jos halutaan löytää lyhin polku (eikä vain mikä tahansa polku), pitää arviointifunktion olla sellainen, ettei se ikinä yliarvioi etäisyyttä.
+Koska tässä pelikentässä kaarien painot voivat olla kokonaislukuja väliltä 0 - 10, ei kovin hyvää arviota voi tehdä, jotta lyhin polku aina löytyy. Käytännössä tässä toteutuksessa
+pelkästään katsotaan alku- ja maalisolmun kaaret ja lasketaan niistä lähtevien pienimpien kaarien summa, paitsi jos alkusolmusta on suora kaari maalisolmuun, käytetään sen kaaren painoa. 
+Koska tehokasta (ja oikeellista) arviointifunktiota ei tässä tapauksessa voi tehdä, menettää A* suurimman hyötynsä ja suoriutuu polun löytämisesta hieman Dijkstran algoritmia huonommin. Huonompi
+suoriutuminen johtunee arviointifunktion suuresta vakioaikakertoimesta. 
 
 ## Lähteet:
 

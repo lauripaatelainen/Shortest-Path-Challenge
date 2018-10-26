@@ -1,7 +1,7 @@
 # Testausdokumentti
 Dokumentin vanhat versiot löytyvät [täälä](Testaustilanne.md)
 
-Sovellus on testattu kattavasti yksikkö- ja mutaatiotestauksilla. Testausraportti löytyy täälä: [Pitest](https://htmlpreview.github.io/?https://github.com/lauripaatelainen/Shortest-Path-Challenge/blob/master/Dokumentaatio/pitest/201810052224/index.html)
+Sovellus on testattu kattavasti yksikkö- ja mutaatiotestauksilla. Testausraportti löytyy täälä: [Pitest](https://htmlpreview.github.io/?https://github.com/lauripaatelainen/Shortest-Path-Challenge/blob/master/Dokumentaatio/pitest/201810262145/index.html)
 
 Sovelluksen suorituskyvyn osalta on analysoitu reitinhakualgoritmeja.
 Yksittäisten tietorakenteiden (dynaaminen lista, linkitetty lista, joukko, hajautustaulu, minimikeko) tarkempi analysointi ei ollut mielekästä,

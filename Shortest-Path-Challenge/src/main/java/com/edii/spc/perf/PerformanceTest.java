@@ -34,9 +34,10 @@ public class PerformanceTest {
         
         for (int i = 0; i <= columnNames.length + 1; i++) {
             if (i != 0) {
-                System.out.printf("|-");
+                System.out.printf("| ");
             }
-            System.out.printf(TextUtil.rightPad("", colWidth, '-'));
+            System.out.printf(TextUtil.rightPad("", colWidth - 1, '-'));
+            System.out.printf(" ");
         }
         
         System.out.printf("\n");
@@ -105,13 +106,12 @@ public class PerformanceTest {
      * @param args Komentoriviltä annetut parametrit.
      */
     public static void main(String[] args) {
-        TestRunner tests = new TestRunner(5400000, 1800000);
+        TestRunner tests = new TestRunner(300000*11, 300000);
         
         int[][] values = new int[][] {
             { 2,     10,     1},
             { 10,    100,    10},
-            { 100,   1000,   100},
-            { 1000,  5000,  1000}
+            { 100,   1000,   100}
         };
         
         for (int[] valueSet : values) {

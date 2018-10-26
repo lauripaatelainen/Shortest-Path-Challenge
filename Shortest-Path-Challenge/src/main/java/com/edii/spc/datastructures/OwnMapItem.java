@@ -5,7 +5,7 @@ import java.util.Objects;
 
 /**
  * Sisäinen luokka avain-arvo parille. Toteuttaa javan yleisen rajapinnan
- * Map.Entry<K, V>
+ * Map.Entry
  *
  * @param <K> Avaimen tyyppi
  * @param <V> Arvon tyyppi

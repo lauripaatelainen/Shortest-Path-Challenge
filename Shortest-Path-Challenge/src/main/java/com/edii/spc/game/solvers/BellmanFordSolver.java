@@ -36,7 +36,7 @@ public class BellmanFordSolver implements Solver {
 
         distance.put(field.getStart(), 0);
     }
-
+ 
     @Override
     public GameFieldPath solve(GameField field) throws InterruptedException {
         init(field);

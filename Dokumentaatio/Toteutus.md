@@ -162,7 +162,7 @@ Bellman-Ford algoritmin toteutus. Tämä on toteutetuista algoritmeista heikoin,
 
 Bellman-Ford algoritmissa käytetään seuraavia sisäisiä tietorakenteita:
  - `distance`: Hajautustaulu, jonka avaimena on pelikentän solmu ja arvona tällä hetkellä tiedossa oleva lyhimmän alkusolmusta tähän solmuun olevan polun pituus. 
- - `edgeToPrevious`: Hajautustaulu, jonka avaimen on pelikentän solmu ja arvona tällä edellinen solmu, jonka kautta tähän solmuun tullaan, tällä hetkellä tiedossa olevaa lyhintä polkua alkusolmusta tähän solmuun pitkin.
+ - `edgeToPrevious`: Hajautustaulu, jonka avaimena on pelikentän solmu ja arvona polku, joka johtaa edelliseen solmuun, jonka kautta tähän solmuun tullaan, tällä hetkellä tiedossa olevaa lyhintä polkua alkusolmusta tähän solmuun pitkin.
  - `nodes`: Joukko, joka sisältää kaikki pelikentän solmut. Annetaan parametrina algoritmille. 
  - `edges`: Joukko, joka sisältää kaikki pelikentän kaaret. Annetaan parametrina algoritmille. 
 
@@ -170,7 +170,7 @@ Bellman-Ford algoritmissa käytetään seuraavia sisäisiä tietorakenteita:
 `edges`-joukon kokoa kuvataan merkinnällä `E`. 
 Alla kuvatut aikavaativuudet ovat keskimääräisiä, eikä pahimman tapauksen aikavaativuuksia, koska niissä käytetään hajautustaulua. 
 
-*Vaihe 1*. Algoritmin alussa `distance` hajautustaulu alustetaan niin, että jokaisen `nodes`-joukon solmun arvo on suurin mahdollinen (Javan `Integer.MAX_VALUE`).
+*Vaihe 1*. Algoritmin alussa `distance` hajautustaulu alustetaan niin, että jokaisen `nodes`-joukon solmun arvo on suurin mahdollinen (Javan `Integer.MAX_VALUE`). Alkusolmun `distance`-arvoksi asetetaan 0. 
 Samalla kaikkien solmujen `edgeToPrevious` alustetaan `null`-arvoksi.
 Yhden solmun tietojen alustaminen on vakioaikainen operaatio, joka tehdään kaikille `nodes` joukon solmuille, eli alustuksen aikavaativuus on `O(V)`
 Tilaa varataan 2*V = O(V). 
@@ -192,9 +192,33 @@ Kun eri vaiheiden aikavaativuudet lasketaan yhteen saadaan `O(V) + O(VE) + O(E) 
 Tilavaativuudet taas ovat `O(V) + O(1) + O(1) + O(V) = O(V).` 
 
 ### Dijkstra
-Dijkstran algoritmin toteutus. 
+Dijkstran algoritmin toteutus. Tämä on mittaustulosten perusteella tähän käyttötapaukseen tehokkain valituista algoritmeista. 
 
-*TODO: O-analyysi ja mittaustulokset*
+Dijkstran algoritmissä käytetään seuraavia sisäisiä tietorakenteita:
+ - `distance`: Hajautustaulu, jonka avaimena on pelikentän solmu ja arvona tällä hetkellä tiedossa oleva lyhimmän alkusolmusta tähän solmuun olevan polun pituus. 
+ - `edgeToPrevious`: Hajautustaulu, jonka avaimena on pelikentän solmu ja arvona polku, joka johtaa edelliseen solmuun, jonka kautta tähän solmuun tullaan, tällä hetkellä tiedossa olevaa lyhintä polkua alkusolmusta tähän solmuun pitkin.
+ - `queue`: Minimikeko, joka pitää sisällään käsittelemättömät solmut niin, että keon huipulla on aina se solmu, jonka etäisyysarvio on pienin. 
+
+`V` kuvaa pelikentän solmujen määrää, `E` kuvaa pelikentän kaarien määrää. 
+
+*Vaihe 1*. Algoritmin alussa `distance` hajautustaulu alustetaan niin, että jokaisen `nodes`-joukon solmun arvo on suurin mahdollinen (Javan `Integer.MAX_VALUE`). Alkusolmun `distance`-arvoksi asetetaan 0. 
+Yhden solmun tietojen alustaminen on vakioaikainen operaatio, joka tehdään kaikille `nodes` joukon solmuille, eli alustuksen aikavaativuus on `O(V)`
+Tilaa varataan `2*V = O(V)`. 
+
+*Vaihe 2*. Kaikki solmut lisätään `queue`-kekoon. `queue`-kekoon lisääminen on `O(log n)` aikavaativuuden operaatio, joka tehdään `V` kertaa. Aikavaativuus on siis `O(V log V)`
+Tilaa varataan `O(V)`
+
+*Vaihe 3*. Alustusten jälkeen kaikki solmut käsitellään siten, että `queue` keosta otetaan aina ensimmäinen solmu (jonka sen hetkinen `distance` on pienin). 
+Kaikki käsiteltävästä solmusta lähtevät kaaret käydään läpi. Kaaria on aina 4kpl, paitsi pelikentän reunalla olevilla solmuilla.
+Kaaren päätössolmun osalta tarkistetaan, onko tämän kaaren kautta lyhyempi matka solmuun, kuin tällä hetkellä tiedossa oleva matka. Jos lyhyempi polku löytyi,
+solmun `distance` ja `edgeToPrevious` päivitetään. Tarkastus ja arvojen päivitys ovat vakioaikaisia operaatioita joita tehdään max. 4kpl solmua kohden. 
+Käsiteltäviä solmuja on `V`kpl, eli tämän vaiheen aikavaativuus on `O(V * 4 * 1) = O(V)`. Tilaa varataan vain funktiokutsuihin vaadittu vakiomäärä `O(1)`.
+
+*Vaihe 4*. Lopuksi muodostetaan polku lähtemällä maalisolmusta ja seuraamalla `edgeToPrevious`-arvoja, kunnes päästään alkusolmuun. Tämän jälkeen löytynyt polku vielä käännetään toisin päin. 
+Pahimmassa tapauksessa polkuun sisältyy kaikki pelikentän solmut, joten aikavaativuus on `O(V)'. Tilaa polun kääntämiseen tarvitaan myös `O(V)`. 
+
+Kun eri vaiheiden aikavaativuudet lasketaan yhteen saadaan `O(V) + O(V log V) + O(V) + O(V) = O(V log V)`. 
+Tilavaativuudet taas ovat `O(V) + O(V) + O(1) + O(V) = O(V).` 
 
 ### A*
 A* algoritmin toteutus.

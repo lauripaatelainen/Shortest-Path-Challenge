@@ -132,11 +132,28 @@ Tilavaativuus on keskimäärin vakioaikainen `O(1)`. Poikkeuksena on tilanne, jo
 ### OwnMap
 Hajautustaulun toteutus, joka vastaa esim. Javan `java.util.HashMap`-toteutusta. Tukee kaikkia `java.util.Map`-rajapinnan toimintoja.
 
+Hajautustaulu on sisäisesti järjestetty niin, että hajautustaulu sisältää `c`-kokoisen taulukon linkitettyjä listoja. `c` on hajautustaulun sen hetkinen kapasiteetti. 
+Kun hajautustauluun lisätään avain-arvopari, otetaan lisättävästä avaimesta `hashCode` ja modulo-operaatiolla muutetaan se `c`:n rajoihin. Oikean linkitetyn listan indeksi
+taulukossa löytyy siis kaavalla `key.hashCode() % c`. 
 
+Hajautustaulun aikavaativuuksissa oletetaan, että avaimen `hashCode()` lasketaan vakioajassa. Toinen oletus on, että avaimen `hashCode()`:n palauttamat tiivisteet jakautuvat tasaisesti.
+Esim. jos `hashCode()` palauttaisi aina saman numeron, päätyisi kaikki hajautustaulun alkiot samaan linkitettyyn listoihin, ja operaatioiden aikavaativuus kasvaisi lineaariseksi `O(n)`.
+
+Hajautustaululla on parametri `loadFactor`, joka kertoo kuinka täysi hajautustaulun sisäinen tietorakenne saa olla ennen kuin tietorakenteen kokoa pitää kasvattaa. 
+Tässä toteutuksessa `loadFactor` on aina vakio 0.75, mutta olisi helposti muutettavissa käyttäjän määriteltäväksi. Toinen parametri `initialCapacity` kertoo kuinka suuri
+hajautustaulun sisäinen tietorakenne on kun hajautustaulu luodaan. Tässä toteutuksessa `initialCapacity` on aina 10, mutta myös tämä parametri on helposti muutettavissa. 
+Kun tietorakenteen kokoa joudutaan kasvattamaan, sen koko aina tuplaantuu, eikä pienene ikinä vaikka hajautustaulu tyhjennettäisiin. 
+
+Oleelissimmat operaatiot ovat `put()`, `get()` ja `containsKey()`. Kaikissa operaatioissa lasketaan ensin avaimelle kuuluvan linkitetyn listan indeksi yllä kuvatulla tavalla. 
+Lisäksi jos kyseisessä indeksissä on jo lista, pitää se käydä läpi ja tarkistaa löytyykö annetulla avaimella olemassa olevaa alkiota. Jos tiivisteet jakautuvat tasaisesti, niin
+yleensä listaa ei ole, tai sen koko on hyvin pieni suhteessa koko tietorakenteen kokoon, joten keskimäärin operaatioissa päästään aikavaativuuteen `O(1)`. Pahimmassa tapaukseessa
+suuri määrä avaimista päätyy samaan linkitettyyn listaan, tai lisäysoperaatiossa joudutaan kasvattamaan sisäistä tietorakennetta, jolloin aikavaativuus pahimmassa tapauksessa on `O(n)`.
+Ylimääräistä tilaa operaatiot tarvitsevat vain vakion `O(1)` verran. 
 
 ### OwnSet
 Joukon toteutus, joka vastaa esim. Javan `java.util.HashSet`-toteutusta. Tukee kaikkia `java.util.Set`-rajapinnan toimintoja.
 Käyttää sisäisesti `OwnMap`-luokkaa, koska siinä luokassa on jo toteutettu tarvittava tiivisteen perusteella lokerointi. `OwnMap`-luokasta hyödynnetään joukon tapauksessa pelkästään avaimia, kaikki arvot asetetaan `null`-arvoiksi. Aika- ja tilavaativuudet ovat kuten `OwnMap`-luokalla. 
+Aika- ja tilavaativuudet ovat siis kuten `OwnMap`-luokassa. 
 
 ## Algoritmit
 

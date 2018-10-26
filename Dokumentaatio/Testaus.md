@@ -18,28 +18,28 @@ Yli 5000 kokoisilla pelikentillä pelkästään pelikentän muodostaminen kestä
 
 ## Suorituskykymittauksen tuloste
 Näytetään testin 'Ratkaistaan pelikenttä algoritmilla AStarSolver, pelikentän ko'oilla 2-10, askeleen koko 1' tulokset.
-Kentän koko         | Solmujen määrä      | Kesto               | Keston kerroin      
---------------------|---------------------|---------------------|---------------------
-2                   | 4                   | 0.00532             | n/a
-3                   | 9                   | 0.00150             | 0.28274
-4                   | 16                  | 0.00145             | 0.96318
-5                   | 25                  | 0.00175             | 1.20844
-6                   | 36                  | 0.00148             | 0.84628
-7                   | 49                  | 0.00183             | 1.23418
-8                   | 64                  | 0.00177             | 0.96863
-9                   | 81                  | 0.00122             | 0.69151
+|Kentän koko         | Solmujen määrä      | Kesto               | Keston kerroin      |
+|--------------------|---------------------|---------------------|---------------------|
+|2                   | 4                   | 0.00532             | n/a                 |
+|3                   | 9                   | 0.00150             | 0.28274             |
+|4                   | 16                  | 0.00145             | 0.96318             |
+|5                   | 25                  | 0.00175             | 1.20844             |
+|6                   | 36                  | 0.00148             | 0.84628             |
+|7                   | 49                  | 0.00183             | 1.23418             |
+|8                   | 64                  | 0.00177             | 0.96868             |
+|9                   | 81                  | 0.00122             | 0.69151             |
 
 Näytetään testin 'Ratkaistaan pelikenttä algoritmilla DijkstraSolver, pelikentän ko'oilla 2-10, askeleen koko 1' tulokset.
-Kentän koko         | Solmujen määrä      | Kesto               | Keston kerroin      
---------------------|---------------------|---------------------|---------------------
-2                   | 4                   | 0.00023             | n/a
-3                   | 9                   | 0.00017             | 0.71783
-4                   | 16                  | 0.00026             | 1.54923
-5                   | 25                  | 0.00106             | 4.06093
-6                   | 36                  | 0.00053             | 0.49947
-7                   | 49                  | 0.00063             | 1.19480
-8                   | 64                  | 0.00385             | 6.10094
-9                   | 81                  | 0.00085             | 0.22206
+|Kentän koko         | Solmujen määrä      | Kesto               | Keston kerroin      |
+|--------------------|---------------------|---------------------|---------------------|
+|2                   | 4                   | 0.00023             | n/a                 |
+|3                   | 9                   | 0.00017             | 0.71783             |
+|4                   | 16                  | 0.00026             | 1.54923             |
+|5                   | 25                  | 0.00106             | 4.06093             |
+|6                   | 36                  | 0.00053             | 0.49947             |
+|7                   | 49                  | 0.00063             | 1.19480             |
+|8                   | 64                  | 0.00385             | 6.10094             |
+|9                   | 81                  | 0.00085             | 0.22206             |
 
 Näytetään testin 'Ratkaistaan pelikenttä algoritmilla BellmanFordSolver, pelikentän ko'oilla 2-10, askeleen koko 1' tulokset.
 Kentän koko         | Solmujen määrä      | Kesto               | Keston kerroin      

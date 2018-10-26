@@ -9,6 +9,8 @@ Peli, jossa pelaajan tulee löytää lyhin polku alusta maaliin.
 
 [Testausdokumentti](Dokumentaatio/Testaus.md)
 
+[Käyttöohje](Dokumentaatio/Kayttoohje.md)
+
 ## Viikkoraportit
 [Viikkoraportti 1](Dokumentaatio/Viikkoraportti1.md)
 

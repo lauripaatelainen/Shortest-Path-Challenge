@@ -160,7 +160,36 @@ Aika- ja tilavaativuudet ovat siis kuten `OwnMap`-luokassa.
 ### Bellman-Ford
 Bellman-Ford algoritmin toteutus. Tämä on toteutetuista algoritmeista heikoin, ja sillä on ongelmia suoriutua suuremmista pelikentistä. 
 
-*TODO: O-analyysi ja mittaustulokset*
+Bellman-Ford algoritmissa käytetään seuraavia sisäisiä tietorakenteita:
+ - `distance`: Hajautustaulu, jonka avaimena on pelikentän solmu ja arvona tällä hetkellä tiedossa oleva lyhimmän alkusolmusta tähän solmuun olevan polun pituus. 
+ - `edgeToPrevious`: Hajautustaulu, jonka avaimen on pelikentän solmu ja arvona tällä edellinen solmu, jonka kautta tähän solmuun tullaan, tällä hetkellä tiedossa olevaa lyhintä polkua alkusolmusta tähän solmuun pitkin.
+ - `nodes`: Joukko, joka sisältää kaikki pelikentän solmut. Annetaan parametrina algoritmille. 
+ - `edges`: Joukko, joka sisältää kaikki pelikentän kaaret. Annetaan parametrina algoritmille. 
+
+`nodes`-joukon kokoa kuvataan merkinnällä `V`. 
+`edges`-joukon kokoa kuvataan merkinnällä `E`. 
+Alla kuvatut aikavaativuudet ovat keskimääräisiä, eikä pahimman tapauksen aikavaativuuksia, koska niissä käytetään hajautustaulua. 
+
+*Vaihe 1*. Algoritmin alussa `distance` hajautustaulu alustetaan niin, että jokaisen `nodes`-joukon solmun arvo on suurin mahdollinen (Javan `Integer.MAX_VALUE`).
+Samalla kaikkien solmujen `edgeToPrevious` alustetaan `null`-arvoksi.
+Yhden solmun tietojen alustaminen on vakioaikainen operaatio, joka tehdään kaikille `nodes` joukon solmuille, eli alustuksen aikavaativuus on `O(V)`
+Tilaa varataan 2*V = O(V). 
+
+*Vaihe 2*. Seuraavaksi kaikki `edges`-joukossa olevat kaaret käydään läpi `V - 1` kertaa, ja jokaiselle kaarelle tehdään `relax`-operaatio.
+`relax`-operaatiossa tarkistetaan onko kaaren lähtösolmun kautta tiedossa lyhempi polku kaaren loppusolmuun, kuin mikä tällä hetkellä on tiedossa.
+Jos lyhyempi polku löytyy, solmun `distance` ja `edgeToPrevious` päivitetään vastaamaan uutta löytynyttä polkua. 
+`relax`-operaatio on vakioaikainen operaatio, joka suoritetaan `(V - 1) * E` kertaa, eli aikavaativuus on `O(VE)`. Tilaa varataan vain vakiomääräinen funktiokutsun vaatima määrä. 
+
+*Vaihe 3*. Seuraavaksi kaikki `edges`-joukossa olevat kaaret käydään vielä kertaalleen läpi ja varmistetaan että pelikentässä ei ole negatiivisa syklejä. 
+Tämän ei pitäisi olla mahdollista. Tarkistus tapahtuu katsomalla onko käsiteltävän kaaren alkusolmusta lyhyempi matka loppusolmuun kuin mikä oli jo tiedossa. 
+Jos tällainen tilanne löytyy, on vaihe 2 epäonnistunut löytämään lyhimmän polun ja se tarkoittaa että pelikentässä on negatiivinen sykli. 
+Yhden kaaren tarkistus tapahtuu vakioajassa ja se tehdään `E` kertaa, eli aikavaativuus on `O(E)`. Tilaa varataan vain vakiomääräinen funktiokutsun vaatima määrä. 
+
+*Vaihe 4*. Lopuksi muodostetaan polku lähtemällä maalisolmusta ja seuraamalla `edgeToPrevious`-arvoja, kunnes päästään alkusolmuun. Tämän jälkeen löytynyt polku vielä käännetään toisin päin. 
+Pahimmassa tapauksessa polkuun sisältyy kaikki pelikentän solmut, joten aikavaativuus on `O(V)'. Tilaa polun kääntämiseen tarvitaan myös `O(V)`. 
+
+Kun eri vaiheiden aikavaativuudet lasketaan yhteen saadaan `O(V) + O(VE) + O(E) + O(V) = O(VE)`. 
+Tilavaativuudet taas ovat `O(V) + O(1) + O(1) + O(V) = O(V).` 
 
 ### Dijkstra
 Dijkstran algoritmin toteutus. 
@@ -179,4 +208,5 @@ A* algoritmin toteutus.
 
 ## Lähteet:
 
-*TODO: Lisätään O-analyysin myötä*
+Bellman-Ford- ja Dijkstra-algoritmit, minimikeon toteutus: Introduction to Algorithms (Cormen, Leiherson, Rivest, Stein).
+A*: https://en.m.wikipedia.org/wiki/A*_search_algorithm, http://theory.stanford.edu/~amitp/GameProgramming/AStarComparison.html

@@ -19,6 +19,20 @@ Yli 5000 kokoisilla pelikentillä pelkästään pelikentän muodostaminen kestä
 ## Suorituskykymittauksen tuloste
 Näytetään testin 'Ratkaistaan pelikenttä algoritmilla AStarSolver, pelikentän ko'oilla 2-10, askeleen koko 1' tulokset.
 
+Kentän koko         | Solmujen määrä      | Kesto               | Keston kerroin      
+------------------- | ------------------- | ------------------- | ------------------- 
+10                  | 100                 | 0.00040             | n/a
+20                  | 400                 | 0.00148             | 3.66286
+30                  | 900                 | 0.00402             | 2.72012
+40                  | 1600                | 0.00667             | 1.65686
+50                  | 2500                | 0.02035             | 3.05381
+60                  | 3600                | 0.01850             | 0.90896
+70                  | 4900                | 0.02786             | 1.50565
+80                  | 6400                | 0.08182             | 2.93730
+90                  | 8100                | 0.07181             | 0.87757
+
+
+
 | Kentän koko         | Solmujen määrä      | Kesto               | Keston kerroin      |
 | ------------------- | ------------------- | ------------------- | ------------------- |
 | 2                   | 4                   | 0.00532             | n/a                 |
